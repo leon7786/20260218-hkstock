@@ -158,6 +158,7 @@ tr:hover{background:#111827}
   };
 
   let current = { idx: -1, dir: 'desc' };
+  const columnState = {}; // 每列单独记录上次方向
 
   const sortBy = (idx, dir='desc') => {
     const rows = Array.from(tbody.querySelectorAll('tr'));
@@ -176,12 +177,15 @@ tr:hover{background:#111827}
       arr.textContent = i===idx ? (dir==='desc' ? '↓' : '↑') : '↕';
     });
     current = { idx, dir };
+    columnState[idx] = dir;
   };
 
   headers.forEach(h=>{
     h.addEventListener('click',()=>{
       const idx = Number(h.dataset.index);
-      const dir = current.idx===idx && current.dir==='desc' ? 'asc' : 'desc';
+      // 规则：每列首次点击=降序；同列再次点击=升降切换
+      const last = columnState[idx];
+      const dir = !last ? 'desc' : (last === 'desc' ? 'asc' : 'desc');
       sortBy(idx, dir);
     });
   });
