@@ -7,7 +7,7 @@ const OUT_JSON = path.join(OUT_DIR, 'data.json');
 const OUT_HTML = path.join(OUT_DIR, 'index.html');
 
 const headers = [
-  '代码','股票名称','价格','首日涨幅','暗盘涨跌额','暗盘涨跌幅','累计涨幅','发行价','涨跌幅','连涨天数','成交量','成交额','换手率','市盈率(静)','总市值','发行量','上市日期'
+  '代码','股票名称','价格','公开募资金额(估算)','首日涨幅','暗盘涨跌额','暗盘涨跌幅','累计涨幅','发行价','涨跌幅','连涨天数','成交量','成交额','换手率','市盈率(静)','总市值','发行量','上市日期'
 ];
 
 function isEtfName(name = '') {
@@ -89,11 +89,50 @@ async function scrape() {
 }
 
 function buildHtml(data) {
+  const toNum = (s='') => {
+    const m = String(s).replace(/,/g,'').match(/([+-]?\d+(?:\.\d+)?)/);
+    return m ? Number(m[1]) : NaN;
+  };
+  const amountToShares = (s='') => {
+    const v = toNum(s);
+    if (!Number.isFinite(v)) return NaN;
+    if (String(s).includes('万亿')) return v * 1e12;
+    if (String(s).includes('亿')) return v * 1e8;
+    if (String(s).includes('万')) return v * 1e4;
+    return v;
+  };
+  const fmtHkd = (n) => {
+    if (!Number.isFinite(n)) return '-';
+    if (n >= 1e8) return `约${(n/1e8).toFixed(2)}亿`;
+    if (n >= 1e4) return `约${(n/1e4).toFixed(2)}万`;
+    return `约${n.toFixed(0)}`;
+  };
+
   const rowsHtml = data.items.map(r => {
+    const v = r.values || [];
+    const issuePrice = toNum(v[5]);      // 发行价
+    const issueVolume = amountToShares(v[13]); // 发行量
+    const estFund = (Number.isFinite(issuePrice) && Number.isFinite(issueVolume)) ? issuePrice * issueVolume : NaN;
+
     const tds = [
       `<td class="code" data-sort="${r.code}">${r.code}</td>`,
       `<td class="name" data-sort="${r.name}">${r.name}</td>`,
-      ...headers.slice(2).map((h, i) => `<td data-col="${h}" data-sort="${(r.values[i] ?? '-').replace(/"/g,'&quot;')}">${r.values[i] ?? '-'}</td>`)
+      `<td data-col="价格" data-sort="${(v[0] ?? '-').replace(/"/g,'&quot;')}">${v[0] ?? '-'}</td>`,
+      `<td data-col="公开募资金额(估算)" data-sort="${Number.isFinite(estFund) ? estFund : -1}">${fmtHkd(estFund)}</td>`,
+      `<td data-col="首日涨幅" data-sort="${(v[1] ?? '-').replace(/"/g,'&quot;')}">${v[1] ?? '-'}</td>`,
+      `<td data-col="暗盘涨跌额" data-sort="${(v[2] ?? '-').replace(/"/g,'&quot;')}">${v[2] ?? '-'}</td>`,
+      `<td data-col="暗盘涨跌幅" data-sort="${(v[3] ?? '-').replace(/"/g,'&quot;')}">${v[3] ?? '-'}</td>`,
+      `<td data-col="累计涨幅" data-sort="${(v[4] ?? '-').replace(/"/g,'&quot;')}">${v[4] ?? '-'}</td>`,
+      `<td data-col="发行价" data-sort="${(v[5] ?? '-').replace(/"/g,'&quot;')}">${v[5] ?? '-'}</td>`,
+      `<td data-col="涨跌幅" data-sort="${(v[6] ?? '-').replace(/"/g,'&quot;')}">${v[6] ?? '-'}</td>`,
+      `<td data-col="连涨天数" data-sort="${(v[7] ?? '-').replace(/"/g,'&quot;')}">${v[7] ?? '-'}</td>`,
+      `<td data-col="成交量" data-sort="${(v[8] ?? '-').replace(/"/g,'&quot;')}">${v[8] ?? '-'}</td>`,
+      `<td data-col="成交额" data-sort="${(v[9] ?? '-').replace(/"/g,'&quot;')}">${v[9] ?? '-'}</td>`,
+      `<td data-col="换手率" data-sort="${(v[10] ?? '-').replace(/"/g,'&quot;')}">${v[10] ?? '-'}</td>`,
+      `<td data-col="市盈率(静)" data-sort="${(v[11] ?? '-').replace(/"/g,'&quot;')}">${v[11] ?? '-'}</td>`,
+      `<td data-col="总市值" data-sort="${(v[12] ?? '-').replace(/"/g,'&quot;')}">${v[12] ?? '-'}</td>`,
+      `<td data-col="发行量" data-sort="${(v[13] ?? '-').replace(/"/g,'&quot;')}">${v[13] ?? '-'}</td>`,
+      `<td data-col="上市日期" data-sort="${(v[14] ?? '-').replace(/"/g,'&quot;')}">${v[14] ?? '-'}</td>`
     ].join('');
     return `<tr>${tds}</tr>`;
   }).join('\n');
