@@ -144,9 +144,9 @@ tr:hover{background:#111827}
   const parseVal = (txt) => {
     const s = (txt || '').trim();
     if (!s || s === '-') return -Infinity;
-    if (/^\d{4}\/\d{2}\/\d{2}$/.test(s)) return new Date(s.replace(/\//g,'-')).getTime();
+    if (/^\\d{4}[\\/]\\d{2}[\\/]\\d{2}$/.test(s)) return new Date(s.split('/').join('-')).getTime();
 
-    let m = s.match(/([+-]?\d+(?:\.\d+)?)/);
+    let m = s.match(/([+-]?\\d+(?:\\.\\d+)?)/);
     if (m) {
       let num = parseFloat(m[1]);
       if (s.includes('%')) return num;

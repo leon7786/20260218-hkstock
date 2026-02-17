@@ -23,7 +23,7 @@ tr:hover{background:#111827}
 <body>
 <div class="wrap">
   <h1>Futunn 港股IPO（已排除ETF）</h1>
-  <div class="meta">来源：<a href="https://www.futunn.com/quote/hk/ipo" target="_blank" style="color:#93c5fd">https://www.futunn.com/quote/hk/ipo</a> ｜ 抓取时间：2026/2/18 00:09:09 ｜ 抓取页数：5 ｜ 原始条目：229 ｜ 过滤后：128</div>
+  <div class="meta">来源：<a href="https://www.futunn.com/quote/hk/ipo" target="_blank" style="color:#93c5fd">https://www.futunn.com/quote/hk/ipo</a> ｜ 抓取时间：2026/2/18 00:13:02 ｜ 抓取页数：5 ｜ 原始条目：229 ｜ 过滤后：128</div>
   <div class="table">
     <table>
       <thead>
@@ -171,9 +171,9 @@ tr:hover{background:#111827}
   const parseVal = (txt) => {
     const s = (txt || '').trim();
     if (!s || s === '-') return -Infinity;
-    if (/^d{4}/d{2}/d{2}$/.test(s)) return new Date(s.replace(///g,'-')).getTime();
+    if (/^\d{4}[\/]\d{2}[\/]\d{2}$/.test(s)) return new Date(s.split('/').join('-')).getTime();
 
-    let m = s.match(/([+-]?d+(?:.d+)?)/);
+    let m = s.match(/([+-]?\d+(?:\.\d+)?)/);
     if (m) {
       let num = parseFloat(m[1]);
       if (s.includes('%')) return num;
