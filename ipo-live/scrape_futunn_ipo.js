@@ -11,8 +11,18 @@ const headers = [
 ];
 
 function isEtfName(name = '') {
-  const n = String(name).toUpperCase();
-  return n.includes('ETF') || n.includes('ETP') || n.includes('杠杆') || n.includes('反向');
+  const raw = String(name).trim();
+  const n = raw.toUpperCase();
+
+  const keywordHit = [
+    'ETF', 'ETP', '杠杆', '反向', '两倍做空',
+    'QQQ', 'MSCI', 'GLOBALX',
+    '南方两倍做空', '景顺QQQ', '银河博时东盟'
+  ].some(k => n.includes(k.toUpperCase()));
+
+  const classShareLike = /-(R|U)$/.test(raw); // 常见ETF份额后缀
+
+  return keywordHit || classShareLike;
 }
 
 async function scrape() {
