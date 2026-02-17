@@ -64,7 +64,15 @@ async function scrape() {
 
   await browser.close();
 
-  const filtered = all.filter(r => r.code && r.name && !isEtfName(r.name));
+  const hasDarkPoolData = (r) => {
+    const v = r?.values || [];
+    const amt = String(v[2] ?? '').trim();   // 暗盘涨跌额
+    const pct = String(v[3] ?? '').trim();   // 暗盘涨跌幅
+    const bad = new Set(['', '-', '--', '---', '----', '0', '0.00%', '0.000', '0.000%']);
+    return !(bad.has(amt) || bad.has(pct));
+  };
+
+  const filtered = all.filter(r => r.code && r.name && !isEtfName(r.name) && hasDarkPoolData(r));
 
   const payload = {
     source: 'https://www.futunn.com/quote/hk/ipo',
