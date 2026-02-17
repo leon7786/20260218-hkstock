@@ -83,9 +83,9 @@ async function scrape() {
 function buildHtml(data) {
   const rowsHtml = data.items.map(r => {
     const tds = [
-      `<td class="code">${r.code}</td>`,
-      `<td class="name">${r.name}</td>`,
-      ...headers.slice(2).map((_, i) => `<td>${r.values[i] ?? '-'}</td>`)
+      `<td class="code" data-sort="${r.code}">${r.code}</td>`,
+      `<td class="name" data-sort="${r.name}">${r.name}</td>`,
+      ...headers.slice(2).map((h, i) => `<td data-col="${h}" data-sort="${(r.values[i] ?? '-').replace(/"/g,'&quot;')}">${r.values[i] ?? '-'}</td>`)
     ].join('');
     return `<tr>${tds}</tr>`;
   }).join('\n');
@@ -104,7 +104,10 @@ h1{margin:0 0 8px;font-size:24px}
 .table{overflow:auto;border:1px solid #334155;border-radius:10px}
 table{border-collapse:collapse;min-width:1450px;width:100%;background:#0b1222}
 th,td{border-bottom:1px solid #1e293b;padding:8px 10px;text-align:left;font-size:13px;white-space:nowrap}
-th{position:sticky;top:0;background:#111b33;z-index:1}
+th{position:sticky;top:0;background:#111b33;z-index:1;cursor:pointer;user-select:none}
+th:hover{background:#172445}
+th .arrow{opacity:.55;margin-left:4px;font-size:11px}
+th.sorted .arrow{opacity:1;color:#93c5fd}
 tr:hover{background:#111827}
 .code{font-weight:700;color:#93c5fd}.name{font-weight:600}
 </style>
@@ -116,7 +119,7 @@ tr:hover{background:#111827}
   <div class="table">
     <table>
       <thead>
-        <tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr>
+        <tr>${headers.map((h,idx)=>`<th data-index="${idx}">${h}<span class="arrow">↕</span></th>`).join('')}</tr>
       </thead>
       <tbody>
         ${rowsHtml}
@@ -124,6 +127,62 @@ tr:hover{background:#111827}
     </table>
   </div>
 </div>
+<script>
+(function(){
+  const table = document.querySelector('table');
+  const tbody = table.querySelector('tbody');
+  const headers = Array.from(table.querySelectorAll('thead th'));
+
+  const parseVal = (txt) => {
+    const s = (txt || '').trim();
+    if (!s || s === '-') return -Infinity;
+    if (/^\d{4}\/\d{2}\/\d{2}$/.test(s)) return new Date(s.replace(/\//g,'-')).getTime();
+
+    let m = s.match(/([+-]?\d+(?:\.\d+)?)/);
+    if (m) {
+      let num = parseFloat(m[1]);
+      if (s.includes('%')) return num;
+      if (s.includes('亿')) return num * 1e8;
+      if (s.includes('万')) return num * 1e4;
+      return num;
+    }
+    return s;
+  };
+
+  let current = { idx: -1, dir: 'desc' };
+
+  const sortBy = (idx, dir='desc') => {
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    rows.sort((a,b)=>{
+      const at = a.children[idx]?.getAttribute('data-sort') || a.children[idx]?.innerText || '';
+      const bt = b.children[idx]?.getAttribute('data-sort') || b.children[idx]?.innerText || '';
+      const av = parseVal(at), bv = parseVal(bt);
+      if (typeof av === 'number' && typeof bv === 'number') return dir==='desc' ? (bv-av) : (av-bv);
+      return dir==='desc' ? String(bv).localeCompare(String(av), 'zh-Hans-CN') : String(av).localeCompare(String(bv), 'zh-Hans-CN');
+    });
+    rows.forEach(r=>tbody.appendChild(r));
+
+    headers.forEach((h,i)=>{
+      h.classList.toggle('sorted', i===idx);
+      const arr = h.querySelector('.arrow');
+      arr.textContent = i===idx ? (dir==='desc' ? '↓' : '↑') : '↕';
+    });
+    current = { idx, dir };
+  };
+
+  headers.forEach(h=>{
+    h.addEventListener('click',()=>{
+      const idx = Number(h.dataset.index);
+      const dir = current.idx===idx && current.dir==='desc' ? 'asc' : 'desc';
+      sortBy(idx, dir);
+    });
+  });
+
+  // 默认按“上市日期”降序，接近Futunn观感
+  const dateIdx = headers.findIndex(h => h.textContent.includes('上市日期'));
+  sortBy(dateIdx >= 0 ? dateIdx : 0, 'desc');
+})();
+</script>
 </body>
 </html>`;
 }
