@@ -15,9 +15,11 @@ function isEtfName(name = '') {
   const n = raw.toUpperCase();
 
   const keywordHit = [
-    'ETF', 'ETP', '杠杆', '反向', '两倍做空',
-    'QQQ', 'MSCI', 'GLOBALX',
-    '南方两倍做空', '景顺QQQ', '银河博时东盟'
+    // ETF / 指数 / 杠反 / 份额类
+    'ETF', 'ETP', '杠杆', '反向', '两倍做空', 'QQQ', 'MSCI', 'GLOBALX', 'GX',
+    // 常见基金/产品名称关键字
+    '南方A500', 'A500', 'A泰康', '泰康港元', '泰康美元',
+    '易方达', '景顺', '银河博时', '恒生股息', '黄金矿业', '国指兑'
   ].some(k => n.includes(k.toUpperCase()));
 
   const classShareLike = /-(R|U)$/.test(raw); // 常见ETF份额后缀
