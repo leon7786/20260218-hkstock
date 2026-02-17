@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>港股新股數據看板（實時版）</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: #121a2f;
+      --text: #e8ecf8;
+      --muted: #9aa6c7;
+      --line: #2a3558;
+      --hot: #ff5d5d;
+      --warn: #ffb454;
+      --ok: #62d394;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang TC","Noto Sans CJK TC","Microsoft JhengHei",sans-serif;
+      background: linear-gradient(180deg, #0a0f1c, #0b1020 35%, #0d1425);
+      color: var(--text);
+      padding: 24px;
+    }
+    .wrap { max-width: 1320px; margin: 0 auto; }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    .sub { color: var(--muted); margin-bottom: 20px; }
+    .card {
+      background: rgba(18,26,47,.92);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+    }
+    table { width: 100%; border-collapse: collapse; min-width: 1100px; }
+    thead th {
+      background: #151f3a;
+      color: #cfd8f5;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 1px solid var(--line);
+      padding: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      white-space: nowrap;
+    }
+    tbody td {
+      padding: 12px;
+      border-bottom: 1px solid #212d4e;
+      vertical-align: top;
+      font-size: 14px;
+      color: #e8ecf8;
+    }
+    tbody tr:hover { background: rgba(255,255,255,.02); }
+    .code { font-variant-numeric: tabular-nums; font-weight: 700; color: #8fc6ff; }
+    .name { font-weight: 600; }
+    .tag { display:inline-block; padding:2px 8px; border-radius: 999px; font-size:12px; }
+    .tag.hot { background: rgba(255,93,93,.16); color: #ff8f8f; border: 1px solid rgba(255,93,93,.35); }
+    .tag.warn { background: rgba(255,180,84,.15); color: #ffd49b; border: 1px solid rgba(255,180,84,.35); }
+    .tag.ok { background: rgba(98,211,148,.15); color: #a8efc5; border: 1px solid rgba(98,211,148,.35); }
+    .muted { color: var(--muted); }
+    .scroll { overflow-x: auto; }
+    .footer { margin-top: 14px; color: var(--muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>港股新股數據看板（實時版）</h1>
+    <div class="sub">你現在看的就是可隨時更新的線上頁面。我每次改這個檔案，你刷新即可看到最新內容。</div>
+
+    <div class="card scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>代碼</th>
+            <th>名稱</th>
+            <th>招股價</th>
+            <th>中籤率</th>
+            <th>總募資（淨額）</th>
+            <th>基石（佔比）</th>
+            <th>國際認購</th>
+            <th>公開認購</th>
+            <th>公開發售股數（回撥）</th>
+            <th>公開募資</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="code">02513</td>
+            <td class="name">智譜</td>
+            <td>116.2元</td>
+            <td>5% <span class="tag ok">中等</span></td>
+            <td>約43.5億港元（淨額41.73億）</td>
+            <td>29.84億（68.63%）</td>
+            <td>15.28倍</td>
+            <td>1,159.46倍 <span class="tag hot">高熱</span></td>
+            <td>748.39萬股（回撥至20%）</td>
+            <td>約8.70億</td>
+          </tr>
+          <tr>
+            <td class="code">03858</td>
+            <td class="name">佳鑫國際資源</td>
+            <td>10.92元</td>
+            <td>1% <span class="tag warn">偏低</span></td>
+            <td>約12.0億港元（淨額10.88億）</td>
+            <td>約6.0億（50%）</td>
+            <td>21.11倍</td>
+            <td>2,041.62倍 <span class="tag hot">高熱</span></td>
+            <td>1,098.12萬股（10%，無回撥）</td>
+            <td>約1.20億</td>
+          </tr>
+          <tr>
+            <td class="code">02659</td>
+            <td class="name">寶濟藥業-B</td>
+            <td>26.38元</td>
+            <td>7% <span class="tag ok">中等</span></td>
+            <td>約10.00億港元（淨額9.22億）</td>
+            <td>2.006億</td>
+            <td>6.59倍</td>
+            <td>3,526.34倍 <span class="tag hot">高熱</span></td>
+            <td>379.12萬股（10%）</td>
+            <td>約1.00億</td>
+          </tr>
+          <tr>
+            <td class="code">02635</td>
+            <td class="name">諾比侃</td>
+            <td>80.00元</td>
+            <td>3% <span class="tag ok">中等</span></td>
+            <td>約3.03億港元（淨額2.57億）</td>
+            <td class="muted">—</td>
+            <td>2.08倍</td>
+            <td>188.74倍</td>
+            <td>37.87萬股（10%）</td>
+            <td>約0.303億</td>
+          </tr>
+          <tr>
+            <td class="code">02575</td>
+            <td class="name">軒竹生物-B</td>
+            <td>11.60元</td>
+            <td>1% <span class="tag warn">偏低</span></td>
+            <td>約7.81億港元（淨額7.01億）</td>
+            <td class="muted">—</td>
+            <td>10.15倍</td>
+            <td>4,908.33倍 <span class="tag hot">高熱</span></td>
+            <td>673.34萬股（10%）</td>
+            <td>約0.781億</td>
+          </tr>
+          <tr>
+            <td class="code">02617</td>
+            <td class="name">藥捷安康-B</td>
+            <td>13.15元</td>
+            <td><span class="muted">暫未抓到</span> <span class="tag warn">待補</span></td>
+            <td>約2.01億港元（淨額1.61億）</td>
+            <td class="muted">—</td>
+            <td>0.97倍</td>
+            <td>3,419.87倍 <span class="tag hot">高熱</span></td>
+            <td>305.62萬股（20%）</td>
+            <td>約0.402億</td>
+          </tr>
+          <tr>
+            <td class="code">02656</td>
+            <td class="name">健康160</td>
+            <td>11.89元</td>
+            <td>8% <span class="tag ok">較高</span></td>
+            <td>約4.00億港元（淨額3.16億）</td>
+            <td class="muted">—</td>
+            <td>1.92倍</td>
+            <td>751.11倍</td>
+            <td>336.46萬股（10%）</td>
+            <td>約0.400億</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footer">更新時間：<span id="ts"></span></div>
+  </div>
+
+  <script>
+    const now = new Date();
+    document.getElementById('ts').textContent = now.toLocaleString('zh-Hant-HK', { hour12: false });
+  </script>
+</body>
+</html>
