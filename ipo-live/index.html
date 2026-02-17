@@ -1,186 +1,254 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>港股新股數據看板（實時版）</title>
-  <style>
-    :root {
-      --bg: #0b1020;
-      --card: #121a2f;
-      --text: #e8ecf8;
-      --muted: #9aa6c7;
-      --line: #2a3558;
-      --hot: #ff5d5d;
-      --warn: #ffb454;
-      --ok: #62d394;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang TC","Noto Sans CJK TC","Microsoft JhengHei",sans-serif;
-      background: linear-gradient(180deg, #0a0f1c, #0b1020 35%, #0d1425);
-      color: var(--text);
-      padding: 24px;
-    }
-    .wrap { max-width: 1320px; margin: 0 auto; }
-    h1 { margin: 0 0 8px; font-size: 28px; }
-    .sub { color: var(--muted); margin-bottom: 20px; }
-    .card {
-      background: rgba(18,26,47,.92);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 12px 30px rgba(0,0,0,.25);
-    }
-    table { width: 100%; border-collapse: collapse; min-width: 1100px; }
-    thead th {
-      background: #151f3a;
-      color: #cfd8f5;
-      text-align: left;
-      font-weight: 600;
-      border-bottom: 1px solid var(--line);
-      padding: 12px;
-      position: sticky;
-      top: 0;
-      z-index: 1;
-      white-space: nowrap;
-    }
-    tbody td {
-      padding: 12px;
-      border-bottom: 1px solid #212d4e;
-      vertical-align: top;
-      font-size: 14px;
-      color: #e8ecf8;
-    }
-    tbody tr:hover { background: rgba(255,255,255,.02); }
-    .code { font-variant-numeric: tabular-nums; font-weight: 700; color: #8fc6ff; }
-    .name { font-weight: 600; }
-    .tag { display:inline-block; padding:2px 8px; border-radius: 999px; font-size:12px; }
-    .tag.hot { background: rgba(255,93,93,.16); color: #ff8f8f; border: 1px solid rgba(255,93,93,.35); }
-    .tag.warn { background: rgba(255,180,84,.15); color: #ffd49b; border: 1px solid rgba(255,180,84,.35); }
-    .tag.ok { background: rgba(98,211,148,.15); color: #a8efc5; border: 1px solid rgba(98,211,148,.35); }
-    .muted { color: var(--muted); }
-    .scroll { overflow-x: auto; }
-    .footer { margin-top: 14px; color: var(--muted); font-size: 13px; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Futunn IPO（已排除ETF）</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC",sans-serif;background:#0f172a;color:#e2e8f0;margin:0;padding:16px}
+.wrap{max-width:1600px;margin:0 auto}
+h1{margin:0 0 8px;font-size:24px}
+.meta{color:#94a3b8;margin-bottom:12px;font-size:13px}
+.table{overflow:auto;border:1px solid #334155;border-radius:10px}
+table{border-collapse:collapse;min-width:1450px;width:100%;background:#0b1222}
+th,td{border-bottom:1px solid #1e293b;padding:8px 10px;text-align:left;font-size:13px;white-space:nowrap}
+th{position:sticky;top:0;background:#111b33;z-index:1}
+tr:hover{background:#111827}
+.code{font-weight:700;color:#93c5fd}.name{font-weight:600}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>港股新股數據看板（實時版）</h1>
-    <div class="sub">你現在看的就是可隨時更新的線上頁面。我每次改這個檔案，你刷新即可看到最新內容。</div>
-
-    <div class="card scroll">
-      <table>
-        <thead>
-          <tr>
-            <th>代碼</th>
-            <th>名稱</th>
-            <th>招股價</th>
-            <th>中籤率</th>
-            <th>總募資（淨額）</th>
-            <th>基石（佔比）</th>
-            <th>國際認購</th>
-            <th>公開認購</th>
-            <th>公開發售股數（回撥）</th>
-            <th>公開募資</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="code">02513</td>
-            <td class="name">智譜</td>
-            <td>116.2元</td>
-            <td>5% <span class="tag ok">中等</span></td>
-            <td>約43.5億港元（淨額41.73億）</td>
-            <td>29.84億（68.63%）</td>
-            <td>15.28倍</td>
-            <td>1,159.46倍 <span class="tag hot">高熱</span></td>
-            <td>748.39萬股（回撥至20%）</td>
-            <td>約8.70億</td>
-          </tr>
-          <tr>
-            <td class="code">03858</td>
-            <td class="name">佳鑫國際資源</td>
-            <td>10.92元</td>
-            <td>1% <span class="tag warn">偏低</span></td>
-            <td>約12.0億港元（淨額10.88億）</td>
-            <td>約6.0億（50%）</td>
-            <td>21.11倍</td>
-            <td>2,041.62倍 <span class="tag hot">高熱</span></td>
-            <td>1,098.12萬股（10%，無回撥）</td>
-            <td>約1.20億</td>
-          </tr>
-          <tr>
-            <td class="code">02659</td>
-            <td class="name">寶濟藥業-B</td>
-            <td>26.38元</td>
-            <td>7% <span class="tag ok">中等</span></td>
-            <td>約10.00億港元（淨額9.22億）</td>
-            <td>2.006億</td>
-            <td>6.59倍</td>
-            <td>3,526.34倍 <span class="tag hot">高熱</span></td>
-            <td>379.12萬股（10%）</td>
-            <td>約1.00億</td>
-          </tr>
-          <tr>
-            <td class="code">02635</td>
-            <td class="name">諾比侃</td>
-            <td>80.00元</td>
-            <td>3% <span class="tag ok">中等</span></td>
-            <td>約3.03億港元（淨額2.57億）</td>
-            <td class="muted">—</td>
-            <td>2.08倍</td>
-            <td>188.74倍</td>
-            <td>37.87萬股（10%）</td>
-            <td>約0.303億</td>
-          </tr>
-          <tr>
-            <td class="code">02575</td>
-            <td class="name">軒竹生物-B</td>
-            <td>11.60元</td>
-            <td>1% <span class="tag warn">偏低</span></td>
-            <td>約7.81億港元（淨額7.01億）</td>
-            <td class="muted">—</td>
-            <td>10.15倍</td>
-            <td>4,908.33倍 <span class="tag hot">高熱</span></td>
-            <td>673.34萬股（10%）</td>
-            <td>約0.781億</td>
-          </tr>
-          <tr>
-            <td class="code">02617</td>
-            <td class="name">藥捷安康-B</td>
-            <td>13.15元</td>
-            <td><span class="muted">暫未抓到</span> <span class="tag warn">待補</span></td>
-            <td>約2.01億港元（淨額1.61億）</td>
-            <td class="muted">—</td>
-            <td>0.97倍</td>
-            <td>3,419.87倍 <span class="tag hot">高熱</span></td>
-            <td>305.62萬股（20%）</td>
-            <td>約0.402億</td>
-          </tr>
-          <tr>
-            <td class="code">02656</td>
-            <td class="name">健康160</td>
-            <td>11.89元</td>
-            <td>8% <span class="tag ok">較高</span></td>
-            <td>約4.00億港元（淨額3.16億）</td>
-            <td class="muted">—</td>
-            <td>1.92倍</td>
-            <td>751.11倍</td>
-            <td>336.46萬股（10%）</td>
-            <td>約0.400億</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="footer">更新時間：<span id="ts"></span></div>
+<div class="wrap">
+  <h1>Futunn 港股IPO（已排除ETF）</h1>
+  <div class="meta">来源：<a href="https://www.futunn.com/quote/hk/ipo" target="_blank" style="color:#93c5fd">https://www.futunn.com/quote/hk/ipo</a> ｜ 抓取时间：2026/2/17 23:55:19 ｜ 抓取页数：5 ｜ 原始条目：229 ｜ 过滤后：219</div>
+  <div class="table">
+    <table>
+      <thead>
+        <tr><th>代码</th><th>股票名称</th><th>价格</th><th>首日涨幅</th><th>暗盘涨跌额</th><th>暗盘涨跌幅</th><th>累计涨幅</th><th>发行价</th><th>涨跌幅</th><th>连涨天数</th><th>成交量</th><th>成交额</th><th>换手率</th><th>市盈率(静)</th><th>总市值</th><th>发行量</th><th>上市日期</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="code">09981</td><td class="name">沃尔核材</td><td>20.800</td><td>+2.94%</td><td>+0.990</td><td>+4.93%</td><td>+3.53%</td><td>20.090</td><td>+0.58%</td><td>2</td><td>202.58万</td><td>4105.52万</td><td>1.45%</td><td>31.80</td><td>291.18亿</td><td>1.40亿</td><td>2026/02/13</td></tr>
+<tr><td class="code">02706</td><td class="name">海致科技集团</td><td>120.000</td><td>+242.20%</td><td>+56.940</td><td>+210.42%</td><td>+343.46%</td><td>27.060</td><td>+29.59%</td><td>2</td><td>595.65万</td><td>6.85亿</td><td>1.49%</td><td>-474.31</td><td>480.52亿</td><td>2803.02万</td><td>2026/02/13</td></tr>
+<tr><td class="code">00470</td><td class="name">先导智能</td><td>46.000</td><td>0.00%</td><td>+0.500</td><td>+1.09%</td><td>+0.44%</td><td>45.800</td><td>+1.32%</td><td>2</td><td>169.93万</td><td>7821.73万</td><td>1.58%</td><td>248.65</td><td>769.96亿</td><td>1.08亿</td><td>2026/02/11</td></tr>
+<tr><td class="code">02720</td><td class="name">乐欣户外</td><td>30.040</td><td>+102.29%</td><td>+12.230</td><td>+99.84%</td><td>+145.22%</td><td>12.250</td><td>+19.68%</td><td>2</td><td>32.04万</td><td>904.28万</td><td>0.25%</td><td>63.91</td><td>38.51亿</td><td>2820.50万</td><td>2026/02/10</td></tr>
+<tr><td class="code">00600</td><td class="name">爱芯元智</td><td>28.260</td><td>0.00%</td><td>-1.180</td><td>-4.18%</td><td>+0.21%</td><td>28.200</td><td>0.00%</td><td>1</td><td>292.53万</td><td>8256.97万</td><td>0.50%</td><td>-17.86</td><td>166.10亿</td><td>1.05亿</td><td>2026/02/10</td></tr>
+<tr><td class="code">06809</td><td class="name">澜起科技</td><td>211.000</td><td>+63.72%</td><td>+42.510</td><td>+39.77%</td><td>+97.40%</td><td>106.890</td><td>+14.05%</td><td>3</td><td>279.87万</td><td>5.72亿</td><td>3.69%</td><td>169.21</td><td>2578.84亿</td><td>6589.00万</td><td>2026/02/09</td></tr>
+<tr><td class="code">03200</td><td class="name">大族数控</td><td>117.200</td><td>+14.82%</td><td>+20.800</td><td>+21.71%</td><td>+22.34%</td><td>95.800</td><td>+4.09%</td><td>2</td><td>77.27万</td><td>8853.98万</td><td>1.53%</td><td>171.60</td><td>557.83亿</td><td>5045.18万</td><td>2026/02/06</td></tr>
+<tr><td class="code">02714</td><td class="name">牧原股份</td><td>39.340</td><td>+3.90%</td><td>+0.740</td><td>+1.90%</td><td>+0.87%</td><td>39.000</td><td>+0.36%</td><td>2</td><td>60.49万</td><td>2374.47万</td><td>0.22%</td><td>11.69</td><td>2256.83亿</td><td>2.74亿</td><td>2026/02/06</td></tr>
+<tr><td class="code">02677</td><td class="name">卓正医疗</td><td>58.000</td><td>+13.36%</td><td>+34.150</td><td>+57.01%</td><td>-3.17%</td><td>59.900</td><td>0.00%</td><td>1</td><td>5.01万</td><td>283.00万</td><td>0.08%</td><td>41.25</td><td>37.34亿</td><td>475.00万</td><td>2026/02/06</td></tr>
+<tr><td class="code">02768</td><td class="name">国恩科技</td><td>51.800</td><td>+11.56%</td><td>+13.000</td><td>+36.11%</td><td>+43.89%</td><td>36.000</td><td>+0.48%</td><td>5</td><td>32.00万</td><td>1670.84万</td><td>1.07%</td><td>21.09</td><td>156.05亿</td><td>3000.00万</td><td>2026/02/04</td></tr>
+<tr><td class="code">09980</td><td class="name">东鹏饮料</td><td>252.000</td><td>+1.53%</td><td>-0.200</td><td>-0.08%</td><td>+1.61%</td><td>248.000</td><td>-2.02%</td><td>2</td><td>18.57万</td><td>4674.39万</td><td>0.45%</td><td>39.34</td><td>1413.48亿</td><td>4088.99万</td><td>2026/02/03</td></tr>
+<tr><td class="code">09176</td><td class="name">A泰康美元-U</td><td>1002.000</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>0.00%</td><td>1</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>5.01亿</td><td>0.00</td><td>2026/01/29</td></tr>
+<tr><td class="code">03457</td><td class="name">A泰康港元</td><td>1001.500</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>-0.05%</td><td>1</td><td>38.00</td><td>3.81万</td><td>0.01%</td><td>0.00</td><td>5.01亿</td><td>0.00</td><td>2026/01/29</td></tr>
+<tr><td class="code">03176</td><td class="name">A泰康美元</td><td>7824.000</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.01%</td><td>2</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>39.13亿</td><td>0.00</td><td>2026/01/29</td></tr>
+<tr><td class="code">82805</td><td class="name">银河博时东盟-R</td><td>8.765</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>0.00%</td><td>3</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>3.72亿</td><td>0.00</td><td>2026/01/28</td></tr>
+<tr><td class="code">09805</td><td class="name">银河博时东盟-U</td><td>1.272</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.79%</td><td>3</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>5393.28万</td><td>0.00</td><td>2026/01/28</td></tr>
+<tr><td class="code">03101</td><td class="name">南方A500</td><td>7.935</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.95%</td><td>2</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>6824.10万</td><td>0.00</td><td>2026/01/28</td></tr>
+<tr><td class="code">02805</td><td class="name">银河博时东盟</td><td>9.955</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.30%</td><td>4</td><td>2.60万</td><td>25.66万</td><td>0.06%</td><td>0.00</td><td>4.22亿</td><td>0.00</td><td>2026/01/28</td></tr>
+<tr><td class="code">01768</td><td class="name">鸣鸣很忙</td><td>391.800</td><td>+69.06%</td><td>+180.200</td><td>+76.16%</td><td>+65.60%</td><td>236.600</td><td>-0.56%</td><td>2</td><td>9.70万</td><td>3756.09万</td><td>0.05%</td><td>94.80</td><td>853.49亿</td><td>1551.12万</td><td>2026/01/28</td></tr>
+<tr><td class="code">09611</td><td class="name">龙旗科技</td><td>30.720</td><td>+3.55%</td><td>+6.120</td><td>+19.74%</td><td>-0.90%</td><td>31.000</td><td>+1.19%</td><td>3</td><td>27.66万</td><td>839.67万</td><td>0.53%</td><td>29.65</td><td>160.54亿</td><td>5225.91万</td><td>2026/01/22</td></tr>
+<tr><td class="code">83416</td><td class="name">AGX国指兑-R</td><td>8.995</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.22%</td><td>3</td><td>4.60万</td><td>41.15万</td><td>0.00%</td><td>0.00</td><td>0</td><td>0.00</td><td>2026/01/15</td></tr>
+<tr><td class="code">83110</td><td class="name">GX恒生股息-R</td><td>29.460</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.48%</td><td>8</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>0</td><td>0.00</td><td>2026/01/15</td></tr>
+<tr><td class="code">09416</td><td class="name">AGX国指兑-U</td><td>1.306</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.15%</td><td>3</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>0</td><td>0.00</td><td>2026/01/15</td></tr>
+<tr><td class="code">08610</td><td class="name">BBSB INTL</td><td>0.660</td><td>+11.67%</td><td>+2.140</td><td>+356.67%</td><td>+10.00%</td><td>0.600</td><td>0.00%</td><td>4</td><td>9.20万</td><td>6.00万</td><td>0.02%</td><td>7.17</td><td>3.30亿</td><td>1.25亿</td><td>2026/01/13</td></tr>
+<tr><td class="code">03986</td><td class="name">兆易创新</td><td>406.200</td><td>+37.53%</td><td>+62.800</td><td>+38.77%</td><td>+150.74%</td><td>162.000</td><td>+9.78%</td><td>6</td><td>78.07万</td><td>3.23亿</td><td>2.35%</td><td>239.22</td><td>2847.88亿</td><td>2891.58万</td><td>2026/01/13</td></tr>
+<tr><td class="code">01641</td><td class="name">红星冷链</td><td>8.100</td><td>+0.33%</td><td>+5.810</td><td>+47.39%</td><td>-33.93%</td><td>12.260</td><td>-1.70%</td><td>3</td><td>3.70万</td><td>29.80万</td><td>0.15%</td><td>8.89</td><td>7.96亿</td><td>2326.30万</td><td>2026/01/13</td></tr>
+<tr><td class="code">00501</td><td class="name">豪威集团</td><td>105.800</td><td>+16.22%</td><td>-0.300</td><td>-0.29%</td><td>+0.95%</td><td>104.800</td><td>+4.55%</td><td>2</td><td>9.58万</td><td>987.08万</td><td>0.19%</td><td>37.24</td><td>1334.11亿</td><td>4580.00万</td><td>2026/01/12</td></tr>
+<tr><td class="code">06938</td><td class="name">瑞博生物-B</td><td>71.100</td><td>+41.62%</td><td>+20.030</td><td>+34.55%</td><td>+22.65%</td><td>57.970</td><td>+1.50%</td><td>3</td><td>10.06万</td><td>695.74万</td><td>0.06%</td><td>-41.58</td><td>121.26亿</td><td>3161.04万</td><td>2026/01/09</td></tr>
+<tr><td class="code">03636</td><td class="name">金浔资源</td><td>36.200</td><td>+26.00%</td><td>+8.700</td><td>+29.00%</td><td>+20.67%</td><td>30.000</td><td>+2.72%</td><td>3</td><td>31.70万</td><td>1158.73万</td><td>0.75%</td><td>25.26</td><td>55.23亿</td><td>3676.56万</td><td>2026/01/09</td></tr>
+<tr><td class="code">00100</td><td class="name">MINIMAX-WP</td><td>847.000</td><td>+109.09%</td><td>+40.600</td><td>+24.61%</td><td>+413.33%</td><td>165.000</td><td>+24.56%</td><td>3</td><td>239.41万</td><td>18.54亿</td><td>0.76%</td><td>-73.56</td><td>2656.49亿</td><td>2919.76万</td><td>2026/01/09</td></tr>
+<tr><td class="code">09903</td><td class="name">天数智芯</td><td>269.000</td><td>+8.44%</td><td>+53.600</td><td>+37.07%</td><td>+86.03%</td><td>144.600</td><td>+0.15%</td><td>6</td><td>90.02万</td><td>2.41亿</td><td>0.37%</td><td>-70.99</td><td>684.11亿</td><td>2543.18万</td><td>2026/01/08</td></tr>
+<tr><td class="code">02675</td><td class="name">精锋医疗-B</td><td>66.900</td><td>+30.90%</td><td>+16.910</td><td>+39.11%</td><td>+54.72%</td><td>43.240</td><td>+0.53%</td><td>3</td><td>29.26万</td><td>1932.71万</td><td>0.09%</td><td>-111.13</td><td>262.17亿</td><td>2772.22万</td><td>2026/01/08</td></tr>
+<tr><td class="code">02513</td><td class="name">智谱</td><td>508.000</td><td>+13.17%</td><td>+7.000</td><td>+6.02%</td><td>+337.18%</td><td>116.200</td><td>+4.74%</td><td>3</td><td>365.66万</td><td>17.97亿</td><td>1.65%</td><td>-70.94</td><td>2264.88亿</td><td>3741.95万</td><td>2026/01/08</td></tr>
+<tr><td class="code">06082</td><td class="name">壁仞科技</td><td>36.260</td><td>+75.82%</td><td>+15.620</td><td>+79.69%</td><td>+85.00%</td><td>19.600</td><td>+0.72%</td><td>4</td><td>297.16万</td><td>1.08亿</td><td>0.25%</td><td>-53.25</td><td>884.33亿</td><td>2.85亿</td><td>2026/01/02</td></tr>
+<tr><td class="code">06651</td><td class="name">五一视界</td><td>64.450</td><td>+29.90%</td><td>+7.180</td><td>+23.54%</td><td>+111.31%</td><td>30.500</td><td>+2.55%</td><td>5</td><td>53.06万</td><td>3496.09万</td><td>0.14%</td><td>-306.90</td><td>261.90亿</td><td>2397.52万</td><td>2025/12/30</td></tr>
+<tr><td class="code">06600</td><td class="name">卧安机器人</td><td>171.900</td><td>+0.07%</td><td>-6.400</td><td>-8.67%</td><td>+132.93%</td><td>73.800</td><td>+1.00%</td><td>6</td><td>29.73万</td><td>4971.57万</td><td>0.13%</td><td>-11460.00</td><td>387.39亿</td><td>2222.23万</td><td>2025/12/30</td></tr>
+<tr><td class="code">03696</td><td class="name">英矽智能</td><td>76.900</td><td>+24.66%</td><td>+12.810</td><td>+53.26%</td><td>+219.75%</td><td>24.050</td><td>+4.63%</td><td>5</td><td>166.29万</td><td>1.27亿</td><td>0.29%</td><td>-331.47</td><td>439.58亿</td><td>9469.05万</td><td>2025/12/30</td></tr>
+<tr><td class="code">03317</td><td class="name">迅策</td><td>70.850</td><td>+1.04%</td><td>+0.980</td><td>+2.04%</td><td>+47.60%</td><td>48.000</td><td>-0.77%</td><td>4</td><td>34.36万</td><td>2413.74万</td><td>0.13%</td><td>-252.14</td><td>228.63亿</td><td>2250.00万</td><td>2025/12/30</td></tr>
+<tr><td class="code">02671</td><td class="name">美联股份</td><td>4.030</td><td>+7.61%</td><td>+1.300</td><td>+18.31%</td><td>-43.24%</td><td>7.100</td><td>0.00%</td><td>2</td><td>3900.00</td><td>1.57万</td><td>0.00%</td><td>6.02</td><td>4.86亿</td><td>2460.00万</td><td>2025/12/30</td></tr>
+<tr><td class="code">02657</td><td class="name">林清轩</td><td>78.300</td><td>+9.30%</td><td>+14.580</td><td>+18.75%</td><td>+0.68%</td><td>77.770</td><td>-2.37%</td><td>4</td><td>54.30万</td><td>3936.62万</td><td>0.50%</td><td>55.02</td><td>111.00亿</td><td>1396.65万</td><td>2025/12/30</td></tr>
+<tr><td class="code">03378</td><td class="name">翰思艾泰-B</td><td>19.200</td><td>-46.25%</td><td>+0.660</td><td>+2.06%</td><td>-40.00%</td><td>32.000</td><td>+0.21%</td><td>5</td><td>5.67万</td><td>108.70万</td><td>0.04%</td><td>-20.92</td><td>26.15亿</td><td>1832.10万</td><td>2025/12/23</td></tr>
+<tr><td class="code">02661</td><td class="name">轻松健康</td><td>84.850</td><td>+158.82%</td><td>+29.020</td><td>+127.95%</td><td>+274.12%</td><td>22.680</td><td>+6.13%</td><td>7</td><td>12.66万</td><td>1039.76万</td><td>0.06%</td><td>1571.30</td><td>175.11亿</td><td>2654.00万</td><td>2025/12/23</td></tr>
+<tr><td class="code">02635</td><td class="name">诺比侃</td><td>429.200</td><td>+363.75%</td><td>+220.600</td><td>+275.75%</td><td>+436.50%</td><td>80.000</td><td>-3.64%</td><td>6</td><td>2.72万</td><td>1176.18万</td><td>0.09%</td><td>130.46</td><td>162.52亿</td><td>378.66万</td><td>2025/12/23</td></tr>
+<tr><td class="code">02695</td><td class="name">印象大红袍</td><td>1.770</td><td>-35.28%</td><td>+0.410</td><td>+11.39%</td><td>-50.83%</td><td>3.600</td><td>-2.21%</td><td>2</td><td>42.80万</td><td>76.10万</td><td>1.19%</td><td>5.51</td><td>2.55亿</td><td>3610.00万</td><td>2025/12/22</td></tr>
+<tr><td class="code">02691</td><td class="name">南华期货股份</td><td>10.240</td><td>-24.17%</td><td>-0.920</td><td>-7.67%</td><td>-14.67%</td><td>12.000</td><td>-3.94%</td><td>5</td><td>5.45万</td><td>57.12万</td><td>0.05%</td><td>14.86</td><td>73.50亿</td><td>1.08亿</td><td>2025/12/22</td></tr>
+<tr><td class="code">02581</td><td class="name">明基医院</td><td>3.620</td><td>-49.46%</td><td>-2.240</td><td>-23.98%</td><td>-61.24%</td><td>9.340</td><td>-1.09%</td><td>1</td><td>1.10万</td><td>4.00万</td><td>0.00%</td><td>9.60</td><td>11.29亿</td><td>6700.00万</td><td>2025/12/22</td></tr>
+<tr><td class="code">02396</td><td class="name">华芢生物-B</td><td>9.380</td><td>-29.32%</td><td>+2.200</td><td>+5.76%</td><td>-75.45%</td><td>38.200</td><td>+0.86%</td><td>3</td><td>1.58万</td><td>14.75万</td><td>0.02%</td><td>-4.82</td><td>11.04亿</td><td>1764.88万</td><td>2025/12/22</td></tr>
+<tr><td class="code">03881</td><td class="name">希迪智驾</td><td>221.000</td><td>-13.69%</td><td>-14.400</td><td>-5.48%</td><td>-15.97%</td><td>263.000</td><td>-2.73%</td><td>4</td><td>8490.00</td><td>188.43万</td><td>0.02%</td><td>-15.43</td><td>96.77亿</td><td>540.80万</td><td>2025/12/19</td></tr>
+<tr><td class="code">02546</td><td class="name">智汇矿业</td><td>18.000</td><td>+90.69%</td><td>+5.710</td><td>+126.61%</td><td>+299.11%</td><td>4.510</td><td>-3.69%</td><td>3</td><td>45.90万</td><td>815.58万</td><td>0.38%</td><td>145.16</td><td>87.81亿</td><td>1.22亿</td><td>2025/12/19</td></tr>
+<tr><td class="code">03887</td><td class="name">HASHKEY HLDGS</td><td>6.790</td><td>-0.15%</td><td>-0.070</td><td>-1.05%</td><td>+1.65%</td><td>6.680</td><td>+1.80%</td><td>4</td><td>182.88万</td><td>1253.65万</td><td>0.07%</td><td>-15.79</td><td>187.82亿</td><td>2.41亿</td><td>2025/12/17</td></tr>
+<tr><td class="code">02655</td><td class="name">果下科技</td><td>57.500</td><td>+117.91%</td><td>+17.780</td><td>+88.46%</td><td>+186.07%</td><td>20.100</td><td>+4.17%</td><td>4</td><td>29.45万</td><td>1643.84万</td><td>0.08%</td><td>563.73</td><td>297.68亿</td><td>3893.08万</td><td>2025/12/16</td></tr>
+<tr><td class="code">83102</td><td class="name">工银KWEB-R</td><td>32.340</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>-0.19%</td><td>4</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>6468.00万</td><td>0.00</td><td>2025/12/11</td></tr>
+<tr><td class="code">09102</td><td class="name">工银KWEB-U</td><td>4.690</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>0.00%</td><td>3</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>938.00万</td><td>0.00</td><td>2025/12/11</td></tr>
+<tr><td class="code">02802</td><td class="name">南方国指备兑</td><td>8.720</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.58%</td><td>7</td><td>1277.68万</td><td>1.11亿</td><td>2.30%</td><td>0.00</td><td>48.44亿</td><td>0.00</td><td>2025/12/11</td></tr>
+<tr><td class="code">03102</td><td class="name">工银金瑞KWEB互联网</td><td>36.660</td><td>+676.00%</td><td>--</td><td>--</td><td>+633.20%</td><td>5.000</td><td>0.00%</td><td>3</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>7332.00万</td><td>0.00</td><td>2025/12/11</td></tr>
+<tr><td class="code">07618</td><td class="name">京东工业</td><td>11.600</td><td>0.00%</td><td>-0.330</td><td>-2.34%</td><td>-17.73%</td><td>14.100</td><td>-5.69%</td><td>3</td><td>86.14万</td><td>1015.41万</td><td>0.03%</td><td>37.91</td><td>312.22亿</td><td>2.11亿</td><td>2025/12/11</td></tr>
+<tr><td class="code">02659</td><td class="name">宝济药业-B</td><td>168.800</td><td>+138.82%</td><td>+29.620</td><td>+112.28%</td><td>+539.88%</td><td>26.380</td><td>+1.38%</td><td>7</td><td>80.48万</td><td>1.35亿</td><td>0.52%</td><td>-139.85</td><td>550.26亿</td><td>3791.17万</td><td>2025/12/10</td></tr>
+<tr><td class="code">02665</td><td class="name">图达通</td><td>11.340</td><td>+33.00%</td><td>0.000</td><td>0.00%</td><td>+13.40%</td><td>10.000</td><td>+3.94%</td><td>5</td><td>72.75万</td><td>820.82万</td><td>0.06%</td><td>-4.76</td><td>147.29亿</td><td>3708.16万</td><td>2025/12/10</td></tr>
+<tr><td class="code">02687</td><td class="name">卓越睿新</td><td>147.800</td><td>+87.26%</td><td>+20.050</td><td>+29.70%</td><td>+118.96%</td><td>67.500</td><td>+3.94%</td><td>7</td><td>4.90万</td><td>713.01万</td><td>0.08%</td><td>86.84</td><td>98.53亿</td><td>666.67万</td><td>2025/12/08</td></tr>
+<tr><td class="code">02676</td><td class="name">纳芯微</td><td>138.000</td><td>-4.31%</td><td>-10.300</td><td>-8.88%</td><td>+18.97%</td><td>116.000</td><td>0.00%</td><td>5</td><td>8.24万</td><td>1119.24万</td><td>0.41%</td><td>-51.59</td><td>224.42亿</td><td>1906.84万</td><td>2025/12/08</td></tr>
+<tr><td class="code">02658</td><td class="name">天域半导体</td><td>58.500</td><td>-30.17%</td><td>-8.460</td><td>-14.59%</td><td>+0.86%</td><td>58.000</td><td>+6.36%</td><td>3</td><td>25.65万</td><td>1463.71万</td><td>0.44%</td><td>-43.27</td><td>230.06亿</td><td>3007.05万</td><td>2025/12/05</td></tr>
+<tr><td class="code">02408</td><td class="name">遇见小面</td><td>5.950</td><td>-27.84%</td><td>-1.000</td><td>-14.20%</td><td>-15.48%</td><td>7.040</td><td>0.00%</td><td>7</td><td>53.25万</td><td>313.22万</td><td>0.08%</td><td>64.67</td><td>42.29亿</td><td>9736.45万</td><td>2025/12/05</td></tr>
+<tr><td class="code">03085</td><td class="name">潘渡以太币</td><td>5.430</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.93%</td><td>5</td><td>200.00</td><td>1086.00</td><td>0.00%</td><td>0.00</td><td>4289.70万</td><td>0.00</td><td>2025/12/03</td></tr>
+<tr><td class="code">02693</td><td class="name">金岩高岭新材</td><td>4.580</td><td>+2.19%</td><td>+2.610</td><td>+35.75%</td><td>-37.26%</td><td>7.300</td><td>-0.87%</td><td>3</td><td>9000.00</td><td>4.13万</td><td>0.04%</td><td>7.84</td><td>4.45亿</td><td>2430.00万</td><td>2025/12/03</td></tr>
+<tr><td class="code">02539</td><td class="name">乐摩科技</td><td>19.650</td><td>+36.25%</td><td>+40.500</td><td>+101.25%</td><td>-50.88%</td><td>40.000</td><td>+2.72%</td><td>2</td><td>2.25万</td><td>43.94万</td><td>0.10%</td><td>11.78</td><td>10.92亿</td><td>555.56万</td><td>2025/12/03</td></tr>
+<tr><td class="code">83461</td><td class="name">A华夏人币数-R</td><td>1001.80</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.01%</td><td>3</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>2654.77万</td><td>0.00</td><td>2025/11/28</td></tr>
+<tr><td class="code">09472</td><td class="name">A华夏美元数-U</td><td>503.95</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.03%</td><td>18</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>322.53万</td><td>0.00</td><td>2025/11/28</td></tr>
+<tr><td class="code">03472</td><td class="name">A华夏美元数</td><td>3935.20</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.04%</td><td>7</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>2518.53万</td><td>0.00</td><td>2025/11/28</td></tr>
+<tr><td class="code">03471</td><td class="name">A华夏港元数</td><td>1005.05</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.02%</td><td>6</td><td>11.00</td><td>1.11万</td><td>0.04%</td><td>0.00</td><td>2663.38万</td><td>0.00</td><td>2025/11/28</td></tr>
+<tr><td class="code">03461</td><td class="name">A华夏人币数</td><td>1133.30</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>0.00%</td><td>5</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>3003.25万</td><td>0.00</td><td>2025/11/28</td></tr>
+<tr><td class="code">09609</td><td class="name">海伟股份</td><td>8.700</td><td>-22.97%</td><td>+0.380</td><td>+2.66%</td><td>-39.08%</td><td>14.280</td><td>-1.36%</td><td>6</td><td>2.98万</td><td>25.95万</td><td>0.05%</td><td>14.43</td><td>14.00亿</td><td>3545.60万</td><td>2025/11/28</td></tr>
+<tr><td class="code">02685</td><td class="name">量化派</td><td>31.020</td><td>+88.78%</td><td>+18.200</td><td>+185.71%</td><td>+216.53%</td><td>9.800</td><td>+0.78%</td><td>6</td><td>16.05万</td><td>497.95万</td><td>0.03%</td><td>100.71</td><td>159.78亿</td><td>1334.75万</td><td>2025/11/27</td></tr>
+<tr><td class="code">02788</td><td class="name">创新实业</td><td>22.920</td><td>+32.76%</td><td>+2.860</td><td>+26.02%</td><td>+108.55%</td><td>10.990</td><td>+0.44%</td><td>7</td><td>199.95万</td><td>4672.09万</td><td>0.10%</td><td>21.42</td><td>475.59亿</td><td>5.00亿</td><td>2025/11/24</td></tr>
+<tr><td class="code">02579</td><td class="name">中伟新材</td><td>35.700</td><td>-0.12%</td><td>-0.820</td><td>-2.41%</td><td>+5.00%</td><td>34.000</td><td>-1.27%</td><td>4</td><td>12.62万</td><td>453.76万</td><td>0.12%</td><td>23.49</td><td>372.08亿</td><td>1.04亿</td><td>2025/11/17</td></tr>
+<tr><td class="code">02698</td><td class="name">乐舒适</td><td>30.300</td><td>+25.95%</td><td>+9.100</td><td>+34.73%</td><td>+15.65%</td><td>26.200</td><td>-2.32%</td><td>6</td><td>26.70万</td><td>808.75万</td><td>0.04%</td><td>25.42</td><td>187.71亿</td><td>9088.40万</td><td>2025/11/10</td></tr>
+<tr><td class="code">02630</td><td class="name">旺山旺水-B</td><td>120.000</td><td>+145.73%</td><td>+51.630</td><td>+154.72%</td><td>+259.60%</td><td>33.370</td><td>+9.09%</td><td>6</td><td>9.48万</td><td>1123.80万</td><td>0.14%</td><td>-88.11</td><td>201.12亿</td><td>1759.78万</td><td>2025/11/06</td></tr>
+<tr><td class="code">02026</td><td class="name">小马智行-W</td><td>114.300</td><td>-9.28%</td><td>-15.800</td><td>-11.37%</td><td>-17.77%</td><td>139.000</td><td>-0.35%</td><td>7</td><td>67.23万</td><td>7673.36万</td><td>0.16%</td><td>-23.29</td><td>495.54亿</td><td>4824.90万</td><td>2025/11/06</td></tr>
+<tr><td class="code">00800</td><td class="name">文远知行-W</td><td>20.100</td><td>-9.96%</td><td>-3.800</td><td>-14.02%</td><td>-25.83%</td><td>27.100</td><td>+1.31%</td><td>7</td><td>13.36万</td><td>265.52万</td><td>0.01%</td><td>-7.60</td><td>206.49亿</td><td>8825.00万</td><td>2025/11/06</td></tr>
+<tr><td class="code">00699</td><td class="name">均胜电子</td><td>17.110</td><td>-8.00%</td><td>-0.600</td><td>-2.73%</td><td>-22.23%</td><td>22.000</td><td>-2.34%</td><td>3</td><td>14.40万</td><td>248.57万</td><td>0.09%</td><td>25.58</td><td>265.34亿</td><td>1.55亿</td><td>2025/11/06</td></tr>
+<tr><td class="code">09927</td><td class="name">赛力斯</td><td>96.900</td><td>0.00%</td><td>+0.200</td><td>+0.15%</td><td>-26.31%</td><td>131.500</td><td>-3.20%</td><td>3</td><td>32.16万</td><td>3096.02万</td><td>0.30%</td><td>26.29</td><td>1687.98亿</td><td>1.09亿</td><td>2025/11/05</td></tr>
+<tr><td class="code">02718</td><td class="name">明略科技-W</td><td>243.800</td><td>+106.10%</td><td>+156.000</td><td>+110.64%</td><td>+72.91%</td><td>141.000</td><td>+2.01%</td><td>4</td><td>15.33万</td><td>3710.28万</td><td>0.11%</td><td>6965.71</td><td>354.63亿</td><td>721.90万</td><td>2025/11/03</td></tr>
+<tr><td class="code">06980</td><td class="name">八马茶业</td><td>30.420</td><td>+86.70%</td><td>+39.400</td><td>+78.80%</td><td>-39.16%</td><td>50.000</td><td>+3.82%</td><td>2</td><td>7.37万</td><td>227.54万</td><td>0.14%</td><td>10.67</td><td>25.86亿</td><td>900.00万</td><td>2025/10/28</td></tr>
+<tr><td class="code">06166</td><td class="name">剑桥科技</td><td>68.000</td><td>+33.86%</td><td>+25.420</td><td>+36.90%</td><td>-1.28%</td><td>68.880</td><td>+2.49%</td><td>5</td><td>39.36万</td><td>2655.26万</td><td>0.51%</td><td>133.33</td><td>239.80亿</td><td>6701.05万</td><td>2025/10/28</td></tr>
+<tr><td class="code">06031</td><td class="name">三一重工</td><td>26.400</td><td>+2.82%</td><td>-0.520</td><td>-2.44%</td><td>+23.94%</td><td>21.300</td><td>+4.02%</td><td>4</td><td>69.20万</td><td>1809.31万</td><td>0.10%</td><td>37.61</td><td>2427.48亿</td><td>6.32亿</td><td>2025/10/28</td></tr>
+<tr><td class="code">01384</td><td class="name">滴普科技</td><td>99.250</td><td>+150.56%</td><td>+25.240</td><td>+94.67%</td><td>+272.28%</td><td>26.660</td><td>+4.69%</td><td>5</td><td>53.88万</td><td>5316.57万</td><td>0.17%</td><td>-23.92</td><td>324.18亿</td><td>2663.20万</td><td>2025/10/28</td></tr>
+<tr><td class="code">83460</td><td class="name">华夏SOL-R</td><td>3.030</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+7.22%</td><td>5</td><td>47.60万</td><td>145.26万</td><td>3.33%</td><td>0.00</td><td>4332.90万</td><td>0.00</td><td>2025/10/27</td></tr>
+<tr><td class="code">09460</td><td class="name">华夏SOL-U</td><td>0.440</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+7.58%</td><td>5</td><td>64.70万</td><td>28.64万</td><td>4.52%</td><td>0.00</td><td>629.20万</td><td>0.00</td><td>2025/10/27</td></tr>
+<tr><td class="code">03460</td><td class="name">华夏SOL</td><td>3.438</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+7.98%</td><td>5</td><td>56.95万</td><td>197.31万</td><td>3.98%</td><td>0.00</td><td>4916.34万</td><td>0.00</td><td>2025/10/27</td></tr>
+<tr><td class="code">00638</td><td class="name">广和通</td><td>14.370</td><td>-11.72%</td><td>0.000</td><td>0.00%</td><td>-33.16%</td><td>21.500</td><td>-2.11%</td><td>5</td><td>11.14万</td><td>159.94万</td><td>0.08%</td><td>17.92</td><td>129.22亿</td><td>1.35亿</td><td>2025/10/22</td></tr>
+<tr><td class="code">06687</td><td class="name">聚水潭</td><td>20.980</td><td>+23.86%</td><td>+10.320</td><td>+33.73%</td><td>-31.44%</td><td>30.600</td><td>-4.64%</td><td>3</td><td>17.35万</td><td>368.04万</td><td>0.04%</td><td>699.33</td><td>91.53亿</td><td>6816.62万</td><td>2025/10/21</td></tr>
+<tr><td class="code">02637</td><td class="name">海西新药</td><td>138.700</td><td>+20.60%</td><td>+21.200</td><td>+24.54%</td><td>+60.53%</td><td>86.400</td><td>+1.61%</td><td>5</td><td>9.69万</td><td>1345.94万</td><td>0.12%</td><td>74.29</td><td>109.17亿</td><td>1150.00万</td><td>2025/10/20</td></tr>
+<tr><td class="code">83420</td><td class="name">A惠理人民币-R</td><td>1004.40</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.00%</td><td>6</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>130.53亿</td><td>0.00</td><td>2025/10/16</td></tr>
+<tr><td class="code">09480</td><td class="name">A惠理美元-U</td><td>1013.60</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.04%</td><td>20</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>4.22亿</td><td>0.00</td><td>2025/10/16</td></tr>
+<tr><td class="code">07709</td><td class="name">南方两倍做多海力士</td><td>28.420</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+2.97%</td><td>5</td><td>1031.50万</td><td>2.90亿</td><td>2.54%</td><td>0.00</td><td>115.24亿</td><td>0.00</td><td>2025/10/16</td></tr>
+<tr><td class="code">03480</td><td class="name">A惠理美元</td><td>7915.75</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.04%</td><td>7</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>32.95亿</td><td>0.00</td><td>2025/10/16</td></tr>
+<tr><td class="code">03421</td><td class="name">A惠理港元</td><td>1010.10</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.02%</td><td>11</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>81.09亿</td><td>0.00</td><td>2025/10/16</td></tr>
+<tr><td class="code">03420</td><td class="name">A惠理人民币</td><td>1135.60</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.01%</td><td>6</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>147.58亿</td><td>0.00</td><td>2025/10/16</td></tr>
+<tr><td class="code">02670</td><td class="name">云迹</td><td>109.000</td><td>+26.05%</td><td>+51.400</td><td>+53.77%</td><td>+14.02%</td><td>95.600</td><td>+0.93%</td><td>7</td><td>1700.00</td><td>18.56万</td><td>0.00%</td><td>-38.07</td><td>76.03亿</td><td>690.00万</td><td>2025/10/16</td></tr>
+<tr><td class="code">02575</td><td class="name">轩竹生物-B</td><td>63.850</td><td>+126.72%</td><td>+20.000</td><td>+172.41%</td><td>+450.43%</td><td>11.600</td><td>+1.03%</td><td>6</td><td>13.10万</td><td>833.37万</td><td>0.08%</td><td>-55.04</td><td>330.71亿</td><td>6733.35万</td><td>2025/10/15</td></tr>
+<tr><td class="code">08549</td><td class="name">金叶国际集团</td><td>0.290</td><td>+330.00%</td><td>+2.360</td><td>+472.00%</td><td>-42.00%</td><td>0.500</td><td>+9.43%</td><td>3</td><td>63.50万</td><td>17.08万</td><td>0.16%</td><td>8.29</td><td>1.16亿</td><td>1.00亿</td><td>2025/10/10</td></tr>
+<tr><td class="code">02650</td><td class="name">挚达科技</td><td>265.400</td><td>+192.14%</td><td>+121.380</td><td>+181.38%</td><td>+296.59%</td><td>66.920</td><td>-4.19%</td><td>10</td><td>2.06万</td><td>535.13万</td><td>0.03%</td><td>-61.52</td><td>158.68亿</td><td>597.89万</td><td>2025/10/10</td></tr>
+<tr><td class="code">02652</td><td class="name">长风药业</td><td>36.500</td><td>+161.02%</td><td>+33.550</td><td>+227.46%</td><td>+147.46%</td><td>14.750</td><td>+5.74%</td><td>12</td><td>30.45万</td><td>1092.84万</td><td>0.10%</td><td>663.64</td><td>150.24亿</td><td>4119.80万</td><td>2025/10/08</td></tr>
+<tr><td class="code">09451</td><td class="name">GlobalX 纳指100备兑-U</td><td>10.210</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>0.00%</td><td>4</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>1684.65万</td><td>0.00</td><td>2025/09/30</td></tr>
+<tr><td class="code">03469</td><td class="name">南方港股通红利</td><td>8.820</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.17%</td><td>6</td><td>600.00</td><td>5283.00</td><td>0.00%</td><td>0.00</td><td>9.53亿</td><td>0.00</td><td>2025/09/30</td></tr>
+<tr><td class="code">03451</td><td class="name">GlobalX 纳指100备兑</td><td>80.300</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.73%</td><td>5</td><td>4900.00</td><td>39.38万</td><td>0.30%</td><td>0.00</td><td>1.32亿</td><td>0.00</td><td>2025/09/30</td></tr>
+<tr><td class="code">02889</td><td class="name">博泰车联</td><td>281.000</td><td>+53.58%</td><td>+30.370</td><td>+29.71%</td><td>+174.87%</td><td>102.230</td><td>+0.14%</td><td>6</td><td>2.63万</td><td>714.21万</td><td>0.04%</td><td>-72.11</td><td>421.48亿</td><td>1043.69万</td><td>2025/09/30</td></tr>
+<tr><td class="code">02583</td><td class="name">西普尼</td><td>158.000</td><td>+258.11%</td><td>+56.050</td><td>+189.36%</td><td>+433.78%</td><td>29.600</td><td>+4.98%</td><td>6</td><td>4.74万</td><td>743.34万</td><td>0.08%</td><td>174.39</td><td>92.94亿</td><td>1060.00万</td><td>2025/09/30</td></tr>
+<tr><td class="code">02259</td><td class="name">紫金黄金国际</td><td>211.800</td><td>+68.46%</td><td>+37.010</td><td>+51.70%</td><td>+195.85%</td><td>71.590</td><td>+0.47%</td><td>14</td><td>139.06万</td><td>2.95亿</td><td>0.05%</td><td>151.72</td><td>5668.49亿</td><td>3.49亿</td><td>2025/09/30</td></tr>
+<tr><td class="code">03431</td><td class="name">南方港韩科技</td><td>8.780</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>-0.17%</td><td>5</td><td>200.00</td><td>1756.00</td><td>0.00%</td><td>0.00</td><td>7.07亿</td><td>0.00</td><td>2025/09/29</td></tr>
+<tr><td class="code">83489</td><td class="name">易方达AI-R</td><td>11.620</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>-0.68%</td><td>3</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>4.54亿</td><td>0.00</td><td>2025/09/26</td></tr>
+<tr><td class="code">83483</td><td class="name">易方达高股息-R</td><td>15.820</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>0.00%</td><td>6</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>6.06亿</td><td>0.00</td><td>2025/09/26</td></tr>
+<tr><td class="code">09489</td><td class="name">易方达AI-U</td><td>1.686</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>-0.35%</td><td>4</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>6592.26万</td><td>0.00</td><td>2025/09/26</td></tr>
+<tr><td class="code">09483</td><td class="name">易方达高股息-U</td><td>2.290</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>0.00%</td><td>5</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>8770.70万</td><td>0.00</td><td>2025/09/26</td></tr>
+<tr><td class="code">03489</td><td class="name">易方达AI</td><td>13.100</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>-0.23%</td><td>4</td><td>4200.00</td><td>5.49万</td><td>0.01%</td><td>0.00</td><td>5.12亿</td><td>0.00</td><td>2025/09/26</td></tr>
+<tr><td class="code">03483</td><td class="name">易方达高股息</td><td>17.930</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.34%</td><td>5</td><td>2200.00</td><td>3.94万</td><td>0.01%</td><td>0.00</td><td>6.87亿</td><td>0.00</td><td>2025/09/26</td></tr>
+<tr><td class="code">09973</td><td class="name">奇瑞汽车</td><td>28.200</td><td>+3.80%</td><td>+2.630</td><td>+8.55%</td><td>-8.29%</td><td>30.750</td><td>-1.67%</td><td>3</td><td>54.44万</td><td>1534.14万</td><td>0.02%</td><td>10.73</td><td>1638.03亿</td><td>2.97亿</td><td>2025/09/25</td></tr>
+<tr><td class="code">06090</td><td class="name">不同集团</td><td>138.300</td><td>+43.96%</td><td>+38.600</td><td>+54.21%</td><td>+94.24%</td><td>71.200</td><td>+6.47%</td><td>8</td><td>23.68万</td><td>3098.71万</td><td>0.26%</td><td>198.71</td><td>125.51亿</td><td>1098.09万</td><td>2025/09/23</td></tr>
+<tr><td class="code">02595</td><td class="name">劲方医药-B</td><td>29.920</td><td>+106.47%</td><td>+22.450</td><td>+110.10%</td><td>+46.74%</td><td>20.390</td><td>-0.99%</td><td>4</td><td>39.70万</td><td>1197.11万</td><td>0.12%</td><td>-15.14</td><td>110.81亿</td><td>8924.00万</td><td>2025/09/19</td></tr>
+<tr><td class="code">02656</td><td class="name">健康160</td><td>61.200</td><td>+137.34%</td><td>+17.010</td><td>+143.06%</td><td>+414.72%</td><td>11.890</td><td>+0.58%</td><td>7</td><td>26.48万</td><td>1593.22万</td><td>0.08%</td><td>-176.88</td><td>205.91亿</td><td>3364.55万</td><td>2025/09/17</td></tr>
+<tr><td class="code">02525</td><td class="name">禾赛-W</td><td>201.800</td><td>+9.96%</td><td>+15.400</td><td>+7.24%</td><td>-5.17%</td><td>212.800</td><td>+1.00%</td><td>7</td><td>11.76万</td><td>2359.90万</td><td>0.08%</td><td>-286.65</td><td>317.11亿</td><td>1955.00万</td><td>2025/09/16</td></tr>
+<tr><td class="code">09477</td><td class="name">平安东西精选-U</td><td>2.248</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.18%</td><td>4</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>8317.60万</td><td>0.00</td><td>2025/09/09</td></tr>
+<tr><td class="code">09406</td><td class="name">平安科技精选-U</td><td>1.966</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>-0.20%</td><td>4</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>7274.20万</td><td>0.00</td><td>2025/09/09</td></tr>
+<tr><td class="code">03477</td><td class="name">平安东西精选</td><td>17.560</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.11%</td><td>5</td><td>250.00</td><td>4390.00</td><td>0.00%</td><td>0.00</td><td>6.50亿</td><td>0.00</td><td>2025/09/09</td></tr>
+<tr><td class="code">03406</td><td class="name">平安科技精选</td><td>15.370</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>-0.13%</td><td>4</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>5.69亿</td><td>0.00</td><td>2025/09/09</td></tr>
+<tr><td class="code">02543</td><td class="name">大行科工</td><td>36.120</td><td>+14.95%</td><td>+29.200</td><td>+58.99%</td><td>-27.03%</td><td>49.500</td><td>+1.35%</td><td>3</td><td>8400.00</td><td>29.80万</td><td>0.09%</td><td>20.98</td><td>11.84亿</td><td>792.00万</td><td>2025/09/09</td></tr>
+<tr><td class="code">02580</td><td class="name">奥克斯电气</td><td>12.660</td><td>-5.40%</td><td>-0.740</td><td>-4.25%</td><td>-27.32%</td><td>17.420</td><td>-4.38%</td><td>5</td><td>91.44万</td><td>1172.22万</td><td>0.06%</td><td>6.40</td><td>201.07亿</td><td>2.38亿</td><td>2025/09/02</td></tr>
+<tr><td class="code">09415</td><td class="name">GlobalX 标普500备兑-U</td><td>10.390</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>0.00%</td><td>5</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>935.10万</td><td>0.00</td><td>2025/08/29</td></tr>
+<tr><td class="code">03415</td><td class="name">GlobalX 标普500备兑</td><td>81.300</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.30%</td><td>5</td><td>8350.00</td><td>67.86万</td><td>0.93%</td><td>0.00</td><td>7317.00万</td><td>0.00</td><td>2025/08/29</td></tr>
+<tr><td class="code">03858</td><td class="name">佳鑫国际资源</td><td>82.100</td><td>+177.84%</td><td>+11.120</td><td>+101.83%</td><td>+651.83%</td><td>10.920</td><td>-4.87%</td><td>7</td><td>194.48万</td><td>1.64亿</td><td>0.43%</td><td>-216.05</td><td>374.13亿</td><td>1.10亿</td><td>2025/08/28</td></tr>
+<tr><td class="code">06960</td><td class="name">双登股份</td><td>13.700</td><td>+31.29%</td><td>+12.110</td><td>+83.46%</td><td>-5.58%</td><td>14.510</td><td>-1.08%</td><td>5</td><td>17.85万</td><td>242.94万</td><td>0.12%</td><td>15.29</td><td>58.31亿</td><td>5855.70万</td><td>2025/08/26</td></tr>
+<tr><td class="code">09430</td><td class="name">MBC比特币-U</td><td>0.579</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>0.00%</td><td>5</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>1.54亿</td><td>0.00</td><td>2025/08/21</td></tr>
+<tr><td class="code">09425</td><td class="name">MBC以太币-U</td><td>0.460</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>0.00%</td><td>5</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>726.80万</td><td>0.00</td><td>2025/08/21</td></tr>
+<tr><td class="code">03430</td><td class="name">MBC比特币</td><td>4.670</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+3.09%</td><td>5</td><td>1300.00</td><td>6068.00</td><td>0.00%</td><td>0.00</td><td>12.39亿</td><td>0.00</td><td>2025/08/21</td></tr>
+<tr><td class="code">03425</td><td class="name">MBC以太币</td><td>3.618</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.61%</td><td>5</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>5716.44万</td><td>0.00</td><td>2025/08/21</td></tr>
+<tr><td class="code">02631</td><td class="name">天岳先进</td><td>57.200</td><td>+6.40%</td><td>+5.160</td><td>+12.06%</td><td>+33.64%</td><td>42.800</td><td>-1.21%</td><td>5</td><td>19.75万</td><td>1124.28万</td><td>0.36%</td><td>143.36</td><td>277.20亿</td><td>4774.57万</td><td>2025/08/20</td></tr>
+<tr><td class="code">02591</td><td class="name">银诺医药-B</td><td>27.660</td><td>+206.48%</td><td>+52.320</td><td>+280.09%</td><td>+48.07%</td><td>18.680</td><td>+0.22%</td><td>5</td><td>1.96万</td><td>53.73万</td><td>0.01%</td><td>-66.97</td><td>126.36亿</td><td>3655.64万</td><td>2025/08/15</td></tr>
+<tr><td class="code">02627</td><td class="name">中慧生物-B</td><td>56.900</td><td>+157.98%</td><td>+20.480</td><td>+158.76%</td><td>+341.09%</td><td>12.900</td><td>+10.49%</td><td>7</td><td>74.95万</td><td>4257.00万</td><td>0.25%</td><td>-80.14</td><td>223.87亿</td><td>3344.26万</td><td>2025/08/11</td></tr>
+<tr><td class="code">06887</td><td class="name">东阳光药</td><td>43.740</td><td>-0.56%</td><td>0.000</td><td>0.00%</td><td>-27.39%</td><td>60.240</td><td>+0.83%</td><td>4</td><td>6.79万</td><td>294.97万</td><td>0.06%</td><td>-112.44</td><td>251.96亿</td><td>0.00</td><td>2025/08/07</td></tr>
+<tr><td class="code">09188</td><td class="name">华夏沪深三百-U</td><td>7.080</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+1.22%</td><td>6</td><td>4.00万</td><td>28.16万</td><td>0.01%</td><td>0.00</td><td>28.43亿</td><td>0.00</td><td>2025/07/31</td></tr>
+<tr><td class="code">09887</td><td class="name">维立志博-B</td><td>65.500</td><td>+91.71%</td><td>+34.750</td><td>+99.29%</td><td>+87.14%</td><td>35.000</td><td>+6.76%</td><td>6</td><td>53.18万</td><td>3467.66万</td><td>0.35%</td><td>-40.06</td><td>130.27亿</td><td>3686.25万</td><td>2025/07/25</td></tr>
+<tr><td class="code">02818</td><td class="name">潘渡比特币</td><td>4.512</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+3.20%</td><td>5</td><td>400.00</td><td>1804.00</td><td>0.00%</td><td>0.00</td><td>2.13亿</td><td>0.00</td><td>2025/07/18</td></tr>
+<tr><td class="code">06613</td><td class="name">蓝思科技</td><td>27.200</td><td>+9.13%</td><td>+0.640</td><td>+3.52%</td><td>+49.61%</td><td>18.180</td><td>-1.52%</td><td>6</td><td>101.62万</td><td>2742.69万</td><td>0.34%</td><td>36.71</td><td>1435.82亿</td><td>2.62亿</td><td>2025/07/09</td></tr>
+<tr><td class="code">02651</td><td class="name">大众口腔</td><td>9.010</td><td>+3.50%</td><td>+3.650</td><td>+18.25%</td><td>-54.95%</td><td>20.000</td><td>-6.15%</td><td>6</td><td>6800.00</td><td>6.14万</td><td>0.04%</td><td>9.83</td><td>4.45亿</td><td>1086.18万</td><td>2025/07/09</td></tr>
+<tr><td class="code">02597</td><td class="name">讯众通信</td><td>17.010</td><td>+0.22%</td><td>+0.230</td><td>+1.70%</td><td>+25.54%</td><td>13.550</td><td>0.00%</td><td>5</td><td>1.25万</td><td>21.26万</td><td>0.04%</td><td>35.81</td><td>20.71亿</td><td>3044.00万</td><td>2025/07/09</td></tr>
+<tr><td class="code">02590</td><td class="name">极智嘉-W</td><td>26.000</td><td>+5.36%</td><td>-0.160</td><td>-0.95%</td><td>+54.76%</td><td>16.800</td><td>-3.49%</td><td>6</td><td>167.04万</td><td>4320.78万</td><td>0.16%</td><td>-38.75</td><td>347.69亿</td><td>1.61亿</td><td>2025/07/09</td></tr>
+<tr><td class="code">01304</td><td class="name">FORTIOR</td><td>138.800</td><td>+16.02%</td><td>+7.000</td><td>+5.81%</td><td>+15.19%</td><td>120.500</td><td>-4.87%</td><td>4</td><td>6.82万</td><td>946.36万</td><td>0.32%</td><td>66.54</td><td>159.78亿</td><td>1874.44万</td><td>2025/07/09</td></tr>
+<tr><td class="code">01828</td><td class="name">富卫集团</td><td>37.920</td><td>+1.05%</td><td>-1.250</td><td>-3.29%</td><td>-0.21%</td><td>38.000</td><td>-0.16%</td><td>4</td><td>16.53万</td><td>625.64万</td><td>0.01%</td><td>-79.83</td><td>483.86亿</td><td>9134.21万</td><td>2025/07/07</td></tr>
+<tr><td class="code">02648</td><td class="name">安井食品</td><td>80.000</td><td>-5.00%</td><td>-0.250</td><td>-0.42%</td><td>+33.33%</td><td>60.000</td><td>+1.46%</td><td>4</td><td>1.70万</td><td>133.89万</td><td>0.04%</td><td>16.63</td><td>266.63亿</td><td>3999.47万</td><td>2025/07/04</td></tr>
+<tr><td class="code">02592</td><td class="name">拨康视云-B</td><td>2.260</td><td>-38.61%</td><td>+0.360</td><td>+3.56%</td><td>-77.62%</td><td>10.100</td><td>+0.44%</td><td>10</td><td>9.50万</td><td>21.48万</td><td>0.01%</td><td>-2.50</td><td>19.21亿</td><td>6058.20万</td><td>2025/07/03</td></tr>
+<tr><td class="code">09678</td><td class="name">云知声</td><td>344.800</td><td>+44.59%</td><td>-5.900</td><td>-2.88%</td><td>+68.20%</td><td>205.000</td><td>-1.60%</td><td>6</td><td>9.17万</td><td>3122.37万</td><td>0.21%</td><td>-51.51</td><td>251.62亿</td><td>156.10万</td><td>2025/06/30</td></tr>
+<tr><td class="code">06603</td><td class="name">IFBH</td><td>14.260</td><td>+42.09%</td><td>+16.950</td><td>+60.97%</td><td>-48.71%</td><td>27.800</td><td>-4.17%</td><td>4</td><td>45.12万</td><td>644.21万</td><td>0.17%</td><td>14.63</td><td>37.83亿</td><td>4166.68万</td><td>2025/06/30</td></tr>
+<tr><td class="code">03880</td><td class="name">泰德医药</td><td>25.440</td><td>+0.65%</td><td>+0.550</td><td>+1.80%</td><td>-16.86%</td><td>30.600</td><td>-3.27%</td><td>8</td><td>1.45万</td><td>37.12万</td><td>0.02%</td><td>56.41</td><td>36.07亿</td><td>1680.00万</td><td>2025/06/30</td></tr>
+<tr><td class="code">06883</td><td class="name">颖通控股</td><td>2.090</td><td>-16.67%</td><td>-0.140</td><td>-4.86%</td><td>-27.43%</td><td>2.880</td><td>+1.46%</td><td>4</td><td>64.70万</td><td>134.50万</td><td>0.05%</td><td>11.55</td><td>28.38亿</td><td>3.33亿</td><td>2025/06/26</td></tr>
+<tr><td class="code">06168</td><td class="name">周六福</td><td>22.640</td><td>+25.00%</td><td>+3.100</td><td>+12.92%</td><td>-5.67%</td><td>24.000</td><td>-2.41%</td><td>5</td><td>11.08万</td><td>249.87万</td><td>0.04%</td><td>13.08</td><td>99.76亿</td><td>5382.92万</td><td>2025/06/26</td></tr>
+<tr><td class="code">02508</td><td class="name">圣贝拉</td><td>5.450</td><td>+33.74%</td><td>+1.440</td><td>+21.88%</td><td>-17.17%</td><td>6.580</td><td>+4.81%</td><td>4</td><td>330.00万</td><td>1767.22万</td><td>0.53%</td><td>-5.74</td><td>33.91亿</td><td>1.10亿</td><td>2025/06/26</td></tr>
+<tr><td class="code">02643</td><td class="name">曹操出行</td><td>35.480</td><td>-14.16%</td><td>-7.040</td><td>-16.79%</td><td>-15.40%</td><td>41.940</td><td>-3.95%</td><td>6</td><td>41.37万</td><td>1456.88万</td><td>0.07%</td><td>-15.27</td><td>206.29亿</td><td>4417.86万</td><td>2025/06/25</td></tr>
+<tr><td class="code">02619</td><td class="name">香江电器</td><td>1.890</td><td>-11.89%</td><td>-0.080</td><td>-2.80%</td><td>-33.92%</td><td>2.860</td><td>0.00%</td><td>4</td><td>1000.00</td><td>1890.00</td><td>0.00%</td><td>3.40</td><td>5.16亿</td><td>6822.00万</td><td>2025/06/25</td></tr>
+<tr><td class="code">02617</td><td class="name">药捷安康-B</td><td>67.800</td><td>+78.71%</td><td>+9.100</td><td>+69.20%</td><td>+415.59%</td><td>13.150</td><td>-1.38%</td><td>6</td><td>14.45万</td><td>976.27万</td><td>0.05%</td><td>-91.25</td><td>270.52亿</td><td>1528.10万</td><td>2025/06/23</td></tr>
+<tr><td class="code">02609</td><td class="name">佰泽医疗</td><td>3.470</td><td>+42.18%</td><td>+1.150</td><td>+27.25%</td><td>-17.77%</td><td>4.220</td><td>+0.29%</td><td>4</td><td>26.22万</td><td>90.18万</td><td>0.02%</td><td>-315.45</td><td>45.75亿</td><td>1.33亿</td><td>2025/06/23</td></tr>
+<tr><td class="code">02050</td><td class="name">三花智控</td><td>35.520</td><td>-0.13%</td><td>-0.880</td><td>-3.91%</td><td>+57.66%</td><td>22.530</td><td>-1.61%</td><td>6</td><td>291.67万</td><td>1.04亿</td><td>0.61%</td><td>44.68</td><td>1494.69亿</td><td>4.14亿</td><td>2025/06/23</td></tr>
+<tr><td class="code">03288</td><td class="name">海天味业</td><td>33.320</td><td>+0.55%</td><td>+1.400</td><td>+3.86%</td><td>-8.21%</td><td>36.300</td><td>+1.15%</td><td>4</td><td>26.22万</td><td>869.06万</td><td>0.09%</td><td>28.45</td><td>1949.83亿</td><td>2.79亿</td><td>2025/06/19</td></tr>
+<tr><td class="code">02605</td><td class="name">METALIGHT</td><td>1.800</td><td>-30.26%</td><td>-1.050</td><td>-10.77%</td><td>-81.54%</td><td>9.750</td><td>+5.26%</td><td>4</td><td>6.88万</td><td>12.08万</td><td>0.05%</td><td>-9.84</td><td>2.78亿</td><td>2485.60万</td><td>2025/06/10</td></tr>
+<tr><td class="code">09881</td><td class="name">容大科技</td><td>21.420</td><td>+42.00%</td><td>+7.880</td><td>+78.80%</td><td>+114.20%</td><td>10.000</td><td>+0.37%</td><td>5</td><td>5.20万</td><td>111.24万</td><td>0.06%</td><td>45.48</td><td>20.29亿</td><td>1840.00万</td><td>2025/06/10</td></tr>
+<tr><td class="code">02573</td><td class="name">新琪安</td><td>6.820</td><td>+21.43%</td><td>+14.600</td><td>+77.25%</td><td>-63.92%</td><td>18.900</td><td>+0.59%</td><td>3</td><td>600.00</td><td>4084.00</td><td>0.00%</td><td>14.00</td><td>6.56亿</td><td>1058.54万</td><td>2025/06/10</td></tr>
+<tr><td class="code">09064</td><td class="name">GlobalX MSCI亚太-U</td><td>9.230</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>0.00%</td><td>10</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>1402.96万</td><td>0.00</td><td>2025/06/09</td></tr>
+<tr><td class="code">03064</td><td class="name">GlobalX MSCI 亚太</td><td>72.260</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.44%</td><td>7</td><td>100.00</td><td>7226.00</td><td>0.01%</td><td>0.00</td><td>1.10亿</td><td>0.00</td><td>2025/06/09</td></tr>
+<tr><td class="code">02621</td><td class="name">手回集团</td><td>3.500</td><td>-18.19%</td><td>-0.430</td><td>-5.32%</td><td>-56.68%</td><td>8.080</td><td>+0.29%</td><td>4</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>-5.38</td><td>7.90亿</td><td>2435.84万</td><td>2025/05/30</td></tr>
+<tr><td class="code">09478</td><td class="name">PP沙特国债-U</td><td>10.580</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.09%</td><td>4</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>2301.15万</td><td>0.00</td><td>2025/05/29</td></tr>
+<tr><td class="code">03478</td><td class="name">PP沙特国债</td><td>82.660</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.19%</td><td>4</td><td>600.00</td><td>4.96万</td><td>0.03%</td><td>0.00</td><td>1.80亿</td><td>0.00</td><td>2025/05/29</td></tr>
+<tr><td class="code">09747</td><td class="name">南方两倍做多三星电子(美元)</td><td>9.665</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+5.23%</td><td>7</td><td>2.88万</td><td>27.40万</td><td>0.07%</td><td>0.00</td><td>4.16亿</td><td>0.00</td><td>2025/05/28</td></tr>
+<tr><td class="code">09347</td><td class="name">南方两倍做空三星电子(美元)</td><td>0.052</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>-5.45%</td><td>4</td><td>72.60万</td><td>3.92万</td><td>1.34%</td><td>0.00</td><td>280.80万</td><td>0.00</td><td>2025/05/28</td></tr>
+<tr><td class="code">07747</td><td class="name">南方两倍做多三星电子</td><td>75.600</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+4.71%</td><td>7</td><td>192.78万</td><td>1.44亿</td><td>4.48%</td><td>0.00</td><td>32.51亿</td><td>0.00</td><td>2025/05/28</td></tr>
+<tr><td class="code">07347</td><td class="name">南方两倍做空三星电子</td><td>0.410</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>-4.65%</td><td>4</td><td>244.62万</td><td>102.02万</td><td>4.53%</td><td>0.00</td><td>2214.00万</td><td>0.00</td><td>2025/05/28</td></tr>
+<tr><td class="code">02603</td><td class="name">吉宏股份</td><td>14.750</td><td>+39.06%</td><td>+1.830</td><td>+23.83%</td><td>+92.06%</td><td>7.680</td><td>+3.51%</td><td>11</td><td>71.40万</td><td>1031.04万</td><td>1.05%</td><td>33.83</td><td>66.43亿</td><td>6791.00万</td><td>2025/05/27</td></tr>
+<tr><td class="code">02565</td><td class="name">派格生物医药-B</td><td>66.600</td><td>-25.90%</td><td>-0.760</td><td>-4.87%</td><td>+326.92%</td><td>15.600</td><td>+5.63%</td><td>6</td><td>17.85万</td><td>1159.77万</td><td>0.06%</td><td>-85.17</td><td>260.47亿</td><td>1928.35万</td><td>2025/05/27</td></tr>
+<tr><td class="code">02629</td><td class="name">MIRXES-B</td><td>23.500</td><td>+28.76%</td><td>+8.100</td><td>+34.76%</td><td>+0.86%</td><td>23.300</td><td>+6.33%</td><td>5</td><td>42.37万</td><td>964.93万</td><td>0.14%</td><td>-9.78</td><td>70.08亿</td><td>4662.00万</td><td>2025/05/23</td></tr>
+<tr><td class="code">01276</td><td class="name">恒瑞医药</td><td>70.900</td><td>+25.20%</td><td>+14.200</td><td>+32.24%</td><td>+60.95%</td><td>44.050</td><td>+0.93%</td><td>7</td><td>78.18万</td><td>5478.51万</td><td>0.30%</td><td>68.77</td><td>4705.77亿</td><td>2.25亿</td><td>2025/05/23</td></tr>
+<tr><td class="code">03750</td><td class="name">宁德时代</td><td>531.500</td><td>+16.43%</td><td>+21.800</td><td>+8.29%</td><td>+102.09%</td><td>263.000</td><td>+2.71%</td><td>8</td><td>110.70万</td><td>5.88亿</td><td>0.71%</td><td>43.17</td><td>2.43万亿</td><td>1.36亿</td><td>2025/05/20</td></tr>
+<tr><td class="code">06831</td><td class="name">绿茶集团</td><td>7.050</td><td>-12.52%</td><td>-0.550</td><td>-7.65%</td><td>-1.95%</td><td>7.190</td><td>+0.86%</td><td>4</td><td>9.96万</td><td>70.06万</td><td>0.02%</td><td>12.46</td><td>47.14亿</td><td>1.68亿</td><td>2025/05/16</td></tr>
+<tr><td class="code">03443</td><td class="name">南方香港股票</td><td>9.760</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.15%</td><td>7</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>105.20亿</td><td>0.00</td><td>2025/05/08</td></tr>
+<tr><td class="code">02865</td><td class="name">钧达股份</td><td>37.440</td><td>+20.09%</td><td>-0.250</td><td>-1.13%</td><td>+69.03%</td><td>22.150</td><td>+1.85%</td><td>4</td><td>86.79万</td><td>3256.50万</td><td>1.06%</td><td>-18.25</td><td>116.54亿</td><td>6343.23万</td><td>2025/05/08</td></tr>
+<tr><td class="code">02589</td><td class="name">沪上阿姨</td><td>86.950</td><td>+40.03%</td><td>+70.680</td><td>+62.48%</td><td>-23.13%</td><td>113.120</td><td>+1.28%</td><td>4</td><td>2100.00</td><td>18.18万</td><td>0.00%</td><td>25.76</td><td>91.47亿</td><td>241.13万</td><td>2025/05/08</td></tr>
+<tr><td class="code">01333</td><td class="name">博雷顿</td><td>20.720</td><td>+38.33%</td><td>+7.800</td><td>+43.33%</td><td>+15.11%</td><td>18.000</td><td>-1.61%</td><td>8</td><td>6.20万</td><td>128.56万</td><td>0.03%</td><td>-27.19</td><td>80.59亿</td><td>1300.00万</td><td>2025/05/07</td></tr>
+<tr><td class="code">09606</td><td class="name">映恩生物-B</td><td>343.000</td><td>+116.70%</td><td>+82.400</td><td>+87.10%</td><td>+262.58%</td><td>94.600</td><td>+2.08%</td><td>6</td><td>4.08万</td><td>1377.71万</td><td>0.05%</td><td>-27.26</td><td>309.17亿</td><td>1733.23万</td><td>2025/04/15</td></tr>
+<tr><td class="code">03677</td><td class="name">正力新能</td><td>8.750</td><td>+1.45%</td><td>+0.060</td><td>+0.73%</td><td>+5.80%</td><td>8.270</td><td>-4.16%</td><td>6</td><td>16.02万</td><td>140.87万</td><td>0.01%</td><td>230.26</td><td>223.51亿</td><td>1.22亿</td><td>2025/04/14</td></tr>
+<tr><td class="code">03466</td><td class="name">恒生高息股</td><td>21.820</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+1.39%</td><td>6</td><td>298.08万</td><td>6482.24万</td><td>0.81%</td><td>0.00</td><td>80.31亿</td><td>0.00</td><td>2025/04/07</td></tr>
+<tr><td class="code">03442</td><td class="name">南方港美科技</td><td>8.635</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>-0.23%</td><td>5</td><td>5.24万</td><td>45.08万</td><td>0.06%</td><td>0.00</td><td>7.73亿</td><td>0.00</td><td>2025/03/31</td></tr>
+<tr><td class="code">03441</td><td class="name">南方东西精选</td><td>11.580</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>0.00%</td><td>7</td><td>14.17万</td><td>163.94万</td><td>0.17%</td><td>0.00</td><td>9.44亿</td><td>0.00</td><td>2025/03/31</td></tr>
+<tr><td class="code">03423</td><td class="name">招商恒生科技</td><td>9.600</td><td>-3.50%</td><td>--</td><td>--</td><td>-4.00%</td><td>10.000</td><td>-0.10%</td><td>10</td><td>5.52万</td><td>52.43万</td><td>0.10%</td><td>0.00</td><td>5.29亿</td><td>0.00</td><td>2025/03/31</td></tr>
+<tr><td class="code">02625</td><td class="name">江苏宏信</td><td>4.660</td><td>0.00%</td><td>+0.700</td><td>+28.00%</td><td>+86.40%</td><td>2.500</td><td>+1.30%</td><td>5</td><td>9.80万</td><td>44.44万</td><td>0.04%</td><td>23.78</td><td>10.98亿</td><td>5356.20万</td><td>2025/03/31</td></tr>
+<tr><td class="code">03470</td><td class="name">GlobalX 富时大中华</td><td>78.820</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.05%</td><td>11</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>31.78亿</td><td>0.00</td><td>2025/03/28</td></tr>
+<tr><td class="code">02569</td><td class="name">舒宝国际</td><td>1.060</td><td>+31.37%</td><td>-0.010</td><td>-1.96%</td><td>+107.84%</td><td>0.510</td><td>-3.64%</td><td>5</td><td>26.00万</td><td>27.32万</td><td>0.03%</td><td>17.97</td><td>10.60亿</td><td>2.50亿</td><td>2025/03/27</td></tr>
+<tr><td class="code">02610</td><td class="name">南山铝业国际</td><td>61.600</td><td>-5.08%</td><td>-0.200</td><td>-0.75%</td><td>+131.58%</td><td>26.600</td><td>+5.12%</td><td>7</td><td>40.37万</td><td>2467.89万</td><td>0.07%</td><td>12.25</td><td>382.19亿</td><td>8823.53万</td><td>2025/03/25</td></tr>
+<tr><td class="code">09799</td><td class="name">南方两倍做多MSTR-U</td><td>0.814</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+12.74%</td><td>7</td><td>7.20万</td><td>5.91万</td><td>1.05%</td><td>0.00</td><td>558.01万</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">09788</td><td class="name">南方两倍做多英伟达-U</td><td>18.010</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>-3.59%</td><td>5</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>625.67万</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">09777</td><td class="name">南方两倍做多伯克希尔-U</td><td>7.755</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>-0.26%</td><td>5</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>379.62万</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">09766</td><td class="name">南方两倍做多特斯拉-U</td><td>17.760</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+2.01%</td><td>6</td><td>1190.00</td><td>2.11万</td><td>0.14%</td><td>0.00</td><td>1500.42万</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">09711</td><td class="name">南方两倍做多Coinbase-U</td><td>3.906</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+27.81%</td><td>7</td><td>5470.00</td><td>2.14万</td><td>0.57%</td><td>0.00</td><td>375.71万</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">09399</td><td class="name">南方两倍做空MSTR-U</td><td>8.400</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>-13.54%</td><td>7</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>295.32万</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">09388</td><td class="name">XI二南英伟-U</td><td>2.548</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+3.33%</td><td>5</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>587.37万</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">09366</td><td class="name">南方两倍做空特斯拉-U</td><td>1.346</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>-1.46%</td><td>4</td><td>1.57万</td><td>2.12万</td><td>0.25%</td><td>0.00</td><td>863.92万</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">09311</td><td class="name">XI二南CO-U</td><td>2.608</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>-29.09%</td><td>8</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>222.49万</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">07799</td><td class="name">南方两倍做多MSTR</td><td>6.325</td><td>+8.38%</td><td>--</td><td>--</td><td>-91.89%</td><td>78.000</td><td>+12.95%</td><td>7</td><td>13.32万</td><td>84.46万</td><td>1.94%</td><td>0.00</td><td>4335.90万</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">07788</td><td class="name">南方两倍做多英伟达</td><td>140.550</td><td>+2.38%</td><td>--</td><td>--</td><td>+80.19%</td><td>78.000</td><td>-3.27%</td><td>6</td><td>3630.00</td><td>51.10万</td><td>1.05%</td><td>0.00</td><td>4882.71万</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">07777</td><td class="name">南方两倍做多伯克希尔</td><td>60.220</td><td>+1.33%</td><td>--</td><td>--</td><td>-22.79%</td><td>78.000</td><td>0.00%</td><td>8</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>2947.83万</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">07766</td><td class="name">南方两倍做多特斯拉</td><td>139.800</td><td>+5.59%</td><td>--</td><td>--</td><td>+79.23%</td><td>78.000</td><td>+2.27%</td><td>7</td><td>470.00</td><td>6.53万</td><td>0.06%</td><td>0.00</td><td>1.18亿</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">07711</td><td class="name">南方两倍做多Coinbase</td><td>30.440</td><td>+8.62%</td><td>--</td><td>--</td><td>-60.97%</td><td>78.000</td><td>+26.83%</td><td>7</td><td>7.50万</td><td>229.06万</td><td>7.80%</td><td>0.00</td><td>2927.93万</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">07399</td><td class="name">南方两倍做空MSTR</td><td>65.720</td><td>-9.44%</td><td>--</td><td>--</td><td>-15.74%</td><td>78.000</td><td>-14.14%</td><td>7</td><td>2.13万</td><td>139.10万</td><td>6.04%</td><td>0.00</td><td>2310.52万</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">07388</td><td class="name">南方两倍做空英伟达</td><td>19.940</td><td>-3.18%</td><td>--</td><td>--</td><td>-74.44%</td><td>78.000</td><td>+3.32%</td><td>5</td><td>3.48万</td><td>69.43万</td><td>1.51%</td><td>0.00</td><td>4596.63万</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">07366</td><td class="name">南方两倍做空特斯拉</td><td>10.550</td><td>-6.67%</td><td>--</td><td>--</td><td>-86.47%</td><td>78.000</td><td>-3.03%</td><td>4</td><td>1.06万</td><td>11.14万</td><td>0.17%</td><td>0.00</td><td>6771.44万</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">07311</td><td class="name">南方两倍做空Coinbase</td><td>20.320</td><td>-8.54%</td><td>--</td><td>--</td><td>-73.95%</td><td>78.000</td><td>-29.69%</td><td>8</td><td>8.50万</td><td>173.33万</td><td>9.96%</td><td>0.00</td><td>1733.52万</td><td>0.00</td><td>2025/03/24</td></tr>
+<tr><td class="code">02561</td><td class="name">维昇药业-B</td><td>34.100</td><td>0.00%</td><td>-4.950</td><td>-7.19%</td><td>-50.44%</td><td>68.800</td><td>+2.16%</td><td>7</td><td>2000.00</td><td>6.63万</td><td>0.00%</td><td>-19.75</td><td>38.85亿</td><td>1138.50万</td><td>2025/03/21</td></tr>
+<tr><td class="code">03417</td><td class="name">GlobalX 恒生科技备兑</td><td>8.860</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.06%</td><td>12</td><td>425.70万</td><td>3724.43万</td><td>1.33%</td><td>0.00</td><td>28.42亿</td><td>0.00</td><td>2025/03/13</td></tr>
+<tr><td class="code">06693</td><td class="name">赤峰黄金</td><td>37.180</td><td>0.00%</td><td>+0.060</td><td>+0.44%</td><td>+170.99%</td><td>13.720</td><td>+3.51%</td><td>5</td><td>125.18万</td><td>4590.93万</td><td>0.53%</td><td>37.07</td><td>706.57亿</td><td>2.06亿</td><td>2025/03/10</td></tr>
+<tr><td class="code">06676</td><td class="name">找钢集团-W</td><td>1.500</td><td>+0.20%</td><td>0.000</td><td>0.00%</td><td>-85.00%</td><td>10.000</td><td>+8.70%</td><td>4</td><td>79.90万</td><td>118.55万</td><td>0.08%</td><td>-21.43</td><td>16.06亿</td><td>155.85万</td><td>2025/03/10</td></tr>
+<tr><td class="code">02097</td><td class="name">蜜雪集团</td><td>390.000</td><td>+43.21%</td><td>+47.500</td><td>+23.46%</td><td>+92.59%</td><td>202.500</td><td>+0.83%</td><td>6</td><td>3.29万</td><td>1280.89万</td><td>0.02%</td><td>30.90</td><td>1480.51亿</td><td>1705.99万</td><td>2025/03/03</td></tr>
+<tr><td class="code">83455</td><td class="name">景顺QQQ-R</td><td>4151.000</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>0.00%</td><td>6</td><td>0.00</td><td>0.00</td><td>0.00%</td><td>0.00</td><td>0</td><td>0.00</td><td>2025/02/26</td></tr>
+<tr><td class="code">09455</td><td class="name">景顺QQQ-U</td><td>602.400</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.23%</td><td>6</td><td>3.00</td><td>1807.00</td><td>0.00%</td><td>0.00</td><td>0</td><td>0.00</td><td>2025/02/26</td></tr>
+<tr><td class="code">03455</td><td class="name">景顺QQQ</td><td>4707.000</td><td>0.00%</td><td>--</td><td>--</td><td>0.00%</td><td>--</td><td>+0.32%</td><td>6</td><td>290.00</td><td>136.62万</td><td>0.00%</td><td>0.00</td><td>0</td><td>0.00</td><td>2025/02/26</td></tr>
+      </tbody>
+    </table>
   </div>
-
-  <script>
-    const now = new Date();
-    document.getElementById('ts').textContent = now.toLocaleString('zh-Hant-HK', { hour12: false });
-  </script>
+</div>
 </body>
 </html>
