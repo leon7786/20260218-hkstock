@@ -7,8 +7,14 @@ const OUT_JSON = path.join(OUT_DIR, 'data.json');
 const OUT_HTML = path.join(OUT_DIR, 'index.html');
 
 const headers = [
-  '代码','股票名称','价格','公开募资金额(估算)','首日涨幅','暗盘涨跌额','暗盘涨跌幅','累计涨幅','发行价','涨跌幅','连涨天数','成交量','成交额','换手率','市盈率(静)','总市值','发行量','上市日期'
+  '代码','股票名称','价格','公开募资金额(核查)','首日涨幅','暗盘涨跌额','暗盘涨跌幅','累计涨幅','发行价','涨跌幅','连涨天数','成交量','成交额','换手率','市盈率(静)','总市值','发行量','上市日期'
 ];
+
+// 手工核查值（港元），优先于任何估算
+const verifiedPublicOfferByCode = {
+  '03858': 120000000, // 佳鑫国际资源：公开募资约1.20亿
+  '02513': 870000000  // 智谱：公开募资约8.70亿
+};
 
 function isEtfName(name = '') {
   const raw = String(name).trim();
@@ -113,12 +119,13 @@ function buildHtml(data) {
     const issuePrice = toNum(v[5]);      // 发行价
     const issueVolume = amountToShares(v[13]); // 发行量
     const estFund = (Number.isFinite(issuePrice) && Number.isFinite(issueVolume)) ? issuePrice * issueVolume : NaN;
+    const verifiedPublicOffer = verifiedPublicOfferByCode[r.code];
 
     const tds = [
       `<td class="code" data-sort="${r.code}">${r.code}</td>`,
       `<td class="name" data-sort="${r.name}">${r.name}</td>`,
       `<td data-col="价格" data-sort="${(v[0] ?? '-').replace(/"/g,'&quot;')}">${v[0] ?? '-'}</td>`,
-      `<td data-col="公开募资金额(估算)" data-sort="${Number.isFinite(estFund) ? estFund : -1}">${fmtHkd(estFund)}</td>`,
+      `<td data-col="公开募资金额(核查)" data-sort="${Number.isFinite(verifiedPublicOffer) ? verifiedPublicOffer : -1}">${Number.isFinite(verifiedPublicOffer) ? fmtHkd(verifiedPublicOffer) : '待核'}</td>`,
       `<td data-col="首日涨幅" data-sort="${(v[1] ?? '-').replace(/"/g,'&quot;')}">${v[1] ?? '-'}</td>`,
       `<td data-col="暗盘涨跌额" data-sort="${(v[2] ?? '-').replace(/"/g,'&quot;')}">${v[2] ?? '-'}</td>`,
       `<td data-col="暗盘涨跌幅" data-sort="${(v[3] ?? '-').replace(/"/g,'&quot;')}">${v[3] ?? '-'}</td>`,
