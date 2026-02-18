@@ -7,7 +7,7 @@ const OUT_JSON = path.join(OUT_DIR, 'data.json');
 const OUT_HTML = path.join(OUT_DIR, 'index.html');
 
 const headers = [
-  '代码','股票名称','价格','公开募资(占比)','国际发售(占比)','首日涨幅','暗盘涨跌额','暗盘涨跌幅','累计涨幅','发行价','涨跌幅','连涨天数','成交量','成交额','换手率','市盈率(静)','总市值','发行量','上市日期'
+  '上市日期','代码','股票名称','价格','公开募资(占比)','国际发售(占比)','首日涨幅','暗盘涨跌额','暗盘涨跌幅','累计涨幅','发行价','涨跌幅','连涨天数','成交量','成交额','换手率','市盈率(静)','总市值','发行量'
 ];
 
 const VERIFIED_PUBLIC_OFFER_PATH = path.join(OUT_DIR, 'verified_public_offer.json');
@@ -174,6 +174,7 @@ function buildHtml(data, verifiedPublicOfferByCode = {}, verifiedGlobalOfferByCo
       : '公开发售/国际发售占比待交叉核对';
 
     const tds = [
+      `<td data-col="上市日期" data-sort="${(v[14] ?? '-').replace(/"/g,'&quot;')}">${v[14] ?? '-'}</td>`,
       `<td class="code" data-sort="${r.code}">${r.code}</td>`,
       `<td class="name" data-sort="${r.name}">${r.name}</td>`,
       `<td data-col="价格" data-sort="${(v[0] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[0] ?? '-')}</td>`,
@@ -191,8 +192,7 @@ function buildHtml(data, verifiedPublicOfferByCode = {}, verifiedGlobalOfferByCo
       `<td data-col="换手率" data-sort="${(v[10] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[10] ?? '-')}</td>`,
       `<td data-col="市盈率(静)" data-sort="${(v[11] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[11] ?? '-')}</td>`,
       `<td data-col="总市值" data-sort="${(v[12] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[12] ?? '-')}</td>`,
-      `<td data-col="发行量" data-sort="${(v[13] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[13] ?? '-')}</td>`,
-      `<td data-col="上市日期" data-sort="${(v[14] ?? '-').replace(/"/g,'&quot;')}">${v[14] ?? '-'}</td>`
+      `<td data-col="发行量" data-sort="${(v[13] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[13] ?? '-')}</td>`
     ].join('');
     return `<tr>${tds}</tr>`;
   }).join('\n');
