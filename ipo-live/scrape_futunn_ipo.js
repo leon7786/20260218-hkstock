@@ -7,7 +7,7 @@ const OUT_JSON = path.join(OUT_DIR, 'data.json');
 const OUT_HTML = path.join(OUT_DIR, 'index.html');
 
 const headers = [
-  '上市日期','代码','股票名称','价格','公开募资(占比)','国际发售(占比)','首日涨幅','暗盘涨跌额','暗盘涨跌幅','累计涨幅','发行价','涨跌幅','连涨天数','成交量','成交额','换手率','市盈率(静)','总市值','发行量'
+  '上市日期','代码','中签率','股票名称','价格','公开募资(占比)','国际发售(占比)','首日涨幅','暗盘涨跌额','暗盘涨跌幅','累计涨幅','发行价','涨跌幅','连涨天数','成交量','成交额','换手率','市盈率(静)','总市值','发行量'
 ];
 
 const VERIFIED_PUBLIC_OFFER_PATH = path.join(OUT_DIR, 'verified_public_offer.json');
@@ -176,6 +176,7 @@ function buildHtml(data, verifiedPublicOfferByCode = {}, verifiedGlobalOfferByCo
     const tds = [
       `<td data-col="上市日期" data-sort="${(v[14] ?? '-').replace(/"/g,'&quot;')}">${v[14] ?? '-'}</td>`,
       `<td class="code" data-sort="${r.code}">${r.code}</td>`,
+      `<td data-col="中签率" data-sort="-1">-</td>`,
       `<td class="name" data-sort="${r.name}">${r.name}</td>`,
       `<td data-col="价格" data-sort="${(v[0] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[0] ?? '-')}</td>`,
       `<td data-col="公开募资(占比)" data-sort="${publicAmount ?? -1}" title="${splitTitle}">${publicText}</td>`,

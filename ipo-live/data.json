@@ -1,12 +1,13 @@
 {
   "source": "https://www.futunn.com/quote/hk/ipo",
-  "scrapedAt": "2026-02-18T02:31:44.846Z",
+  "scrapedAt": "2026-02-18T02:33:15.290Z",
   "pages": 5,
   "rawCount": 229,
   "filteredCount": 128,
   "headers": [
     "上市日期",
     "代码",
+    "中签率",
     "股票名称",
     "价格",
     "公开募资(占比)",
