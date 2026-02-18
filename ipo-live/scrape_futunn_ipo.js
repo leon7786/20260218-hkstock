@@ -118,6 +118,19 @@ function buildHtml(data, archiveSummaryByCode = {}) {
     return `${n.toFixed(1)}${suffix}`;
   };
 
+  const numSortVal = (raw='') => {
+    const s = String(raw ?? '').replace(/,/g,'').trim();
+    if (!s || s === '-') return Number.NEGATIVE_INFINITY;
+    if (/^\d{4}\/\d{2}\/\d{2}$/.test(s)) return new Date(s.split('/').join('-')).getTime();
+    const m = s.match(/([+-]?\d+(?:\.\d+)?)/);
+    if (!m) return Number.NEGATIVE_INFINITY;
+    let n = Number(m[1]);
+    if (!Number.isFinite(n)) return Number.NEGATIVE_INFINITY;
+    if (s.includes('亿')) n *= 1e8;
+    else if (s.includes('万')) n *= 1e4;
+    return n;
+  };
+
   const rowsHtml = data.items.map(r => {
     const v = r.values || [];
     const code = String(r.code).padStart(5, '0');
@@ -150,19 +163,19 @@ function buildHtml(data, archiveSummaryByCode = {}) {
       `<td data-col="价格" data-sort="${(v[0] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[0] ?? '-')}</td>`,
       `<td data-col="公开募资" data-sort="${publicAmount ?? -1}" title="${splitTitle}">${publicText}</td>`,
       `<td data-col="国际发售" data-sort="${internationalAmount ?? -1}" title="${splitTitle}">${internationalText}</td>`,
-      `<td data-col="首日涨幅" data-sort="${(v[1] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[1] ?? '-')}</td>`,
-      `<td data-col="暗盘涨跌额" data-sort="${(v[2] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[2] ?? '-')}</td>`,
-      `<td data-col="暗盘涨跌幅" data-sort="${(v[3] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[3] ?? '-')}</td>`,
-      `<td data-col="累计涨幅" data-sort="${(v[4] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[4] ?? '-')}</td>`,
-      `<td data-col="发行价" data-sort="${(v[5] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[5] ?? '-')}</td>`,
-      `<td data-col="涨跌幅" data-sort="${(v[6] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[6] ?? '-')}</td>`,
-      `<td data-col="连涨天数" data-sort="${(v[7] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[7] ?? '-')}</td>`,
-      `<td data-col="成交量" data-sort="${(v[8] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[8] ?? '-')}</td>`,
-      `<td data-col="成交额" data-sort="${(v[9] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[9] ?? '-')}</td>`,
-      `<td data-col="换手率" data-sort="${(v[10] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[10] ?? '-')}</td>`,
-      `<td data-col="市盈率(静)" data-sort="${(v[11] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[11] ?? '-')}</td>`,
-      `<td data-col="总市值" data-sort="${(v[12] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[12] ?? '-')}</td>`,
-      `<td data-col="发行量" data-sort="${(v[13] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[13] ?? '-')}</td>`
+      `<td data-col="首日涨幅" data-sort="${(v[1] ?? '-').replace(/"/g,'&quot;')}" data-sort-num="${numSortVal(v[1])}">${formatOneDecimal(v[1] ?? '-')}</td>`,
+      `<td data-col="暗盘涨跌额" data-sort="${(v[2] ?? '-').replace(/"/g,'&quot;')}" data-sort-num="${numSortVal(v[2])}">${formatOneDecimal(v[2] ?? '-')}</td>`,
+      `<td data-col="暗盘涨跌幅" data-sort="${(v[3] ?? '-').replace(/"/g,'&quot;')}" data-sort-num="${numSortVal(v[3])}">${formatOneDecimal(v[3] ?? '-')}</td>`,
+      `<td data-col="累计涨幅" data-sort="${(v[4] ?? '-').replace(/"/g,'&quot;')}" data-sort-num="${numSortVal(v[4])}">${formatOneDecimal(v[4] ?? '-')}</td>`,
+      `<td data-col="发行价" data-sort="${(v[5] ?? '-').replace(/"/g,'&quot;')}" data-sort-num="${numSortVal(v[5])}">${formatOneDecimal(v[5] ?? '-')}</td>`,
+      `<td data-col="涨跌幅" data-sort="${(v[6] ?? '-').replace(/"/g,'&quot;')}" data-sort-num="${numSortVal(v[6])}">${formatOneDecimal(v[6] ?? '-')}</td>`,
+      `<td data-col="连涨天数" data-sort="${(v[7] ?? '-').replace(/"/g,'&quot;')}" data-sort-num="${numSortVal(v[7])}">${formatOneDecimal(v[7] ?? '-')}</td>`,
+      `<td data-col="成交量" data-sort="${(v[8] ?? '-').replace(/"/g,'&quot;')}" data-sort-num="${numSortVal(v[8])}">${formatOneDecimal(v[8] ?? '-')}</td>`,
+      `<td data-col="成交额" data-sort="${(v[9] ?? '-').replace(/"/g,'&quot;')}" data-sort-num="${numSortVal(v[9])}">${formatOneDecimal(v[9] ?? '-')}</td>`,
+      `<td data-col="换手率" data-sort="${(v[10] ?? '-').replace(/"/g,'&quot;')}" data-sort-num="${numSortVal(v[10])}">${formatOneDecimal(v[10] ?? '-')}</td>`,
+      `<td data-col="市盈率(静)" data-sort="${(v[11] ?? '-').replace(/"/g,'&quot;')}" data-sort-num="${numSortVal(v[11])}">${formatOneDecimal(v[11] ?? '-')}</td>`,
+      `<td data-col="总市值" data-sort="${(v[12] ?? '-').replace(/"/g,'&quot;')}" data-sort-num="${numSortVal(v[12])}">${formatOneDecimal(v[12] ?? '-')}</td>`,
+      `<td data-col="发行量" data-sort="${(v[13] ?? '-').replace(/"/g,'&quot;')}" data-sort-num="${numSortVal(v[13])}">${formatOneDecimal(v[13] ?? '-')}</td>`
     ].join('');
     return `<tr>${tds}</tr>`;
   }).join('\n');
@@ -231,8 +244,10 @@ tr:hover{background:#111827}
   const sortBy = (idx, dir='desc') => {
     const rows = Array.from(tbody.querySelectorAll('tr'));
     rows.sort((a,b)=>{
-      const at = a.children[idx]?.getAttribute('data-sort') || a.children[idx]?.innerText || '';
-      const bt = b.children[idx]?.getAttribute('data-sort') || b.children[idx]?.innerText || '';
+      const aCell = a.children[idx];
+      const bCell = b.children[idx];
+      const at = aCell?.getAttribute('data-sort-num') || aCell?.getAttribute('data-sort') || aCell?.innerText || '';
+      const bt = bCell?.getAttribute('data-sort-num') || bCell?.getAttribute('data-sort') || bCell?.innerText || '';
       const av = parseVal(at), bv = parseVal(bt);
 
       const an = typeof av === 'number' ? av : Number.NaN;
