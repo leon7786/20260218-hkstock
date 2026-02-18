@@ -1,35 +1,36 @@
-# 09606 映恩生物-B
+# 09606（映恩生物-B）关键信息总表（披露易优先 + 富途补动态）
 
-- 股票代码：09606
-- 股票名称：映恩生物-B
-- 上市日期：2025/04/15
-- 建档状态：pending
+> 口径说明：
+> - 披露易优先；截至 2026-02-18，未检索到可直接提取的该股《配发结果公告》时，以富途IPO页动态字段补充。
+> - 金额统一“亿/千万（万）”并保留1位小数。
+> - 项目口径：公开招募金额=香港公开发售股份×发售价；国际发售金额（当前口径）=总发售股份×发售价。
 
-## 上市前一日核心数据（优先口径）
-- 发售价（Offer Price）：94.60 港元/股
-- 全球发售股份：1733.23万
-- 每手（Board Lot）：400 股（如无公告变更）
-
-## 募资与比例
-- 公开募资比例：待定
-- 国际发售比例：待定
-- 公开募资金额：待定
-- 国际发售金额：待定
-- 全球募资金额：16.4 亿港元
-
-## 认购/中签
-- 一手中签率：待定
-- 香港公开发售认购倍数：待定
-- 国际发售认购倍数：待定
-- 有效申请数：待定
-- 成功申请数：待定
-
-## 数据来源（建档证据）
-1. [sina] https://stock.finance.sina.com.cn/hkstock/quotes/09606.html
-2. [aastocks] https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=09606
-3. [futunn] https://www.futunn.com/stock/09606-HK/company-profile
-4. [hkex] https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9606
+| 类别 | 字段 | 数值 | 来源类型 | 来源 |
+|---|---|---|---|---|
+| 基本信息 | 股票代码 | 09606 | 第三方汇总 | https://www.futunn.com/quote/hk/ipo |
+| 基本信息 | 股票简称 | 映恩生物-B | 第三方汇总 | https://www.futunn.com/quote/hk/ipo |
+| 基本信息 | 上市/开始买卖日 | 2025/04/15 | 富途（IPO列表） | https://www.futunn.com/quote/hk/ipo |
+| 发行定价 | 发售价 | HK$94.600/股 | 富途（IPO列表） | https://www.futunn.com/quote/hk/ipo |
+| 交易单位 | 每手 | 400 股（如无公告变更） | 披露易检索/存量档案 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9606 |
+| 全球发售 | 全球发售股份 | 1733.23万股 | 富途（IPO列表） | https://www.futunn.com/quote/hk/ipo |
+| 全球发售拆分 | 香港公开发售股份（估算10%） | 173.3万股 | 计算字段 | 发行量×10% |
+| 全球发售拆分 | 国际发售股份（估算90%） | 1559.9万股 | 计算字段 | 发行量×90% |
+| 募资金额 | 公开招募金额（散户，估算） | 1.6亿港元（16396.4万） | 富途+计算 | 香港公开发售股份（估）×发售价 |
+| 募资金额 | 国际发售金额（当前口径=总募资） | 16.4亿港元（163963.6万） | 富途+计算 | 全球发售股份×发售价 |
+| 募资金额 | 募资总额（估算） | 16.4亿港元（163963.6万） | 富途+计算 | 发售价×发行量 |
+| 公开发售 | 一手中签率 | 未检索到披露易配发结果公告（截至2026-02-18） | 披露易检索 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9606 |
+| 公开发售 | 公开发售超购倍数 | 未检索到披露易配发结果公告（截至2026-02-18） | 披露易检索 | 同上 |
+| 国际发售 | 国际发售超购倍数 | 未检索到披露易配发结果公告（截至2026-02-18） | 披露易检索 | 同上 |
+| 交易复盘 | 暗盘涨跌额 | +82.400 | 富途（IPO列表） | https://www.futunn.com/quote/hk/ipo |
+| 交易复盘 | 暗盘涨跌幅 | +87.10% | 富途（IPO列表） | 同上 |
+| 首日表现 | 首日涨幅 | +116.70% | 富途（IPO列表） | 同上 |
+| 首日表现 | 累计涨幅（当前） | +262.58% | 富途（IPO列表） | 同上 |
+| 行情（快照） | 最新价 | HK$343.000 | 富途（IPO列表） | 同上 |
+| 行情（快照） | 成交量 | 4.08万 | 富途（IPO列表） | 同上 |
+| 行情（快照） | 成交额 | 1377.71万 | 富途（IPO列表） | 同上 |
+| 行情（快照） | 总市值 | 309.17亿 | 富途（IPO列表） | 同上 |
 
 ## 备注
-- 本档案由本地建档流程自动生成，可人工补充与纠错。
-- 写入规则：优先 HKEX/披露易，至少两源接近才标记 verified；否则保持待定/partial。
+- 阿斯达克：https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=09606
+- 新浪：https://stock.finance.sina.com.cn/hkstock/quotes/09606.html
+- 披露易检索：https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9606

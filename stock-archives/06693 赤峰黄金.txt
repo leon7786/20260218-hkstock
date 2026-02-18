@@ -1,35 +1,36 @@
-# 06693 赤峰黄金
+# 06693（赤峰黄金）关键信息总表（披露易优先 + 富途补动态）
 
-- 股票代码：06693
-- 股票名称：赤峰黄金
-- 上市日期：2025/03/10
-- 建档状态：pending
+> 口径说明：
+> - 披露易优先；截至 2026-02-18，未检索到可直接提取的该股《配发结果公告》时，以富途IPO页动态字段补充。
+> - 金额统一“亿/千万（万）”并保留1位小数。
+> - 项目口径：公开招募金额=香港公开发售股份×发售价；国际发售金额（当前口径）=总发售股份×发售价。
 
-## 上市前一日核心数据（优先口径）
-- 发售价（Offer Price）：13.72 港元/股
-- 全球发售股份：2.06亿
-- 每手（Board Lot）：400 股（如无公告变更）
-
-## 募资与比例
-- 公开募资比例：待定
-- 国际发售比例：待定
-- 公开募资金额：待定
-- 国际发售金额：待定
-- 全球募资金额：28.3 亿港元
-
-## 认购/中签
-- 一手中签率：待定
-- 香港公开发售认购倍数：待定
-- 国际发售认购倍数：待定
-- 有效申请数：待定
-- 成功申请数：待定
-
-## 数据来源（建档证据）
-1. [sina] https://stock.finance.sina.com.cn/hkstock/quotes/06693.html
-2. [aastocks] https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=06693
-3. [futunn] https://www.futunn.com/stock/06693-HK/company-profile
-4. [hkex] https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=6693
+| 类别 | 字段 | 数值 | 来源类型 | 来源 |
+|---|---|---|---|---|
+| 基本信息 | 股票代码 | 06693 | 第三方汇总 | https://www.futunn.com/quote/hk/ipo |
+| 基本信息 | 股票简称 | 赤峰黄金 | 第三方汇总 | https://www.futunn.com/quote/hk/ipo |
+| 基本信息 | 上市/开始买卖日 | 2025/03/10 | 富途（IPO列表） | https://www.futunn.com/quote/hk/ipo |
+| 发行定价 | 发售价 | HK$13.720/股 | 富途（IPO列表） | https://www.futunn.com/quote/hk/ipo |
+| 交易单位 | 每手 | 400 股（如无公告变更） | 披露易检索/存量档案 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=6693 |
+| 全球发售 | 全球发售股份 | 2.06亿股 | 富途（IPO列表） | https://www.futunn.com/quote/hk/ipo |
+| 全球发售拆分 | 香港公开发售股份（估算10%） | 2060.0万股 | 计算字段 | 发行量×10% |
+| 全球发售拆分 | 国际发售股份（估算90%） | 18540.0万股 | 计算字段 | 发行量×90% |
+| 募资金额 | 公开招募金额（散户，估算） | 2.8亿港元（28263.2万） | 富途+计算 | 香港公开发售股份（估）×发售价 |
+| 募资金额 | 国际发售金额（当前口径=总募资） | 28.3亿港元（282632.0万） | 富途+计算 | 全球发售股份×发售价 |
+| 募资金额 | 募资总额（估算） | 28.3亿港元（282632.0万） | 富途+计算 | 发售价×发行量 |
+| 公开发售 | 一手中签率 | 未检索到披露易配发结果公告（截至2026-02-18） | 披露易检索 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=6693 |
+| 公开发售 | 公开发售超购倍数 | 未检索到披露易配发结果公告（截至2026-02-18） | 披露易检索 | 同上 |
+| 国际发售 | 国际发售超购倍数 | 未检索到披露易配发结果公告（截至2026-02-18） | 披露易检索 | 同上 |
+| 交易复盘 | 暗盘涨跌额 | +0.060 | 富途（IPO列表） | https://www.futunn.com/quote/hk/ipo |
+| 交易复盘 | 暗盘涨跌幅 | +0.44% | 富途（IPO列表） | 同上 |
+| 首日表现 | 首日涨幅 | 0.00% | 富途（IPO列表） | 同上 |
+| 首日表现 | 累计涨幅（当前） | +170.99% | 富途（IPO列表） | 同上 |
+| 行情（快照） | 最新价 | HK$37.180 | 富途（IPO列表） | 同上 |
+| 行情（快照） | 成交量 | 125.18万 | 富途（IPO列表） | 同上 |
+| 行情（快照） | 成交额 | 4590.93万 | 富途（IPO列表） | 同上 |
+| 行情（快照） | 总市值 | 706.57亿 | 富途（IPO列表） | 同上 |
 
 ## 备注
-- 本档案由本地建档流程自动生成，可人工补充与纠错。
-- 写入规则：优先 HKEX/披露易，至少两源接近才标记 verified；否则保持待定/partial。
+- 阿斯达克：https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=06693
+- 新浪：https://stock.finance.sina.com.cn/hkstock/quotes/06693.html
+- 披露易检索：https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=6693

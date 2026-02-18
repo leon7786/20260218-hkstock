@@ -1,27 +1,36 @@
-# 02706（海致科技集团）关键信息总表（披露易 + 第三方补充）
+# 02706（海致科技集团）关键信息总表（披露易优先 + 富途补动态）
 
-> 口径说明：披露易优先；披露易暂无则用第三方线索并标注“待定/估算”。
+> 口径说明：
+> - 披露易优先；截至 2026-02-18，未检索到可直接提取的该股《配发结果公告》时，以富途IPO页动态字段补充。
+> - 金额统一“亿/千万（万）”并保留1位小数。
+> - 项目口径：公开招募金额=香港公开发售股份×发售价；国际发售金额（当前口径）=总发售股份×发售价。
 
 | 类别 | 字段 | 数值 | 来源类型 | 来源 |
-|---|---|---:|---|---|
-| 基本信息 | 股票代码 | 02706 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
-| 基本信息 | 股票简称 | 海致科技集团 | 第三方 | https://stock.finance.sina.com.cn/hkstock/quotes/02706.html |
-| 基本信息 | 上市/开始买卖日 | 2026/02/13 | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
-| 发行定价 | 发售价 | HK$27.060/股 | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
-| 全球发售 | 全球发售股份 | 2803.02万 | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
-| 募资金额 | 全球募资总额（估算） | 7.6 亿港元 | 第三方(由发行价×发行量) | https://www.futunn.com/quote/hk/ipo |
-| 全球发售拆分 | 香港公开发售股份 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
-| 全球发售拆分 | 国际发售股份 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
-| 全球发售拆分 | 公开发售比例 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
-| 全球发售拆分 | 国际发售比例 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
-| 公开发售 | 一手中签率 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
-| 公开发售 | 公开发售超购倍数 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
-| 国际发售 | 国际发售超购倍数 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
-| 交易复盘 | 首日涨幅 | +242.20% | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
-| 交易复盘 | 暗盘涨跌额 | +56.940 | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
-| 交易复盘 | 暗盘涨跌幅 | +210.42% | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
-| 交易复盘 | 累计涨幅 | +343.46% | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
+|---|---|---|---|---|
+| 基本信息 | 股票代码 | 02706 | 第三方汇总 | https://www.futunn.com/quote/hk/ipo |
+| 基本信息 | 股票简称 | 海致科技集团 | 第三方汇总 | https://www.futunn.com/quote/hk/ipo |
+| 基本信息 | 上市/开始买卖日 | 2026/02/13 | 富途（IPO列表） | https://www.futunn.com/quote/hk/ipo |
+| 发行定价 | 发售价 | HK$27.060/股 | 富途（IPO列表） | https://www.futunn.com/quote/hk/ipo |
+| 交易单位 | 每手 | 未检索到 | 披露易检索/存量档案 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
+| 全球发售 | 全球发售股份 | 2803.02万股 | 富途（IPO列表） | https://www.futunn.com/quote/hk/ipo |
+| 全球发售拆分 | 香港公开发售股份（估算10%） | 280.3万股 | 计算字段 | 发行量×10% |
+| 全球发售拆分 | 国际发售股份（估算90%） | 2522.7万股 | 计算字段 | 发行量×90% |
+| 募资金额 | 公开招募金额（散户，估算） | 7585.0万港元 | 富途+计算 | 香港公开发售股份（估）×发售价 |
+| 募资金额 | 国际发售金额（当前口径=总募资） | 7.6亿港元（75849.7万） | 富途+计算 | 全球发售股份×发售价 |
+| 募资金额 | 募资总额（估算） | 7.6亿港元（75849.7万） | 富途+计算 | 发售价×发行量 |
+| 公开发售 | 一手中签率 | 未检索到披露易配发结果公告（截至2026-02-18） | 披露易检索 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
+| 公开发售 | 公开发售超购倍数 | 未检索到披露易配发结果公告（截至2026-02-18） | 披露易检索 | 同上 |
+| 国际发售 | 国际发售超购倍数 | 未检索到披露易配发结果公告（截至2026-02-18） | 披露易检索 | 同上 |
+| 交易复盘 | 暗盘涨跌额 | +56.940 | 富途（IPO列表） | https://www.futunn.com/quote/hk/ipo |
+| 交易复盘 | 暗盘涨跌幅 | +210.42% | 富途（IPO列表） | 同上 |
+| 首日表现 | 首日涨幅 | +242.20% | 富途（IPO列表） | 同上 |
+| 首日表现 | 累计涨幅（当前） | +343.46% | 富途（IPO列表） | 同上 |
+| 行情（快照） | 最新价 | HK$120.000 | 富途（IPO列表） | 同上 |
+| 行情（快照） | 成交量 | 595.65万 | 富途（IPO列表） | 同上 |
+| 行情（快照） | 成交额 | 6.85亿 | 富途（IPO列表） | 同上 |
+| 行情（快照） | 总市值 | 480.52亿 | 富途（IPO列表） | 同上 |
 
 ## 备注
-- 本档案先给出可核对骨架；后续我会把披露易《配发结果公告》中的公开/国际拆分和中签率补齐。
-- 当同字段满足“至少两源接近”后，状态会从待定升级为已核对。
+- 阿斯达克：https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=02706
+- 新浪：https://stock.finance.sina.com.cn/hkstock/quotes/02706.html
+- 披露易检索：https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706
