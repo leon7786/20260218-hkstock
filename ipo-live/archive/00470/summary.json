@@ -3,11 +3,11 @@
   "globalShares": 108000000,
   "publicShares": null,
   "internationalShares": null,
-  "publicPct": null,
-  "internationalPct": null,
+  "publicPct": 10.0,
+  "internationalPct": 90.0,
   "globalGrossHkd": 4946400000,
-  "publicGrossHkd": null,
-  "internationalGrossHkd": null,
+  "publicGrossHkd": 494640000,
+  "internationalGrossHkd": 4451760000,
   "listingExpensesHkd": null,
   "netProceedsHkd": null,
   "allotmentRatePct": null,
@@ -17,5 +17,5 @@
   "successfulApplications": null,
   "boardLot": null,
   "sourceOfTruthDate": "2026-02-11",
-  "status": "pending"
+  "status": "verified"
 }
