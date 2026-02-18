@@ -5,23 +5,24 @@
 
 | 类别 | 字段 | 数值 | 来源类型 | 来源 |
 |---|---|---|---|---|
-| 基本信息 | 股票代码 | 08549 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=8549 |
-| 基本信息 | 股票名称 | 金叶国际集团 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
-| 基本信息 | 上市日期 | 2025-10-10 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
-| 发行定价 | 发售价 | HK$0.500 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 基本信息 | 股票代码 | 08549 | 披露易 | https://www1.hkexnews.hk/listedco/listconews/gem/2025/1009/2025100901039_c.pdf |
+| 基本信息 | 股票名称 | 金叶国际集团 | 披露易 | 同上 |
+| 基本信息 | 上市日期 | 2025-10-10 | 披露易 | 同上 |
+| 发行定价 | 发售价 | HK$0.50/股 | 披露易 | 同上 |
 | 发行规模 | 发行量 | 1.00亿 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
-| 发行规模 | 全球发售股份（估算） | 100,000,000 股 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
-| 全球发售拆分 | 香港公开发售股份（估算10%） | 10,000,000 股 | 第三方补充 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=8549 |
-| 全球发售拆分 | 国际发售股份（估算90%） | 90,000,000 股 | 第三方补充 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=8549 |
-| 募资金额 | 公开招募金额（估算） | 0.5千万港元 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
-| 募资金额 | 国际发售金额（当前口径=总募资） | 5.0千万港元 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
-| 募资金额 | 募资总额（估算） | 5.0千万港元 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
-| 公开发售 | 公开发售超购倍数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=8549 |
-| 公开发售 | 一手中签率 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=8549 |
-| 公开发售 | 有效申请数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=8549 |
-| 公开发售 | 成功申请数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=8549 |
-| 国际发售 | 国际发售超购倍数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=8549 |
-| 国际发售 | 承配人数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=8549 |
+| 发行规模 | 全球发售股份 | 100,000,000 股 | 披露易 | 同上 |
+| 全球发售拆分 | 香港公开发售股份 | 10,000,000 股（10%） | 披露易 | 同上 |
+| 全球发售拆分 | 国际发售股份（配售） | 90,000,000 股（90%） | 披露易 | 同上 |
+| 募资金额 | 公开招募金额 | 500.0万港元 | 披露易+计算 | 10,000,000 × 0.50 |
+| 募资金额 | 国际发售金额（当前口径=总募资） | 5000.0万港元 | 披露易+计算 | 100,000,000 × 0.50 |
+| 募资金额 | 募资总额（Gross proceeds） | 5000.0万港元 | 披露易 | 同上 |
+| 募资金额 | 净筹资（Net proceeds） | 3130.0万港元 | 披露易 | 同上 |
+| 公开发售 | 公开发售超购倍数 | 11,464.72 倍 | 披露易 | 同上 |
+| 公开发售 | 一手中签率 | 0.50%（52,976人中267人获5,000股） | 披露易 | 同上（公开发售分配基准） |
+| 公开发售 | 有效申请数 | 168,066 | 披露易 | 同上 |
+| 公开发售 | 成功申请数 | 待定（公告未直接给总成功人数） | 披露易 | 同上 |
+| 国际发售 | 国际发售超购倍数 | 1.20 倍 | 披露易 | 同上 |
+| 国际发售 | 承配人数 | 待定（公告摘要未直接披露） | 披露易 | 同上 |
 | 稳价/绿鞋 | 是否行使超额配股权 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=8549 |
 | 稳价/绿鞋 | 稳定价格期截止日 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=8549 |
 | 股本信息 | 每手股数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=8549 |

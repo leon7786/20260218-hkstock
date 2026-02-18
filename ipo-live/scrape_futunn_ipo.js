@@ -267,7 +267,7 @@ function buildHtml(data, archiveSummaryByCode = {}, disclosureByCode = {}) {
     if (n >= 1e4) return `${(n/1e4).toFixed(1)} 万港元`;
     return `${n.toFixed(1)} 港元`;
   };
-  const fmtPct = (n) => Number.isFinite(n) ? `${n.toFixed(1)}%` : '待定';
+  const fmtPct = (n) => Number.isFinite(n) ? `${(Math.abs(n) < 1 ? n.toFixed(2) : n.toFixed(1))}%` : '待定';
 
   const formatOneDecimal = (raw='') => {
     const s = String(raw ?? '').trim();
