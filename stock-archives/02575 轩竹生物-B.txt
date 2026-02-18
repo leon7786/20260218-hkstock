@@ -1,36 +1,69 @@
-# 02575（轩竹生物-B）关键信息总表（披露易优先 + 富途补动态）
+# 02575（轩竹生物-B）关键信息总表（披露易 + 第三方补充，一张表）
 
-> 口径说明：
-> - 披露易优先；截至 2026-02-18，未检索到可直接提取的该股《配发结果公告》时，以富途IPO页动态字段补充。
-> - 金额统一“亿/千万（万）”并保留1位小数。
-> - 项目口径：公开招募金额=香港公开发售股份×发售价；国际发售金额（当前口径）=总发售股份×发售价。
+> 口径规则：披露易优先；披露易缺失字段用富途IPO页/阿斯达克/新浪补充。
+> 金额显示规则：统一用“亿/千万”，保留1位小数。
 
 | 类别 | 字段 | 数值 | 来源类型 | 来源 |
 |---|---|---|---|---|
-| 基本信息 | 股票代码 | 02575 | 第三方汇总 | https://www.futunn.com/quote/hk/ipo |
-| 基本信息 | 股票简称 | 轩竹生物-B | 第三方汇总 | https://www.futunn.com/quote/hk/ipo |
-| 基本信息 | 上市/开始买卖日 | 2025/10/15 | 富途（IPO列表） | https://www.futunn.com/quote/hk/ipo |
-| 发行定价 | 发售价 | HK$11.600/股 | 富途（IPO列表） | https://www.futunn.com/quote/hk/ipo |
-| 交易单位 | 每手 | 400 股（如无公告变更） | 披露易检索/存量档案 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
-| 全球发售 | 全球发售股份 | 6733.35万股 | 富途（IPO列表） | https://www.futunn.com/quote/hk/ipo |
-| 全球发售拆分 | 香港公开发售股份（估算10%） | 673.3万股 | 计算字段 | 发行量×10% |
-| 全球发售拆分 | 国际发售股份（估算90%） | 6060.0万股 | 计算字段 | 发行量×90% |
-| 募资金额 | 公开招募金额（散户，估算） | 7810.7万港元 | 富途+计算 | 香港公开发售股份（估）×发售价 |
-| 募资金额 | 国际发售金额（当前口径=总募资） | 7.8亿港元（78106.9万） | 富途+计算 | 全球发售股份×发售价 |
-| 募资金额 | 募资总额（估算） | 7.8亿港元（78106.9万） | 富途+计算 | 发售价×发行量 |
-| 公开发售 | 一手中签率 | 未检索到披露易配发结果公告（截至2026-02-18） | 披露易检索 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
-| 公开发售 | 公开发售超购倍数 | 未检索到披露易配发结果公告（截至2026-02-18） | 披露易检索 | 同上 |
-| 国际发售 | 国际发售超购倍数 | 未检索到披露易配发结果公告（截至2026-02-18） | 披露易检索 | 同上 |
-| 交易复盘 | 暗盘涨跌额 | +20.000 | 富途（IPO列表） | https://www.futunn.com/quote/hk/ipo |
-| 交易复盘 | 暗盘涨跌幅 | +172.41% | 富途（IPO列表） | 同上 |
-| 首日表现 | 首日涨幅 | +126.72% | 富途（IPO列表） | 同上 |
-| 首日表现 | 累计涨幅（当前） | +450.43% | 富途（IPO列表） | 同上 |
-| 行情（快照） | 最新价 | HK$63.850 | 富途（IPO列表） | 同上 |
-| 行情（快照） | 成交量 | 13.10万 | 富途（IPO列表） | 同上 |
-| 行情（快照） | 成交额 | 833.37万 | 富途（IPO列表） | 同上 |
-| 行情（快照） | 总市值 | 330.71亿 | 富途（IPO列表） | 同上 |
-
-## 备注
-- 阿斯达克：https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=02575
-- 新浪：https://stock.finance.sina.com.cn/hkstock/quotes/02575.html
-- 披露易检索：https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575
+| 基本信息 | 股票代码 | 02575 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 基本信息 | 股票名称 | 轩竹生物-B | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 基本信息 | 上市日期 | 2025-10-15 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 发行定价 | 发售价 | HK$11.600 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 发行规模 | 发行量 | 6733.35万 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 发行规模 | 全球发售股份（估算） | 67,333,500 股 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
+| 全球发售拆分 | 香港公开发售股份（估算10%） | 6,733,350 股 | 第三方补充 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 全球发售拆分 | 国际发售股份（估算90%） | 60,600,150 股 | 第三方补充 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 募资金额 | 公开招募金额（估算） | 7.8千万港元 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
+| 募资金额 | 国际发售金额（当前口径=总募资） | 7.8亿港元 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
+| 募资金额 | 募资总额（估算） | 7.8亿港元 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
+| 公开发售 | 公开发售超购倍数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 公开发售 | 一手中签率 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 公开发售 | 有效申请数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 公开发售 | 成功申请数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 国际发售 | 国际发售超购倍数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 国际发售 | 承配人数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 稳价/绿鞋 | 是否行使超额配股权 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 稳价/绿鞋 | 稳定价格期截止日 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 股本信息 | 每手股数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 股本信息 | 上市后总股本 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 股本信息 | 每股面值 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 行情（快照） | 最新价 | HK$63.850 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 行情（快照） | 涨跌幅 | +1.03% | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 行情（快照） | 连涨天数 | 6 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 行情（快照） | 成交量 | 13.10万 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 行情（快照） | 成交额 | 833.37万 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 行情（快照） | 换手率 | 0.08% | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 行情（快照） | 市盈率(静) | -55.04 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 行情（快照） | 总市值 | 330.71亿 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 行情（快照） | 总市值（统一金额） | 330.7亿港元 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
+| 暗盘 | 暗盘涨跌额 | +20.000 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 暗盘 | 暗盘涨跌幅 | +172.41% | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 首日表现 | 首日涨幅 | +126.72% | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 首日表现 | 累计涨幅 | +450.43% | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 首日表现 | 首日开盘价 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=02575 |
+| 首日表现 | 首日最高价 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=02575 |
+| 首日表现 | 首日最低价 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=02575 |
+| 首日表现 | 首日收盘价 | 待定 | 新浪 | https://stock.finance.sina.com.cn/hkstock/quotes/02575.html |
+| 首日成交 | 首日成交量 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=02575 |
+| 首日成交 | 首日成交额 | 待定 | 新浪 | https://stock.finance.sina.com.cn/hkstock/quotes/02575.html |
+| 每手盈亏 | 每手打新成本（估算） | 0.0千万港元（按1000股估算） | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
+| 每手盈亏 | 每手账面盈亏（首日） | 待定 | 第三方补充 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=02575 |
+| 基石投资者 | 基石投资者合计获配 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 基石投资者 | 基石锁定期 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 公众持股 | 上市后公众持股比例 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 公众持股 | 自由流通量合规 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 上市合规 | 是否满足公众股东人数要求 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 上市合规 | 是否存在高度集中风险提示 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 公司概况 | 主营业务 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=02575 |
+| 公司概况 | 所属行业 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=02575 |
+| 财务摘要 | 最近年度收入 | 待定 | 新浪 | https://stock.finance.sina.com.cn/hkstock/quotes/02575.html |
+| 财务摘要 | 最近年度净利润 | 待定 | 新浪 | https://stock.finance.sina.com.cn/hkstock/quotes/02575.html |
+| 财务摘要 | 毛利率 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=02575 |
+| 财务摘要 | 资产负债率 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=02575 |
+| 募资用途 | 募资用途1 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 募资用途 | 募资用途2 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 募资用途 | 募资用途3 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 募资用途 | 募资用途4 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 风险提示 | 主要风险因素1 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 风险提示 | 主要风险因素2 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |
+| 风险提示 | 主要风险因素3 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2575 |

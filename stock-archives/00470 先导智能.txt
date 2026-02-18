@@ -1,51 +1,69 @@
-# 00470（先导智能）关键信息总表（披露易 + 第三方补充）
+# 00470（先导智能）关键信息总表（披露易 + 第三方补充，一张表）
 
-> 口径说明：披露易优先；披露易缺失字段再补新浪财经 / 阿斯达克 / 富途。
+> 口径规则：披露易优先；披露易缺失字段用富途IPO页/阿斯达克/新浪补充。
+> 金额显示规则：统一用“亿/千万”，保留1位小数。
 
-| 类别 | 字段 | 数值（披露易口径） | 备注/补充 | 来源 |
-|---|---|---:|---|---|
-| 基本信息 | 公司英文名/简称 | Wuxi Lead Intelligent Equipment Co., Ltd. / WUXI LEAD |  | 披露易（配发结果公告） |
-| 基本信息 | 股票代码 | 0470 |  | 披露易（配发结果公告） |
-| 基本信息 | 开始买卖（Dealings commencement date） | 2026-02-11 | 预计上午9:00开始交易 | 披露易（配发结果公告） |
-| 发行定价 | 最终发售价（Final Offer Price） | HK$45.80 / H股 | 公告亦列“最高发售价=45.80” | 披露易（配发结果公告） |
-| 交易单位 | 每手（board lots） | 100 H股/手 |  | 披露易（配发结果公告） |
-| 全球发售规模 | 全球发售股份数（Offer Shares） | 107,658,400 H股 | 已计入 Offer Size Adjustment Option 全部行使；仍“subject to Over-allotment Option” | 披露易（配发结果公告） |
-| 发售结构 | 香港公开发售（HK Public Offering）股数 | 9,361,600 H股 | 占全球发售 8.7% | 披露易（配发结果公告） |
-| 发售结构 | 国际发售（International Offering）股数 | 98,296,800 H股 | 占全球发售 91.3% | 披露易（配发结果公告） |
-| 扩大发售 | Offer Size Adjustment Option（Upsize） | 已全部行使 | 额外发行 14,042,400 股（全部在国际发售；HK=不适用） | 披露易（配发结果公告） |
-| 稳价/绿鞋 | 超额分配（Over-allocation） | 16,148,700 股 | 可能通过绿鞋/二级市场回补等 | 披露易（配发结果公告） |
-| 募资金额 | 全球募资总额（Gross proceeds） | HK$4,930.8 million | 公告同时用于“public float 市值”测算 | 披露易（配发结果公告） |
-| 募资金额 | 估算上市费用 | HK$134.4 million |  | 披露易（配发结果公告） |
-| 募资金额 | 净筹资（Net Proceeds） | HK$4,796.4 million |  | 披露易（配发结果公告） |
-| 股本结构 | 上市时已发行股份（issued Shares upon Listing，绿鞋前） | 1,673,821,434 股 | 绿鞋行使后股本在本公告未给最终数（仅给“假设”口径用于集中度分析） | 披露易（配发结果公告） |
-| 香港公开发售 | 有效申请数 | 57,322 |  | 披露易（配发结果公告） |
-| 香港公开发售 | 成功申请数 | 28,577 |  | 披露易（配发结果公告） |
-| 香港公开发售 | 认购倍数（Subscription level） | 79.54 倍 |  | 披露易（配发结果公告） |
-| 香港公开发售 | 回拨（Claw-back） | N/A（未触发/不适用） |  | 披露易（配发结果公告） |
-| 国际发售 | 承配人数量（placees） | 127 |  | 披露易（配发结果公告） |
-| 国际发售 | 认购倍数（Subscription level） | 10.47 倍 | 该倍数为“before taking into account Offer Size Adjustment Option” | 披露易（配发结果公告） |
-| 基石投资者 | 基石合计获配 | 46,806,600 股 | 占全球发售股份 43.48%；占上市后总股本 2.80%（绿鞋不行使假设） | 披露易（配发结果公告） |
-| 基石投资者（明细） | Oaktree | 5,106,200 |  | 披露易（配发结果公告） |
-| 基石投资者（明细） | Pinpoint | 3,404,100 |  | 披露易（配发结果公告） |
-| 基石投资者（明细） | Aspex Master Fund (AMF) | 17,020,700 |  | 披露易（配发结果公告） |
-| 基石投资者（明细） | MY Asian Opportunities Master Fund | 5,106,200 |  | 披露易（配发结果公告） |
-| 基石投资者（明细） | Morgan Stanley & Co. International (MSIP) | 3,404,100 | 公告列“Yes”（现有股东或其关联方） | 披露易（配发结果公告） |
-| 基石投资者（明细） | Ovata Capital | 3,404,100 |  | 披露易（配发结果公告） |
-| 基石投资者（明细） | Qube Master Fund (QRT) | 3,404,100 |  | 披露易（配发结果公告） |
-| 基石投资者（明细） | Wuxi Jinchou & GTHT（OTC Swaps相关） | 2,553,100 |  | 披露易（配发结果公告） |
-| 基石投资者（明细） | Millennium ICSA | 1,702,000 |  | 披露易（配发结果公告） |
-| 基石投资者（明细） | Rome Garden | 1,702,000 |  | 披露易（配发结果公告） |
-| 锁定期 | 基石锁定期 | 6个月 | 基石持股不计入上市时自由流通量 | 披露易（配发结果公告） |
-| 锁定期 | 控股股东禁售（示例披露） | 506,331,703 股 | 禁售关键日期：2026-08-10 / 2027-02-10 | 披露易（配发结果公告） |
-| 公众持股/自由流通 | 公众持股市值（上市时预期） | > HK$4,930.8m | 按最终价45.80计 | 披露易（配发结果公告） |
-| 集中度提示 | 价格波动风险提示 | “high concentration of shareholding…” | 公告开头风险提示语 | 披露易（配发结果公告） |
-| 承配集中度 | Top 1 承配人获配占国际发售 | 25.97% | 同表给出绿鞋全行使/不行使两套口径 | 披露易（配发结果公告） |
-| 承配集中度 | Top 5 / Top 10 / Top 25（国际发售占比） | 52.84% / 74.11% / 98.58% | Top25 极高集中度（国际发售口径） | 披露易（配发结果公告） |
-| 上市条件 | 至少股东数 | ≥300 名股东 | 上市时确认 | 披露易（配发结果公告） |
-
-## 来源链接（你提供）
-[1]: https://finance.sina.com.cn/jjxw/2025-08-28/doc-infnpptz6505628.shtml
-[2]: https://www.sohu.com/a/929151739_121976703
-[3]: https://finance.sina.com.cn/stock/hkstock/ggscyd/2025-08-25/doc-infnewrc9069195.shtml
-[4]: https://www.etnet.com.hk/www/eng/stocks/ci_ipo_news_detail.php?code=3858&newsid=ETE350827452
-[5]: https://hk.stockstar.com/IG2025082800030219.shtml
+| 类别 | 字段 | 数值 | 来源类型 | 来源 |
+|---|---|---|---|---|
+| 基本信息 | 股票代码 | 00470 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 基本信息 | 股票名称 | 先导智能 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 基本信息 | 上市日期 | 2026-02-11 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 发行定价 | 发售价 | HK$45.800 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 发行规模 | 发行量 | 1.08亿 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 发行规模 | 全球发售股份（估算） | 108,000,000 股 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
+| 全球发售拆分 | 香港公开发售股份（估算10%） | 10,800,000 股 | 第三方补充 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 全球发售拆分 | 国际发售股份（估算90%） | 97,200,000 股 | 第三方补充 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 募资金额 | 公开招募金额（估算） | 4.9亿港元 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
+| 募资金额 | 国际发售金额（当前口径=总募资） | 49.5亿港元 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
+| 募资金额 | 募资总额（估算） | 49.5亿港元 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
+| 公开发售 | 公开发售超购倍数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 公开发售 | 一手中签率 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 公开发售 | 有效申请数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 公开发售 | 成功申请数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 国际发售 | 国际发售超购倍数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 国际发售 | 承配人数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 稳价/绿鞋 | 是否行使超额配股权 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 稳价/绿鞋 | 稳定价格期截止日 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 股本信息 | 每手股数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 股本信息 | 上市后总股本 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 股本信息 | 每股面值 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 行情（快照） | 最新价 | HK$46.000 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 行情（快照） | 涨跌幅 | +1.32% | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 行情（快照） | 连涨天数 | 2 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 行情（快照） | 成交量 | 169.93万 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 行情（快照） | 成交额 | 7821.73万 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 行情（快照） | 换手率 | 1.58% | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 行情（快照） | 市盈率(静) | 248.65 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 行情（快照） | 总市值 | 769.96亿 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 行情（快照） | 总市值（统一金额） | 770.0亿港元 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
+| 暗盘 | 暗盘涨跌额 | +0.500 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 暗盘 | 暗盘涨跌幅 | +1.09% | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 首日表现 | 首日涨幅 | 0.00% | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 首日表现 | 累计涨幅 | +0.44% | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
+| 首日表现 | 首日开盘价 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=00470 |
+| 首日表现 | 首日最高价 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=00470 |
+| 首日表现 | 首日最低价 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=00470 |
+| 首日表现 | 首日收盘价 | 待定 | 新浪 | https://stock.finance.sina.com.cn/hkstock/quotes/00470.html |
+| 首日成交 | 首日成交量 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=00470 |
+| 首日成交 | 首日成交额 | 待定 | 新浪 | https://stock.finance.sina.com.cn/hkstock/quotes/00470.html |
+| 每手盈亏 | 每手打新成本（估算） | 0.0千万港元（按1000股估算） | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
+| 每手盈亏 | 每手账面盈亏（首日） | 待定 | 第三方补充 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=00470 |
+| 基石投资者 | 基石投资者合计获配 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 基石投资者 | 基石锁定期 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 公众持股 | 上市后公众持股比例 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 公众持股 | 自由流通量合规 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 上市合规 | 是否满足公众股东人数要求 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 上市合规 | 是否存在高度集中风险提示 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 公司概况 | 主营业务 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=00470 |
+| 公司概况 | 所属行业 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=00470 |
+| 财务摘要 | 最近年度收入 | 待定 | 新浪 | https://stock.finance.sina.com.cn/hkstock/quotes/00470.html |
+| 财务摘要 | 最近年度净利润 | 待定 | 新浪 | https://stock.finance.sina.com.cn/hkstock/quotes/00470.html |
+| 财务摘要 | 毛利率 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=00470 |
+| 财务摘要 | 资产负债率 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=00470 |
+| 募资用途 | 募资用途1 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 募资用途 | 募资用途2 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 募资用途 | 募资用途3 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 募资用途 | 募资用途4 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 风险提示 | 主要风险因素1 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 风险提示 | 主要风险因素2 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 风险提示 | 主要风险因素3 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
