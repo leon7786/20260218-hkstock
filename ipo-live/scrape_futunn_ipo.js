@@ -211,11 +211,12 @@ tr:hover{background:#111827}
   const headers = Array.from(table.querySelectorAll('thead th'));
   const parseVal = (txt) => {
     const s = (txt || '').trim();
-    if (!s || s === '-') return -Infinity;
+    if (!s || s === '-') return Number.NEGATIVE_INFINITY;
     if (/^\d{4}[\/]\d{2}[\/]\d{2}$/.test(s)) return new Date(s.split('/').join('-')).getTime();
-    let m = s.match(/([+-]?\d+(?:\.\d+)?)/);
+    const m = s.replace(/,/g, '').match(/([+-]?\d+(?:\.\d+)?)/);
     if (m) {
-      let num = parseFloat(m[1]);
+      const num = Number(m[1]);
+      if (!Number.isFinite(num)) return Number.NEGATIVE_INFINITY;
       if (s.includes('%')) return num;
       if (s.includes('亿')) return num * 1e8;
       if (s.includes('万')) return num * 1e4;
@@ -230,8 +231,19 @@ tr:hover{background:#111827}
       const at = a.children[idx]?.getAttribute('data-sort') || a.children[idx]?.innerText || '';
       const bt = b.children[idx]?.getAttribute('data-sort') || b.children[idx]?.innerText || '';
       const av = parseVal(at), bv = parseVal(bt);
-      if (typeof av === 'number' && typeof bv === 'number') return dir==='desc' ? (bv-av) : (av-bv);
-      return dir==='desc' ? String(bv).localeCompare(String(av), 'zh-Hans-CN') : String(av).localeCompare(String(bv), 'zh-Hans-CN');
+
+      const an = typeof av === 'number' ? av : Number.NaN;
+      const bn = typeof bv === 'number' ? bv : Number.NaN;
+      const aNum = Number.isFinite(an) || an === Number.NEGATIVE_INFINITY;
+      const bNum = Number.isFinite(bn) || bn === Number.NEGATIVE_INFINITY;
+
+      if (aNum && bNum) return dir==='desc' ? (bn-an) : (an-bn);
+      if (aNum && !bNum) return dir==='desc' ? -1 : 1;
+      if (!aNum && bNum) return dir==='desc' ? 1 : -1;
+
+      return dir==='desc'
+        ? String(bv).localeCompare(String(av), 'zh-Hans-CN')
+        : String(av).localeCompare(String(bv), 'zh-Hans-CN');
     });
     rows.forEach(r=>tbody.appendChild(r));
     headers.forEach((h,i)=>{
