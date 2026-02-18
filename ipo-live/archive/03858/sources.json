@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0827/2025082700622_c.pdf",
+    "fetchedAt": "2026-02-18T03:11:10.677Z",
+    "sourceType": "hkex_allotment_results",
+    "credibility": "high",
+    "extractedFields": [
+      "offerPriceHkd",
+      "globalShares",
+      "publicShares",
+      "internationalShares",
+      "publicPct",
+      "internationalPct",
+      "allotmentRatePct",
+      "boardLot"
+    ],
+    "notes": "主来源：配发结果公告（按人工核对样板口径）"
+  },
+  {
+    "url": "https://www.futunn.com/quote/hk/ipo",
+    "fetchedAt": "2026-02-18T03:11:10.677Z",
+    "sourceType": "futunn_ipo",
+    "credibility": "medium",
+    "extractedFields": [
+      "offerPriceHkd",
+      "globalShares",
+      "globalGrossHkd",
+      "sourceOfTruthDate"
+    ],
+    "notes": "辅源：发行价及发行量与主来源一致"
+  },
+  {
+    "url": "https://finance.sina.com.cn/stock/hkstock/marketalerts/2025-08-28/doc-infiqxxx.shtml",
+    "fetchedAt": "2026-02-18T03:11:10.677Z",
+    "sourceType": "sina_finance",
+    "credibility": "medium",
+    "extractedFields": [
+      "publicPct",
+      "internationalPct",
+      "publicSubscriptionMultiple",
+      "internationalSubscriptionMultiple"
+    ],
+    "notes": "辅源：比例及认购倍数二次交叉"
+  },
+  {
+    "url": "https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=03858",
+    "fetchedAt": "2026-02-18T03:11:10.677Z",
+    "sourceType": "aastocks",
+    "credibility": "medium",
+    "extractedFields": [
+      "allotmentRatePct",
+      "boardLot"
+    ],
+    "notes": "辅源：中签率与每手股数补充核对"
+  }
+]

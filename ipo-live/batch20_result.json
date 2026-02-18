@@ -1,0 +1,131 @@
+{
+  "generatedAt": "2026-02-18T03:11:12.826Z",
+  "total": 20,
+  "stats": {
+    "verified": 0,
+    "partial": 0,
+    "pending": 20
+  },
+  "results": [
+    {
+      "code": "09981",
+      "name": "沃尔核材",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "02706",
+      "name": "海致科技集团",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "00470",
+      "name": "先导智能",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "02720",
+      "name": "乐欣户外",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "00600",
+      "name": "爱芯元智",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "06809",
+      "name": "澜起科技",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "03200",
+      "name": "大族数控",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "02714",
+      "name": "牧原股份",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "02677",
+      "name": "卓正医疗",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "02768",
+      "name": "国恩科技",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "09980",
+      "name": "东鹏饮料",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "01768",
+      "name": "鸣鸣很忙",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "09611",
+      "name": "龙旗科技",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "08610",
+      "name": "BBSB INTL",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "03986",
+      "name": "兆易创新",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "01641",
+      "name": "红星冷链",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "00501",
+      "name": "豪威集团",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "06938",
+      "name": "瑞博生物-B",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "03636",
+      "name": "金浔资源",
+      "status": "pending",
+      "reasonCount": 8
+    },
+    {
+      "code": "00100",
+      "name": "MINIMAX-WP",
+      "status": "pending",
+      "reasonCount": 8
+    }
+  ]
+}

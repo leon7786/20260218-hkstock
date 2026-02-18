@@ -1,0 +1,21 @@
+{
+  "offerPriceHkd": 106.89,
+  "globalShares": 65890000,
+  "publicShares": null,
+  "internationalShares": null,
+  "publicPct": null,
+  "internationalPct": null,
+  "globalGrossHkd": 7042982100,
+  "publicGrossHkd": null,
+  "internationalGrossHkd": null,
+  "listingExpensesHkd": null,
+  "netProceedsHkd": null,
+  "allotmentRatePct": null,
+  "publicSubscriptionMultiple": null,
+  "internationalSubscriptionMultiple": null,
+  "validApplications": null,
+  "successfulApplications": null,
+  "boardLot": null,
+  "sourceOfTruthDate": "2026-02-09",
+  "status": "pending"
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "url": "https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2720",
+    "fetchedAt": "2026-02-18T03:11:12.821Z",
+    "sourceType": "hkex_search",
+    "credibility": "high",
+    "extractedFields": [],
+    "notes": "主来源入口：需补配发结果公告/招股章程链接"
+  },
+  {
+    "url": "https://www.futunn.com/stock/02720-HK/company-profile",
+    "fetchedAt": "2026-02-18T03:11:12.821Z",
+    "sourceType": "futunn_profile",
+    "credibility": "medium",
+    "extractedFields": [],
+    "notes": "辅源"
+  },
+  {
+    "url": "https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=02720",
+    "fetchedAt": "2026-02-18T03:11:12.821Z",
+    "sourceType": "aastocks",
+    "credibility": "medium",
+    "extractedFields": [],
+    "notes": "辅源"
+  },
+  {
+    "url": "https://stock.finance.sina.com.cn/hkstock/quotes/02720.html",
+    "fetchedAt": "2026-02-18T03:11:12.821Z",
+    "sourceType": "sina_hk_quote",
+    "credibility": "low",
+    "extractedFields": [],
+    "notes": "辅源"
+  }
+]

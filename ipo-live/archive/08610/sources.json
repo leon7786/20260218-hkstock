@@ -1,0 +1,34 @@
+[
+  {
+    "url": "https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=8610",
+    "fetchedAt": "2026-02-18T03:11:12.824Z",
+    "sourceType": "hkex_search",
+    "credibility": "high",
+    "extractedFields": [],
+    "notes": "主来源入口：需补配发结果公告/招股章程链接"
+  },
+  {
+    "url": "https://www.futunn.com/stock/08610-HK/company-profile",
+    "fetchedAt": "2026-02-18T03:11:12.824Z",
+    "sourceType": "futunn_profile",
+    "credibility": "medium",
+    "extractedFields": [],
+    "notes": "辅源"
+  },
+  {
+    "url": "https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=08610",
+    "fetchedAt": "2026-02-18T03:11:12.824Z",
+    "sourceType": "aastocks",
+    "credibility": "medium",
+    "extractedFields": [],
+    "notes": "辅源"
+  },
+  {
+    "url": "https://stock.finance.sina.com.cn/hkstock/quotes/08610.html",
+    "fetchedAt": "2026-02-18T03:11:12.824Z",
+    "sourceType": "sina_hk_quote",
+    "credibility": "low",
+    "extractedFields": [],
+    "notes": "辅源"
+  }
+]

@@ -1,0 +1,60 @@
+{
+  "code": "02768",
+  "name": "国恩科技",
+  "generatedAt": "2026-02-18T03:11:12.823Z",
+  "tolerance": 0.03,
+  "fieldChecks": {
+    "publicShares": {
+      "ok": false,
+      "reason": "缺少可交叉来源"
+    },
+    "internationalShares": {
+      "ok": false,
+      "reason": "缺少可交叉来源"
+    },
+    "publicPct": {
+      "ok": false,
+      "reason": "缺少可交叉来源"
+    },
+    "internationalPct": {
+      "ok": false,
+      "reason": "缺少可交叉来源"
+    },
+    "publicGrossHkd": {
+      "ok": false,
+      "reason": "缺少可交叉来源"
+    },
+    "internationalGrossHkd": {
+      "ok": false,
+      "reason": "缺少可交叉来源"
+    },
+    "allotmentRatePct": {
+      "ok": false,
+      "reason": "缺少可交叉来源"
+    },
+    "boardLot": {
+      "ok": false,
+      "reason": "缺少可交叉来源"
+    }
+  },
+  "reasons": [
+    "publicShares: 缺少可交叉来源",
+    "internationalShares: 缺少可交叉来源",
+    "publicPct: 缺少可交叉来源",
+    "internationalPct: 缺少可交叉来源",
+    "publicGrossHkd: 缺少可交叉来源",
+    "internationalGrossHkd: 缺少可交叉来源",
+    "allotmentRatePct: 缺少可交叉来源",
+    "boardLot: 缺少可交叉来源"
+  ],
+  "statusReason": [
+    "publicShares: 缺少可交叉来源",
+    "internationalShares: 缺少可交叉来源",
+    "publicPct: 缺少可交叉来源",
+    "internationalPct: 缺少可交叉来源",
+    "publicGrossHkd: 缺少可交叉来源",
+    "internationalGrossHkd: 缺少可交叉来源",
+    "allotmentRatePct: 缺少可交叉来源",
+    "boardLot: 缺少可交叉来源"
+  ]
+}

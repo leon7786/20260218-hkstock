@@ -5,44 +5,38 @@ const { chromium } = require('../node_modules/playwright-core');
 const OUT_DIR = __dirname;
 const OUT_JSON = path.join(OUT_DIR, 'data.json');
 const OUT_HTML = path.join(OUT_DIR, 'index.html');
+const ARCHIVE_DIR = path.join(OUT_DIR, 'archive');
 
 const headers = [
   '上市日期','代码','中签率','股票名称','价格','公开募资','国际发售','首日涨幅','暗盘涨跌额','暗盘涨跌幅','累计涨幅','发行价','涨跌幅','连涨天数','成交量','成交额','换手率','市盈率(静)','总市值','发行量'
 ];
-
-const VERIFIED_PUBLIC_OFFER_PATH = path.join(OUT_DIR, 'verified_public_offer.json');
-const VERIFIED_GLOBAL_OFFER_PATH = path.join(OUT_DIR, 'verified_global_offer.json');
-const VERIFIED_OFFER_SPLIT_PATH = path.join(OUT_DIR, 'verified_offer_split.json');
-
-function loadVerifiedMap(filePath) {
-  try {
-    if (!fs.existsSync(filePath)) return {};
-    const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-    if (data && typeof data === 'object' && data.byCode && typeof data.byCode === 'object') {
-      return data.byCode;
-    }
-    return (data && typeof data === 'object') ? data : {};
-  } catch (e) {
-    console.warn(`failed to load map: ${filePath}`, e.message);
-    return {};
-  }
-}
 
 function isEtfName(name = '') {
   const raw = String(name).trim();
   const n = raw.toUpperCase();
 
   const keywordHit = [
-    // ETF / 指数 / 杠反 / 份额类
     'ETF', 'ETP', '杠杆', '反向', '两倍做空', 'QQQ', 'MSCI', 'GLOBALX', 'GX',
-    // 常见基金/产品名称关键字
     '南方A500', 'A500', 'A泰康', '泰康港元', '泰康美元',
     '易方达', '景顺', '银河博时', '恒生股息', '黄金矿业', '国指兑'
   ].some(k => n.includes(k.toUpperCase()));
 
-  const classShareLike = /-(R|U)$/.test(raw); // 常见ETF份额后缀
-
+  const classShareLike = /-(R|U)$/.test(raw);
   return keywordHit || classShareLike;
+}
+
+function loadArchiveSummaryByCode() {
+  const out = {};
+  if (!fs.existsSync(ARCHIVE_DIR)) return out;
+  const dirs = fs.readdirSync(ARCHIVE_DIR, { withFileTypes: true }).filter(d => d.isDirectory());
+  for (const d of dirs) {
+    const p = path.join(ARCHIVE_DIR, d.name, 'summary.json');
+    if (!fs.existsSync(p)) continue;
+    try {
+      out[d.name] = JSON.parse(fs.readFileSync(p, 'utf-8'));
+    } catch (_) {}
+  }
+  return out;
 }
 
 async function scrape() {
@@ -75,17 +69,15 @@ async function scrape() {
       });
     });
 
-    for (const r of rows) {
-      all.push({ page: p, ...r });
-    }
+    for (const r of rows) all.push({ page: p, ...r });
   }
 
   await browser.close();
 
   const hasDarkPoolData = (r) => {
     const v = r?.values || [];
-    const amt = String(v[2] ?? '').trim();   // 暗盘涨跌额
-    const pct = String(v[3] ?? '').trim();   // 暗盘涨跌幅
+    const amt = String(v[2] ?? '').trim();
+    const pct = String(v[3] ?? '').trim();
     const bad = new Set(['', '-', '--', '---', '----', '0', '0.00%', '0.000', '0.000%']);
     return !(bad.has(amt) || bad.has(pct));
   };
@@ -106,19 +98,7 @@ async function scrape() {
   return payload;
 }
 
-function buildHtml(data, verifiedPublicOfferByCode = {}, verifiedGlobalOfferByCode = {}, verifiedOfferSplitByCode = {}) {
-  const toNum = (s='') => {
-    const m = String(s).replace(/,/g,'').match(/([+-]?\d+(?:\.\d+)?)/);
-    return m ? Number(m[1]) : NaN;
-  };
-  const amountToShares = (s='') => {
-    const v = toNum(s);
-    if (!Number.isFinite(v)) return NaN;
-    if (String(s).includes('万亿')) return v * 1e12;
-    if (String(s).includes('亿')) return v * 1e8;
-    if (String(s).includes('万')) return v * 1e4;
-    return v;
-  };
+function buildHtml(data, archiveSummaryByCode = {}) {
   const fmtHkd = (n) => {
     if (!Number.isFinite(n)) return '-';
     if (n >= 1e8) return `${(n/1e8).toFixed(1)} 亿港元`;
@@ -126,45 +106,30 @@ function buildHtml(data, verifiedPublicOfferByCode = {}, verifiedGlobalOfferByCo
     return `${n.toFixed(1)} 港元`;
   };
   const fmtPct = (n) => Number.isFinite(n) ? `${n.toFixed(1)}%` : '待定';
+
   const formatOneDecimal = (raw='') => {
     const s = String(raw ?? '').trim();
     if (!s || s === '-' || /^\d{4}\/\d{2}\/\d{2}$/.test(s)) return s || '-';
-
     const m = s.match(/^([+-]?\d+(?:\.\d+)?)(.*)$/);
     if (!m) return s;
-
     const n = Number(m[1]);
     if (!Number.isFinite(n)) return s;
-
     const suffix = m[2] || '';
     return `${n.toFixed(1)}${suffix}`;
   };
 
   const rowsHtml = data.items.map(r => {
     const v = r.values || [];
-    const issuePrice = toNum(v[5]);      // 发行价
-    const issueVolume = amountToShares(v[13]); // 发行量
-    const estFund = (Number.isFinite(issuePrice) && Number.isFinite(issueVolume)) ? Math.round(issuePrice * issueVolume) : NaN;
-    const verifiedPublicOffer = verifiedPublicOfferByCode[r.code];
-    const verifiedGlobalOffer = verifiedGlobalOfferByCode[r.code];
-    const splitCfg = verifiedOfferSplitByCode[r.code] || {};
-    const publicPctFromCfg = Number(splitCfg.publicPct);
-    const allotmentRatePct = Number(splitCfg.allotmentRatePct);
+    const code = String(r.code).padStart(5, '0');
+    const summary = archiveSummaryByCode[code] || null;
 
-    const globalOffer = Number.isFinite(verifiedGlobalOffer) ? verifiedGlobalOffer : (Number.isFinite(estFund) ? estFund : null);
-    const publicOffer = Number.isFinite(verifiedPublicOffer) ? verifiedPublicOffer : null;
+    const strictUsable = summary && summary.status === 'verified';
 
-    const publicPct = Number.isFinite(publicPctFromCfg)
-      ? publicPctFromCfg
-      : (Number.isFinite(publicOffer) && Number.isFinite(globalOffer) && globalOffer > 0 ? (publicOffer / globalOffer * 100) : null);
-
-    const internationalPct = Number.isFinite(publicPct) ? (100 - publicPct) : null;
-    const publicAmount = Number.isFinite(publicOffer)
-      ? publicOffer
-      : (Number.isFinite(globalOffer) && Number.isFinite(publicPct) ? (globalOffer * publicPct / 100) : null);
-    const internationalAmount = Number.isFinite(globalOffer) && Number.isFinite(publicAmount)
-      ? (globalOffer - publicAmount)
-      : null;
+    const publicAmount = strictUsable && Number.isFinite(Number(summary.publicGrossHkd)) ? Number(summary.publicGrossHkd) : null;
+    const internationalAmount = strictUsable && Number.isFinite(Number(summary.internationalGrossHkd)) ? Number(summary.internationalGrossHkd) : null;
+    const publicPct = strictUsable && Number.isFinite(Number(summary.publicPct)) ? Number(summary.publicPct) : null;
+    const internationalPct = strictUsable && Number.isFinite(Number(summary.internationalPct)) ? Number(summary.internationalPct) : null;
+    const allotmentRatePct = strictUsable && Number.isFinite(Number(summary.allotmentRatePct)) ? Number(summary.allotmentRatePct) : null;
 
     const publicText = (Number.isFinite(publicAmount) && Number.isFinite(publicPct))
       ? `${fmtPct(publicPct)}：${fmtHkd(publicAmount)}`
@@ -173,9 +138,9 @@ function buildHtml(data, verifiedPublicOfferByCode = {}, verifiedGlobalOfferByCo
       ? `${fmtPct(internationalPct)}：${fmtHkd(internationalAmount)}`
       : '待定';
 
-    const splitTitle = Number.isFinite(publicPct)
-      ? `占比口径：${Number.isFinite(publicOffer) ? '按已核公开募资/全球募资计算' : '按人工核对占比配置'}；全球募资：${globalOffer ? fmtHkd(globalOffer) : '待核'}`
-      : '公开发售/国际发售占比待交叉核对';
+    const splitTitle = strictUsable
+      ? `建档口径（${summary.sourceOfTruthDate || '未标注日期'}）`
+      : '待建档或字段未达标（需 archive/<code>/summary.json verified）';
 
     const tds = [
       `<td data-col="上市日期" data-sort="${(v[14] ?? '-').replace(/"/g,'&quot;')}">${v[14] ?? '-'}</td>`,
@@ -227,7 +192,7 @@ tr:hover{background:#111827}
 <body>
 <div class="wrap">
   <h1>Futunn 港股IPO（已排除ETF）</h1>
-  <div class="meta">来源：<a href="${data.source}" target="_blank" style="color:#93c5fd">${data.source}</a> ｜ 抓取时间：${new Date(data.scrapedAt).toLocaleString('zh-CN', {hour12:false})} ｜ 抓取页数：${data.pages} ｜ 原始条目：${data.rawCount} ｜ 过滤后：${data.filteredCount}</div>
+  <div class="meta">来源：<a href="${data.source}" target="_blank" style="color:#93c5fd">${data.source}</a> ｜ 抓取时间：${new Date(data.scrapedAt).toLocaleString('zh-CN', {hour12:false})} ｜ 抓取页数：${data.pages} ｜ 原始条目：${data.rawCount} ｜ 过滤后：${data.filteredCount} ｜ 建档目录：archive/&lt;code&gt;/summary.json</div>
   <div class="table">
     <table>
       <thead>
@@ -244,13 +209,11 @@ tr:hover{background:#111827}
   const table = document.querySelector('table');
   const tbody = table.querySelector('tbody');
   const headers = Array.from(table.querySelectorAll('thead th'));
-
   const parseVal = (txt) => {
     const s = (txt || '').trim();
     if (!s || s === '-') return -Infinity;
-    if (/^\\d{4}[\\/]\\d{2}[\\/]\\d{2}$/.test(s)) return new Date(s.split('/').join('-')).getTime();
-
-    let m = s.match(/([+-]?\\d+(?:\\.\\d+)?)/);
+    if (/^\d{4}[\/]\d{2}[\/]\d{2}$/.test(s)) return new Date(s.split('/').join('-')).getTime();
+    let m = s.match(/([+-]?\d+(?:\.\d+)?)/);
     if (m) {
       let num = parseFloat(m[1]);
       if (s.includes('%')) return num;
@@ -260,10 +223,7 @@ tr:hover{background:#111827}
     }
     return s;
   };
-
-  let current = { idx: -1, dir: 'desc' };
-  const columnState = {}; // 每列单独记录上次方向
-
+  const columnState = {};
   const sortBy = (idx, dir='desc') => {
     const rows = Array.from(tbody.querySelectorAll('tr'));
     rows.sort((a,b)=>{
@@ -274,27 +234,19 @@ tr:hover{background:#111827}
       return dir==='desc' ? String(bv).localeCompare(String(av), 'zh-Hans-CN') : String(av).localeCompare(String(bv), 'zh-Hans-CN');
     });
     rows.forEach(r=>tbody.appendChild(r));
-
     headers.forEach((h,i)=>{
       h.classList.toggle('sorted', i===idx);
       const arr = h.querySelector('.arrow');
       arr.textContent = i===idx ? (dir==='desc' ? '↓' : '↑') : '↕';
     });
-    current = { idx, dir };
     columnState[idx] = dir;
   };
-
-  headers.forEach(h=>{
-    h.addEventListener('click',()=>{
-      const idx = Number(h.dataset.index);
-      // 规则：每列首次点击=降序；同列再次点击=升降切换
-      const last = columnState[idx];
-      const dir = !last ? 'desc' : (last === 'desc' ? 'asc' : 'desc');
-      sortBy(idx, dir);
-    });
-  });
-
-  // 默认按“上市日期”降序，接近Futunn观感
+  headers.forEach(h=>h.addEventListener('click',()=>{
+    const idx = Number(h.dataset.index);
+    const last = columnState[idx];
+    const dir = !last ? 'desc' : (last === 'desc' ? 'asc' : 'desc');
+    sortBy(idx, dir);
+  }));
   const dateIdx = headers.findIndex(h => h.textContent.includes('上市日期'));
   sortBy(dateIdx >= 0 ? dateIdx : 0, 'desc');
 })();
@@ -305,13 +257,10 @@ tr:hover{background:#111827}
 
 (async () => {
   try {
-    const verifiedPublicOfferByCode = loadVerifiedMap(VERIFIED_PUBLIC_OFFER_PATH);
-    const verifiedGlobalOfferByCode = loadVerifiedMap(VERIFIED_GLOBAL_OFFER_PATH);
-    const verifiedOfferSplitByCode = loadVerifiedMap(VERIFIED_OFFER_SPLIT_PATH);
-
+    const archiveSummaryByCode = loadArchiveSummaryByCode();
     const data = await scrape();
-    fs.writeFileSync(OUT_HTML, buildHtml(data, verifiedPublicOfferByCode, verifiedGlobalOfferByCode, verifiedOfferSplitByCode), 'utf-8');
-    console.log(`done: raw=${data.rawCount}, filtered=${data.filteredCount}, verifiedPublic=${Object.keys(verifiedPublicOfferByCode).length}, verifiedGlobal=${Object.keys(verifiedGlobalOfferByCode).length}, verifiedSplit=${Object.keys(verifiedOfferSplitByCode).length}`);
+    fs.writeFileSync(OUT_HTML, buildHtml(data, archiveSummaryByCode), 'utf-8');
+    console.log(`done: raw=${data.rawCount}, filtered=${data.filteredCount}, archived=${Object.keys(archiveSummaryByCode).length}`);
   } catch (e) {
     console.error(e);
     process.exit(1);

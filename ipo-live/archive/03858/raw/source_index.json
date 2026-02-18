@@ -1,0 +1,42 @@
+{
+  "code": "03858",
+  "name": "佳鑫国际资源",
+  "generatedAt": "2026-02-18T03:11:10.677Z",
+  "tolerance": 0.03,
+  "fieldChecks": {
+    "offerPriceHkd": {
+      "ok": true
+    },
+    "globalShares": {
+      "ok": true
+    },
+    "publicShares": {
+      "ok": true
+    },
+    "internationalShares": {
+      "ok": true
+    },
+    "publicPct": {
+      "ok": true
+    },
+    "internationalPct": {
+      "ok": true
+    },
+    "globalGrossHkd": {
+      "ok": true
+    },
+    "publicGrossHkd": {
+      "ok": true
+    },
+    "internationalGrossHkd": {
+      "ok": true
+    },
+    "allotmentRatePct": {
+      "ok": true
+    },
+    "boardLot": {
+      "ok": true
+    }
+  },
+  "reasons": []
+}
