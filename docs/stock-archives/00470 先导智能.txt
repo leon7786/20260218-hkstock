@@ -8,20 +8,37 @@
 | 基本信息 | 股票简称 | 先导智能 | 第三方 | https://stock.finance.sina.com.cn/hkstock/quotes/00470.html |
 | 基本信息 | 上市/开始买卖日 | 2026/02/11 | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
 | 发行定价 | 发售价 | HK$45.800/股 | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
+| 交易单位 | 每手 | 待定 | 披露易（待补招股书/配发结果） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
 | 全球发售 | 全球发售股份 | 1.08亿 | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
-| 募资金额 | 全球募资总额（估算） | 49.5 亿港元 | 第三方(由发行价×发行量) | https://www.futunn.com/quote/hk/ipo |
 | 全球发售拆分 | 香港公开发售股份 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
 | 全球发售拆分 | 国际发售股份 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
 | 全球发售拆分 | 公开发售比例 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
 | 全球发售拆分 | 国际发售比例 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
-| 公开发售 | 一手中签率 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 募资金额 | 募资总额（Gross proceeds） | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 募资金额 | 全球募资总额（估算） | 49.5 亿港元 | 第三方(由发行价×发行量) | https://www.futunn.com/quote/hk/ipo |
+| 募资金额 | 估算上市费用 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 募资金额 | 净筹资（Net proceeds） | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 公开发售 | 有效申请数 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
 | 公开发售 | 公开发售超购倍数 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 公开发售 | 是否触发回拨 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 公开发售 | 一手（Board Lot）中签率 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
 | 国际发售 | 国际发售超购倍数 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
-| 交易复盘 | 首日涨幅 | 0.00% | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
-| 交易复盘 | 暗盘涨跌额 | +0.500 | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
-| 交易复盘 | 暗盘涨跌幅 | +1.09% | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
+| 国际发售 | 承配人数量 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 稳价/绿鞋 | 超额分配（Over-allocation） | 待定 | 披露易（待补稳定价格行动公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 股本 | 上市时已发行股份（绿鞋前） | 待定 | 披露易（待补招股书/配发结果） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 基石 | 基石合计获配 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=470 |
+| 资金热度（孖展） | 招股期孖展认购金额 | 待定 | 第三方（券商/媒体） | https://stock.finance.sina.com.cn/hkstock/quotes/00470.html |
+| 暗盘 | 暗盘涨跌额 | +0.500 | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
+| 暗盘 | 暗盘涨跌幅 | +1.09% | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
+| 首日表现 | 首日涨幅 | 0.00% | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
+| 首日表现 | 首日开盘价 | 待定 | 第三方（行情复盘） | https://stock.finance.sina.com.cn/hkstock/quotes/00470.html |
+| 首日表现 | 首日收盘价 | 待定 | 第三方（行情复盘） | https://stock.finance.sina.com.cn/hkstock/quotes/00470.html |
+| 首日表现 | 首日最高价 | 待定 | 第三方（行情复盘） | https://stock.finance.sina.com.cn/hkstock/quotes/00470.html |
+| 首日成交 | 首日成交股数 | 待定 | 第三方（行情复盘） | https://stock.finance.sina.com.cn/hkstock/quotes/00470.html |
+| 首日成交 | 首日成交额 | 待定 | 第三方（行情复盘） | https://stock.finance.sina.com.cn/hkstock/quotes/00470.html |
+| 每手盈亏（首日） | 400股一手账面盈亏 | 待定 | 第三方（复盘测算） | https://stock.finance.sina.com.cn/hkstock/quotes/00470.html |
 | 交易复盘 | 累计涨幅 | +0.44% | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
 
 ## 备注
-- 本档案先给出可核对骨架；后续我会把披露易《配发结果公告》中的公开/国际拆分和中签率补齐。
-- 当同字段满足“至少两源接近”后，状态会从待定升级为已核对。
+- 已按你给的 03858 模板扩展字段，先导智能当前是“完整字段框架版”。
+- 下一步我会按同样格式补沃尔核材、海致科技集团，并继续把“待定”项用披露易+第三方交叉填实。
