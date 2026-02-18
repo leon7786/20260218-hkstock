@@ -1,0 +1,35 @@
+# 09881 容大科技
+
+- 股票代码：09881
+- 股票名称：容大科技
+- 上市日期：2025/06/10
+- 建档状态：pending
+
+## 上市前一日核心数据（优先口径）
+- 发售价（Offer Price）：10.00 港元/股
+- 全球发售股份：1840.00万
+- 每手（Board Lot）：400 股（如无公告变更）
+
+## 募资与比例
+- 公开募资比例：待定
+- 国际发售比例：待定
+- 公开募资金额：待定
+- 国际发售金额：待定
+- 全球募资金额：1.8 亿港元
+
+## 认购/中签
+- 一手中签率：待定
+- 香港公开发售认购倍数：待定
+- 国际发售认购倍数：待定
+- 有效申请数：待定
+- 成功申请数：待定
+
+## 数据来源（建档证据）
+1. [sina] https://stock.finance.sina.com.cn/hkstock/quotes/09881.html
+2. [aastocks] https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=09881
+3. [futunn] https://www.futunn.com/stock/09881-HK/company-profile
+4. [hkex] https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9881
+
+## 备注
+- 本档案由本地建档流程自动生成，可人工补充与纠错。
+- 写入规则：优先 HKEX/披露易，至少两源接近才标记 verified；否则保持待定/partial。
