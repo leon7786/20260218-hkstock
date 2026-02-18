@@ -1,11 +1,12 @@
 const fs = require('fs');
 const path = require('path');
-const { chromium } = require('../node_modules/playwright-core');
+const { chromium } = require('playwright');
 
 const OUT_DIR = __dirname;
 const OUT_JSON = path.join(OUT_DIR, 'data.json');
 const OUT_HTML = path.join(OUT_DIR, 'index.html');
 const ARCHIVE_DIR = path.join(OUT_DIR, 'archive');
+const STOCK_ARCHIVES_DIR = path.join(OUT_DIR, '..', 'stock-archives');
 
 const headers = [
   '上市日期','代码','中签率','股票名称','价格','公开募资','国际发售','首日涨幅','暗盘涨跌额','暗盘涨跌幅','累计涨幅','发行价','涨跌幅','连涨天数','成交量','成交额','换手率','市盈率(静)','总市值','发行量'
@@ -39,10 +40,105 @@ function loadArchiveSummaryByCode() {
   return out;
 }
 
+function parseSharesFromText(text, labelRegexList = []) {
+  for (const rx of labelRegexList) {
+    const m = text.match(rx);
+    if (!m) continue;
+    const n = Number(String(m[1]).replace(/,/g, ''));
+    if (Number.isFinite(n)) return n;
+  }
+  return null;
+}
+
+function parseOfferPriceFromText(text) {
+  const rules = [
+    /最终发售价[^\n]{0,80}?HK\$\s*([0-9]+(?:\.[0-9]+)?)/i,
+    /Final Offer Price[^\n]{0,120}?HK\$\s*([0-9]+(?:\.[0-9]+)?)/i
+  ];
+  for (const rx of rules) {
+    const m = text.match(rx);
+    if (!m) continue;
+    const n = Number(m[1]);
+    if (Number.isFinite(n)) return n;
+  }
+  return null;
+}
+
+function loadDisclosureByCode() {
+  const out = {};
+
+  const hkexJson = path.join(OUT_DIR, 'hkex-disclosure.json');
+  if (fs.existsSync(hkexJson)) {
+    try {
+      const parsed = JSON.parse(fs.readFileSync(hkexJson, 'utf-8'));
+      const byCode = parsed?.byCode || {};
+      for (const [code, v] of Object.entries(byCode)) {
+        if (v && v.status === 'ok' && Number.isFinite(Number(v.offerPriceHkd)) && Number.isFinite(Number(v.publicShares))) {
+          out[String(code).padStart(5, '0')] = {
+            offerPriceHkd: Number(v.offerPriceHkd),
+            publicShares: Number(v.publicShares),
+            internationalShares: Number.isFinite(Number(v.internationalShares)) ? Number(v.internationalShares) : null,
+            globalShares: Number.isFinite(Number(v.globalShares)) ? Number(v.globalShares) : null,
+            publicGrossHkd: Number.isFinite(Number(v.publicGrossHkd)) ? Number(v.publicGrossHkd) : null,
+            internationalGrossHkd: Number.isFinite(Number(v.internationalGrossHkd)) ? Number(v.internationalGrossHkd) : null,
+            sourceType: 'hkex_auto_pdf_parse'
+          };
+        }
+      }
+    } catch (_) {}
+  }
+
+  if (!fs.existsSync(STOCK_ARCHIVES_DIR)) return out;
+
+  const files = fs.readdirSync(STOCK_ARCHIVES_DIR).filter(f => f.endsWith('.txt'));
+  for (const file of files) {
+    const codeMatch = file.match(/^(\d{5})\s/);
+    if (!codeMatch) continue;
+    const code = codeMatch[1];
+    const fullPath = path.join(STOCK_ARCHIVES_DIR, file);
+
+    let text = '';
+    try { text = fs.readFileSync(fullPath, 'utf-8'); } catch (_) { continue; }
+
+    const publicShares = parseSharesFromText(text, [
+      /香港公开发售[^\n]*?\|[^\n]*?([\d,]+)\s*H股/,
+      /HK Public Offering[^\n]*?([\d,]+)\s*H股/i
+    ]);
+    const internationalShares = parseSharesFromText(text, [
+      /国际发售[^\n]*?\|[^\n]*?([\d,]+)\s*H股/,
+      /International Offering[^\n]*?([\d,]+)\s*H股/i
+    ]);
+    const globalShares = parseSharesFromText(text, [
+      /全球发售股份[^\n]*?\|[^\n]*?([\d,]+)\s*H股/,
+      /Offer Shares[^\n]*?\|[^\n]*?([\d,]+)\s*H股/i,
+      /全球发售股份数[^\n]*?([\d,]+)\s*H股/
+    ]);
+    const offerPriceHkd = parseOfferPriceFromText(text);
+
+    if (Number.isFinite(publicShares) && Number.isFinite(offerPriceHkd)) {
+      const totalShares = Number.isFinite(globalShares)
+        ? globalShares
+        : (Number.isFinite(internationalShares) ? (publicShares + internationalShares) : null);
+
+      out[code] = {
+        offerPriceHkd,
+        publicShares,
+        internationalShares,
+        globalShares: Number.isFinite(totalShares) ? totalShares : null,
+        publicGrossHkd: Math.round(publicShares * offerPriceHkd),
+        // 按用户口径："国际发售金额" 列展示总募资金额（总股份 × 发售价）
+        internationalGrossHkd: Number.isFinite(totalShares) ? Math.round(totalShares * offerPriceHkd) : null,
+        sourceType: 'hkex_disclosureeasylike_archive'
+      };
+    }
+  }
+
+  return out;
+}
+
 async function scrape() {
   const browser = await chromium.launch({
     headless: true,
-    executablePath: '/usr/bin/google-chrome',
     args: ['--no-sandbox', '--disable-gpu']
   });
 
@@ -98,7 +194,7 @@ async function scrape() {
   return payload;
 }
 
-function buildHtml(data, archiveSummaryByCode = {}) {
+function buildHtml(data, archiveSummaryByCode = {}, disclosureByCode = {}) {
   const fmtHkd = (n) => {
     if (!Number.isFinite(n)) return '-';
     if (n >= 1e8) return `${(n/1e8).toFixed(1)} 亿港元`;
@@ -135,25 +231,35 @@ function buildHtml(data, archiveSummaryByCode = {}) {
     const v = r.values || [];
     const code = String(r.code).padStart(5, '0');
     const summary = archiveSummaryByCode[code] || null;
+    const disclosure = disclosureByCode[code] || null;
 
     const strictUsable = summary && summary.status === 'verified';
 
-    const publicAmount = strictUsable && Number.isFinite(Number(summary.publicGrossHkd)) ? Number(summary.publicGrossHkd) : null;
-    const internationalAmount = strictUsable && Number.isFinite(Number(summary.internationalGrossHkd)) ? Number(summary.internationalGrossHkd) : null;
-    const publicPct = strictUsable && Number.isFinite(Number(summary.publicPct)) ? Number(summary.publicPct) : null;
-    const internationalPct = strictUsable && Number.isFinite(Number(summary.internationalPct)) ? Number(summary.internationalPct) : null;
+    const summaryPublicAmount = strictUsable && Number.isFinite(Number(summary.publicGrossHkd)) ? Number(summary.publicGrossHkd) : null;
+    const summaryInternationalAmount = strictUsable && Number.isFinite(Number(summary.internationalGrossHkd)) ? Number(summary.internationalGrossHkd) : null;
+    const summaryPublicPct = strictUsable && Number.isFinite(Number(summary.publicPct)) ? Number(summary.publicPct) : null;
+    const summaryInternationalPct = strictUsable && Number.isFinite(Number(summary.internationalPct)) ? Number(summary.internationalPct) : null;
+
+    const disclosurePublicAmount = disclosure && Number.isFinite(Number(disclosure.publicGrossHkd)) ? Number(disclosure.publicGrossHkd) : null;
+    const disclosureInternationalAmount = disclosure && Number.isFinite(Number(disclosure.internationalGrossHkd)) ? Number(disclosure.internationalGrossHkd) : null;
+
+    const publicAmount = Number.isFinite(summaryPublicAmount) ? summaryPublicAmount : disclosurePublicAmount;
+    const internationalAmount = Number.isFinite(summaryInternationalAmount) ? summaryInternationalAmount : disclosureInternationalAmount;
+
+    const publicPct = Number.isFinite(summaryPublicPct) ? summaryPublicPct : null;
+    const internationalPct = Number.isFinite(summaryInternationalPct) ? summaryInternationalPct : null;
     const allotmentRatePct = strictUsable && Number.isFinite(Number(summary.allotmentRatePct)) ? Number(summary.allotmentRatePct) : null;
 
-    const publicText = (Number.isFinite(publicAmount) && Number.isFinite(publicPct))
-      ? `${fmtPct(publicPct)}：${fmtHkd(publicAmount)}`
+    const publicText = Number.isFinite(publicAmount)
+      ? (Number.isFinite(publicPct) ? `${fmtPct(publicPct)}：${fmtHkd(publicAmount)}` : fmtHkd(publicAmount))
       : '待定';
-    const internationalText = (Number.isFinite(internationalAmount) && Number.isFinite(internationalPct))
-      ? `${fmtPct(internationalPct)}：${fmtHkd(internationalAmount)}`
+    const internationalText = Number.isFinite(internationalAmount)
+      ? (Number.isFinite(internationalPct) ? `${fmtPct(internationalPct)}：${fmtHkd(internationalAmount)}` : fmtHkd(internationalAmount))
       : '待定';
 
     const splitTitle = strictUsable
       ? `建档口径（${summary.sourceOfTruthDate || '未标注日期'}）`
-      : '待建档或字段未达标（需 archive/<code>/summary.json verified）';
+      : (disclosure ? '披露易口径（公开=公开发售股数×发售价；国际列按你的规则显示总股份×发售价）' : '待建档或披露易资料未补齐');
 
     const tds = [
       `<td data-col="上市日期" data-sort="${(v[14] ?? '-').replace(/"/g,'&quot;')}">${v[14] ?? '-'}</td>`,
@@ -297,9 +403,10 @@ tr:hover{background:#111827}
 (async () => {
   try {
     const archiveSummaryByCode = loadArchiveSummaryByCode();
+    const disclosureByCode = loadDisclosureByCode();
     const data = await scrape();
-    fs.writeFileSync(OUT_HTML, buildHtml(data, archiveSummaryByCode), 'utf-8');
-    console.log(`done: raw=${data.rawCount}, filtered=${data.filteredCount}, archived=${Object.keys(archiveSummaryByCode).length}`);
+    fs.writeFileSync(OUT_HTML, buildHtml(data, archiveSummaryByCode, disclosureByCode), 'utf-8');
+    console.log(`done: raw=${data.rawCount}, filtered=${data.filteredCount}, archived=${Object.keys(archiveSummaryByCode).length}, disclosure=${Object.keys(disclosureByCode).length}`);
   } catch (e) {
     console.error(e);
     process.exit(1);
