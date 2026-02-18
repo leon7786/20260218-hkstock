@@ -10,12 +10,12 @@
 | 基本信息 | 上市日期 | 2026-02-06 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
 | 发行定价 | 发售价 | HK$59.900 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
 | 发行规模 | 发行量 | 475.00万 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
-| 发行规模 | 全球发售股份（估算） | 4,750,000 股 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
-| 全球发售拆分 | 香港公开发售股份（估算10%） | 475,000 股 | 第三方补充 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2677 |
-| 全球发售拆分 | 国际发售股份（估算90%） | 4,275,000 股 | 第三方补充 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2677 |
-| 募资金额 | 公开招募金额（估算） | 2.8千万港元 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
+| 发行规模 | 全球发售股份 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2677 |
+| 全球发售拆分 | 香港公开发售股份 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2677 |
+| 全球发售拆分 | 国际发售股份 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2677 |
+| 募资金额 | 公开招募金额 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2677 |
 | 募资金额 | 国际发售金额（当前口径=总募资） | 2.8亿港元 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
-| 募资金额 | 募资总额（估算） | 2.8亿港元 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
+| 募资金额 | 募资总额 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2677 |
 | 公开发售 | 公开发售超购倍数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2677 |
 | 公开发售 | 一手中签率 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2677 |
 | 公开发售 | 有效申请数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2677 |
@@ -46,7 +46,7 @@
 | 首日表现 | 首日收盘价 | 待定 | 新浪 | https://stock.finance.sina.com.cn/hkstock/quotes/02677.html |
 | 首日成交 | 首日成交量 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=02677 |
 | 首日成交 | 首日成交额 | 待定 | 新浪 | https://stock.finance.sina.com.cn/hkstock/quotes/02677.html |
-| 每手盈亏 | 每手打新成本（估算） | 0.0千万港元（按1000股估算） | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
+| 每手盈亏 | 每手打新成本 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2677 |
 | 每手盈亏 | 每手账面盈亏（首日） | 待定 | 第三方补充 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=02677 |
 | 基石投资者 | 基石投资者合计获配 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2677 |
 | 基石投资者 | 基石锁定期 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2677 |

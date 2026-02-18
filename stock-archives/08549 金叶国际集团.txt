@@ -47,7 +47,7 @@
 | 首日表现 | 首日收盘价 | 待定 | 新浪 | https://stock.finance.sina.com.cn/hkstock/quotes/08549.html |
 | 首日成交 | 首日成交量 | 待定 | 阿斯达克 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=08549 |
 | 首日成交 | 首日成交额 | 待定 | 新浪 | https://stock.finance.sina.com.cn/hkstock/quotes/08549.html |
-| 每手盈亏 | 每手打新成本（估算） | 0.0千万港元（按1000股估算） | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
+| 每手盈亏 | 每手打新成本 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=8549 |
 | 每手盈亏 | 每手账面盈亏（首日） | 待定 | 第三方补充 | https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=08549 |
 | 基石投资者 | 基石投资者合计获配 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=8549 |
 | 基石投资者 | 基石锁定期 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=8549 |
