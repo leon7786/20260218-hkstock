@@ -7,11 +7,12 @@ const OUT_JSON = path.join(OUT_DIR, 'data.json');
 const OUT_HTML = path.join(OUT_DIR, 'index.html');
 
 const headers = [
-  '代码','股票名称','价格','公开募资金额(核查/估算)','首日涨幅','暗盘涨跌额','暗盘涨跌幅','累计涨幅','发行价','涨跌幅','连涨天数','成交量','成交额','换手率','市盈率(静)','总市值','发行量','上市日期'
+  '代码','股票名称','价格','公开募资(占比)','国际发售(占比)','首日涨幅','暗盘涨跌额','暗盘涨跌幅','累计涨幅','发行价','涨跌幅','连涨天数','成交量','成交额','换手率','市盈率(静)','总市值','发行量','上市日期'
 ];
 
 const VERIFIED_PUBLIC_OFFER_PATH = path.join(OUT_DIR, 'verified_public_offer.json');
 const VERIFIED_GLOBAL_OFFER_PATH = path.join(OUT_DIR, 'verified_global_offer.json');
+const VERIFIED_OFFER_SPLIT_PATH = path.join(OUT_DIR, 'verified_offer_split.json');
 
 function loadVerifiedMap(filePath) {
   try {
@@ -102,7 +103,7 @@ async function scrape() {
   return payload;
 }
 
-function buildHtml(data, verifiedPublicOfferByCode = {}, verifiedGlobalOfferByCode = {}) {
+function buildHtml(data, verifiedPublicOfferByCode = {}, verifiedGlobalOfferByCode = {}, verifiedOfferSplitByCode = {}) {
   const toNum = (s='') => {
     const m = String(s).replace(/,/g,'').match(/([+-]?\d+(?:\.\d+)?)/);
     return m ? Number(m[1]) : NaN;
@@ -117,9 +118,23 @@ function buildHtml(data, verifiedPublicOfferByCode = {}, verifiedGlobalOfferByCo
   };
   const fmtHkd = (n) => {
     if (!Number.isFinite(n)) return '-';
-    if (n >= 1e8) return `约${(n/1e8).toFixed(2)}亿`;
-    if (n >= 1e4) return `约${(n/1e4).toFixed(2)}万`;
-    return `约${n.toFixed(0)}`;
+    if (n >= 1e8) return `${(n/1e8).toFixed(1)} 亿港元`;
+    if (n >= 1e4) return `${(n/1e4).toFixed(1)} 万港元`;
+    return `${n.toFixed(1)} 港元`;
+  };
+  const fmtPct = (n) => Number.isFinite(n) ? `${n.toFixed(1)}%` : '待核';
+  const formatOneDecimal = (raw='') => {
+    const s = String(raw ?? '').trim();
+    if (!s || s === '-' || /^\d{4}\/\d{2}\/\d{2}$/.test(s)) return s || '-';
+
+    const m = s.match(/^([+-]?\d+(?:\.\d+)?)(.*)$/);
+    if (!m) return s;
+
+    const n = Number(m[1]);
+    if (!Number.isFinite(n)) return s;
+
+    const suffix = m[2] || '';
+    return `${n.toFixed(1)}${suffix}`;
   };
 
   const rowsHtml = data.items.map(r => {
@@ -129,34 +144,54 @@ function buildHtml(data, verifiedPublicOfferByCode = {}, verifiedGlobalOfferByCo
     const estFund = (Number.isFinite(issuePrice) && Number.isFinite(issueVolume)) ? Math.round(issuePrice * issueVolume) : NaN;
     const verifiedPublicOffer = verifiedPublicOfferByCode[r.code];
     const verifiedGlobalOffer = verifiedGlobalOfferByCode[r.code];
-    const displayPublicOffer = Number.isFinite(verifiedPublicOffer) ? verifiedPublicOffer : null;
-    const displayGlobalOffer = Number.isFinite(verifiedGlobalOffer) ? verifiedGlobalOffer : (Number.isFinite(estFund) ? estFund : null);
-    const displayFund = displayPublicOffer ?? displayGlobalOffer;
-    const displayFundText = displayPublicOffer
-      ? fmtHkd(displayPublicOffer)
-      : (displayGlobalOffer ? `${fmtHkd(displayGlobalOffer)}（总）` : '待核');
-    const fundTitle = displayPublicOffer
-      ? '口径：公开发售募资（已核查）'
-      : (displayGlobalOffer ? `口径：公开募资待核，当前展示全球募资估算/核查值：${fmtHkd(displayGlobalOffer)}` : '公开募资与全球募资均待核');
+    const splitCfg = verifiedOfferSplitByCode[r.code] || {};
+    const publicPctFromCfg = Number(splitCfg.publicPct);
+
+    const globalOffer = Number.isFinite(verifiedGlobalOffer) ? verifiedGlobalOffer : (Number.isFinite(estFund) ? estFund : null);
+    const publicOffer = Number.isFinite(verifiedPublicOffer) ? verifiedPublicOffer : null;
+
+    const publicPct = Number.isFinite(publicPctFromCfg)
+      ? publicPctFromCfg
+      : (Number.isFinite(publicOffer) && Number.isFinite(globalOffer) && globalOffer > 0 ? (publicOffer / globalOffer * 100) : null);
+
+    const internationalPct = Number.isFinite(publicPct) ? (100 - publicPct) : null;
+    const publicAmount = Number.isFinite(publicOffer)
+      ? publicOffer
+      : (Number.isFinite(globalOffer) && Number.isFinite(publicPct) ? (globalOffer * publicPct / 100) : null);
+    const internationalAmount = Number.isFinite(globalOffer) && Number.isFinite(publicAmount)
+      ? (globalOffer - publicAmount)
+      : null;
+
+    const publicText = (Number.isFinite(publicAmount) && Number.isFinite(publicPct))
+      ? `${fmtPct(publicPct)}：${fmtHkd(publicAmount)}`
+      : '待核';
+    const internationalText = (Number.isFinite(internationalAmount) && Number.isFinite(internationalPct))
+      ? `${fmtPct(internationalPct)}：${fmtHkd(internationalAmount)}`
+      : '待核';
+
+    const splitTitle = Number.isFinite(publicPct)
+      ? `占比口径：${Number.isFinite(publicOffer) ? '按已核公开募资/全球募资计算' : '按人工核对占比配置'}；全球募资：${globalOffer ? fmtHkd(globalOffer) : '待核'}`
+      : '公开发售/国际发售占比待交叉核对';
 
     const tds = [
       `<td class="code" data-sort="${r.code}">${r.code}</td>`,
       `<td class="name" data-sort="${r.name}">${r.name}</td>`,
-      `<td data-col="价格" data-sort="${(v[0] ?? '-').replace(/"/g,'&quot;')}">${v[0] ?? '-'}</td>`,
-      `<td data-col="公开募资金额(核查/估算)" data-sort="${displayFund ?? -1}" title="${fundTitle}">${displayFundText}</td>`,
-      `<td data-col="首日涨幅" data-sort="${(v[1] ?? '-').replace(/"/g,'&quot;')}">${v[1] ?? '-'}</td>`,
-      `<td data-col="暗盘涨跌额" data-sort="${(v[2] ?? '-').replace(/"/g,'&quot;')}">${v[2] ?? '-'}</td>`,
-      `<td data-col="暗盘涨跌幅" data-sort="${(v[3] ?? '-').replace(/"/g,'&quot;')}">${v[3] ?? '-'}</td>`,
-      `<td data-col="累计涨幅" data-sort="${(v[4] ?? '-').replace(/"/g,'&quot;')}">${v[4] ?? '-'}</td>`,
-      `<td data-col="发行价" data-sort="${(v[5] ?? '-').replace(/"/g,'&quot;')}">${v[5] ?? '-'}</td>`,
-      `<td data-col="涨跌幅" data-sort="${(v[6] ?? '-').replace(/"/g,'&quot;')}">${v[6] ?? '-'}</td>`,
-      `<td data-col="连涨天数" data-sort="${(v[7] ?? '-').replace(/"/g,'&quot;')}">${v[7] ?? '-'}</td>`,
-      `<td data-col="成交量" data-sort="${(v[8] ?? '-').replace(/"/g,'&quot;')}">${v[8] ?? '-'}</td>`,
-      `<td data-col="成交额" data-sort="${(v[9] ?? '-').replace(/"/g,'&quot;')}">${v[9] ?? '-'}</td>`,
-      `<td data-col="换手率" data-sort="${(v[10] ?? '-').replace(/"/g,'&quot;')}">${v[10] ?? '-'}</td>`,
-      `<td data-col="市盈率(静)" data-sort="${(v[11] ?? '-').replace(/"/g,'&quot;')}">${v[11] ?? '-'}</td>`,
-      `<td data-col="总市值" data-sort="${(v[12] ?? '-').replace(/"/g,'&quot;')}">${v[12] ?? '-'}</td>`,
-      `<td data-col="发行量" data-sort="${(v[13] ?? '-').replace(/"/g,'&quot;')}">${v[13] ?? '-'}</td>`,
+      `<td data-col="价格" data-sort="${(v[0] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[0] ?? '-')}</td>`,
+      `<td data-col="公开募资(占比)" data-sort="${publicAmount ?? -1}" title="${splitTitle}">${publicText}</td>`,
+      `<td data-col="国际发售(占比)" data-sort="${internationalAmount ?? -1}" title="${splitTitle}">${internationalText}</td>`,
+      `<td data-col="首日涨幅" data-sort="${(v[1] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[1] ?? '-')}</td>`,
+      `<td data-col="暗盘涨跌额" data-sort="${(v[2] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[2] ?? '-')}</td>`,
+      `<td data-col="暗盘涨跌幅" data-sort="${(v[3] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[3] ?? '-')}</td>`,
+      `<td data-col="累计涨幅" data-sort="${(v[4] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[4] ?? '-')}</td>`,
+      `<td data-col="发行价" data-sort="${(v[5] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[5] ?? '-')}</td>`,
+      `<td data-col="涨跌幅" data-sort="${(v[6] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[6] ?? '-')}</td>`,
+      `<td data-col="连涨天数" data-sort="${(v[7] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[7] ?? '-')}</td>`,
+      `<td data-col="成交量" data-sort="${(v[8] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[8] ?? '-')}</td>`,
+      `<td data-col="成交额" data-sort="${(v[9] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[9] ?? '-')}</td>`,
+      `<td data-col="换手率" data-sort="${(v[10] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[10] ?? '-')}</td>`,
+      `<td data-col="市盈率(静)" data-sort="${(v[11] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[11] ?? '-')}</td>`,
+      `<td data-col="总市值" data-sort="${(v[12] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[12] ?? '-')}</td>`,
+      `<td data-col="发行量" data-sort="${(v[13] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[13] ?? '-')}</td>`,
       `<td data-col="上市日期" data-sort="${(v[14] ?? '-').replace(/"/g,'&quot;')}">${v[14] ?? '-'}</td>`
     ].join('');
     return `<tr>${tds}</tr>`;
@@ -267,10 +302,11 @@ tr:hover{background:#111827}
   try {
     const verifiedPublicOfferByCode = loadVerifiedMap(VERIFIED_PUBLIC_OFFER_PATH);
     const verifiedGlobalOfferByCode = loadVerifiedMap(VERIFIED_GLOBAL_OFFER_PATH);
+    const verifiedOfferSplitByCode = loadVerifiedMap(VERIFIED_OFFER_SPLIT_PATH);
 
     const data = await scrape();
-    fs.writeFileSync(OUT_HTML, buildHtml(data, verifiedPublicOfferByCode, verifiedGlobalOfferByCode), 'utf-8');
-    console.log(`done: raw=${data.rawCount}, filtered=${data.filteredCount}, verifiedPublic=${Object.keys(verifiedPublicOfferByCode).length}, verifiedGlobal=${Object.keys(verifiedGlobalOfferByCode).length}`);
+    fs.writeFileSync(OUT_HTML, buildHtml(data, verifiedPublicOfferByCode, verifiedGlobalOfferByCode, verifiedOfferSplitByCode), 'utf-8');
+    console.log(`done: raw=${data.rawCount}, filtered=${data.filteredCount}, verifiedPublic=${Object.keys(verifiedPublicOfferByCode).length}, verifiedGlobal=${Object.keys(verifiedGlobalOfferByCode).length}, verifiedSplit=${Object.keys(verifiedOfferSplitByCode).length}`);
   } catch (e) {
     console.error(e);
     process.exit(1);
