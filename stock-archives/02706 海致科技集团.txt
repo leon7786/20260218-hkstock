@@ -13,11 +13,11 @@
 | 发行规模 | 全球发售股份 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
 | 全球发售拆分 | 香港公开发售股份 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
 | 全球发售拆分 | 国际发售股份 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
-| 募资金额 | 公开招募金额 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
+| 募资金额 | 公开招募金额 | 未知 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
 | 募资金额 | 国际发售金额（当前口径=总募资） | 7.6亿港元 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
 | 募资金额 | 募资总额 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
 | 公开发售 | 公开发售超购倍数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
-| 公开发售 | 一手中签率 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
+| 公开发售 | 一手中签率 | 未知 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
 | 公开发售 | 有效申请数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
 | 公开发售 | 成功申请数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
 | 国际发售 | 国际发售超购倍数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
