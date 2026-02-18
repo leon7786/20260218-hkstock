@@ -7,14 +7,22 @@ const OUT_JSON = path.join(OUT_DIR, 'data.json');
 const OUT_HTML = path.join(OUT_DIR, 'index.html');
 
 const headers = [
-  '代码','股票名称','价格','公开募资金额(核查)','首日涨幅','暗盘涨跌额','暗盘涨跌幅','累计涨幅','发行价','涨跌幅','连涨天数','成交量','成交额','换手率','市盈率(静)','总市值','发行量','上市日期'
+  '代码','股票名称','价格','公开募资金额(核查/估算)','首日涨幅','暗盘涨跌额','暗盘涨跌幅','累计涨幅','发行价','涨跌幅','连涨天数','成交量','成交额','换手率','市盈率(静)','总市值','发行量','上市日期'
 ];
 
-// 手工核查值（港元），优先于任何估算
-const verifiedPublicOfferByCode = {
-  '03858': 120000000, // 佳鑫国际资源：公开募资约1.20亿
-  '02513': 870000000  // 智谱：公开募资约8.70亿
-};
+const VERIFIED_PUBLIC_OFFER_PATH = path.join(OUT_DIR, 'verified_public_offer.json');
+const VERIFIED_GLOBAL_OFFER_PATH = path.join(OUT_DIR, 'verified_global_offer.json');
+
+function loadVerifiedMap(filePath) {
+  try {
+    if (!fs.existsSync(filePath)) return {};
+    const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    return (data && typeof data === 'object') ? data : {};
+  } catch (e) {
+    console.warn(`failed to load map: ${filePath}`, e.message);
+    return {};
+  }
+}
 
 function isEtfName(name = '') {
   const raw = String(name).trim();
@@ -94,7 +102,7 @@ async function scrape() {
   return payload;
 }
 
-function buildHtml(data) {
+function buildHtml(data, verifiedPublicOfferByCode = {}, verifiedGlobalOfferByCode = {}) {
   const toNum = (s='') => {
     const m = String(s).replace(/,/g,'').match(/([+-]?\d+(?:\.\d+)?)/);
     return m ? Number(m[1]) : NaN;
@@ -118,14 +126,24 @@ function buildHtml(data) {
     const v = r.values || [];
     const issuePrice = toNum(v[5]);      // 发行价
     const issueVolume = amountToShares(v[13]); // 发行量
-    const estFund = (Number.isFinite(issuePrice) && Number.isFinite(issueVolume)) ? issuePrice * issueVolume : NaN;
+    const estFund = (Number.isFinite(issuePrice) && Number.isFinite(issueVolume)) ? Math.round(issuePrice * issueVolume) : NaN;
     const verifiedPublicOffer = verifiedPublicOfferByCode[r.code];
+    const verifiedGlobalOffer = verifiedGlobalOfferByCode[r.code];
+    const displayPublicOffer = Number.isFinite(verifiedPublicOffer) ? verifiedPublicOffer : null;
+    const displayGlobalOffer = Number.isFinite(verifiedGlobalOffer) ? verifiedGlobalOffer : (Number.isFinite(estFund) ? estFund : null);
+    const displayFund = displayPublicOffer ?? displayGlobalOffer;
+    const displayFundText = displayPublicOffer
+      ? fmtHkd(displayPublicOffer)
+      : (displayGlobalOffer ? `${fmtHkd(displayGlobalOffer)}（总）` : '待核');
+    const fundTitle = displayPublicOffer
+      ? '口径：公开发售募资（已核查）'
+      : (displayGlobalOffer ? `口径：公开募资待核，当前展示全球募资估算/核查值：${fmtHkd(displayGlobalOffer)}` : '公开募资与全球募资均待核');
 
     const tds = [
       `<td class="code" data-sort="${r.code}">${r.code}</td>`,
       `<td class="name" data-sort="${r.name}">${r.name}</td>`,
       `<td data-col="价格" data-sort="${(v[0] ?? '-').replace(/"/g,'&quot;')}">${v[0] ?? '-'}</td>`,
-      `<td data-col="公开募资金额(核查)" data-sort="${Number.isFinite(verifiedPublicOffer) ? verifiedPublicOffer : -1}">${Number.isFinite(verifiedPublicOffer) ? fmtHkd(verifiedPublicOffer) : '待核'}</td>`,
+      `<td data-col="公开募资金额(核查/估算)" data-sort="${displayFund ?? -1}" title="${fundTitle}">${displayFundText}</td>`,
       `<td data-col="首日涨幅" data-sort="${(v[1] ?? '-').replace(/"/g,'&quot;')}">${v[1] ?? '-'}</td>`,
       `<td data-col="暗盘涨跌额" data-sort="${(v[2] ?? '-').replace(/"/g,'&quot;')}">${v[2] ?? '-'}</td>`,
       `<td data-col="暗盘涨跌幅" data-sort="${(v[3] ?? '-').replace(/"/g,'&quot;')}">${v[3] ?? '-'}</td>`,
@@ -247,9 +265,12 @@ tr:hover{background:#111827}
 
 (async () => {
   try {
+    const verifiedPublicOfferByCode = loadVerifiedMap(VERIFIED_PUBLIC_OFFER_PATH);
+    const verifiedGlobalOfferByCode = loadVerifiedMap(VERIFIED_GLOBAL_OFFER_PATH);
+
     const data = await scrape();
-    fs.writeFileSync(OUT_HTML, buildHtml(data), 'utf-8');
-    console.log(`done: raw=${data.rawCount}, filtered=${data.filteredCount}`);
+    fs.writeFileSync(OUT_HTML, buildHtml(data, verifiedPublicOfferByCode, verifiedGlobalOfferByCode), 'utf-8');
+    console.log(`done: raw=${data.rawCount}, filtered=${data.filteredCount}, verifiedPublic=${Object.keys(verifiedPublicOfferByCode).length}, verifiedGlobal=${Object.keys(verifiedGlobalOfferByCode).length}`);
   } catch (e) {
     console.error(e);
     process.exit(1);
