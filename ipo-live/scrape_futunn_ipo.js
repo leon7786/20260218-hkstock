@@ -64,6 +64,55 @@ function parseOfferPriceFromText(text) {
   return null;
 }
 
+
+function parseMoneyToHkd(raw) {
+  const s = String(raw || '').replace(/,/g, '').trim();
+  if (!s) return null;
+  const m = s.match(/([+-]?\d+(?:\.\d+)?)/);
+  if (!m) return null;
+  const n = Number(m[1]);
+  if (!Number.isFinite(n)) return null;
+  if (s.includes('亿')) return n * 1e8;
+  if (s.includes('万')) return n * 1e4;
+  if (/\bm\b/i.test(s)) return n * 1e6;
+  return n;
+}
+
+function parsePct(raw) {
+  const s = String(raw || '').trim();
+  const m = s.match(/([+-]?\d+(?:\.\d+)?)\s*%/);
+  if (!m) return null;
+  const n = Number(m[1]);
+  return Number.isFinite(n) ? n : null;
+}
+
+function parseStockArchiveTable(text) {
+  const out = {};
+  const lines = String(text || '').split(/\r?\n/);
+  for (const line of lines) {
+    if (!/^\|.*\|\s*$/.test(line.trim())) continue;
+    if (/^\|[-\s:|]+\|\s*$/.test(line.trim())) continue;
+    const cols = line.split('|').slice(1, -1).map(c => c.trim());
+    if (cols.length < 3) continue;
+    const field = cols[1] || '';
+    const value = cols[2] || '';
+
+    if (field.includes('公开招募金额')) {
+      const v = parseMoneyToHkd(value);
+      if (Number.isFinite(v)) out.publicGrossHkd = v;
+    }
+    if (field.includes('国际发售金额')) {
+      const v = parseMoneyToHkd(value);
+      if (Number.isFinite(v)) out.internationalGrossHkd = v;
+    }
+    if (field.includes('中签率')) {
+      const v = parsePct(value);
+      if (Number.isFinite(v)) out.allotmentRatePct = v;
+    }
+  }
+  return out;
+}
+
 function loadDisclosureByCode() {
   const out = {};
 
@@ -129,6 +178,16 @@ function loadDisclosureByCode() {
         // 按用户口径："国际发售金额" 列展示总募资金额（总股份 × 发售价）
         internationalGrossHkd: Number.isFinite(totalShares) ? Math.round(totalShares * offerPriceHkd) : null,
         sourceType: 'hkex_disclosureeasylike_archive'
+      };
+    }
+
+    // 额外：从 stock-archives 的结构化表格直接回填（中签率/公开募资/国际发售）
+    const tableParsed = parseStockArchiveTable(text);
+    if (Object.keys(tableParsed).length) {
+      out[code] = {
+        ...(out[code] || {}),
+        ...tableParsed,
+        sourceType: out[code]?.sourceType || 'stock_archive_table'
       };
     }
   }
@@ -248,7 +307,7 @@ function buildHtml(data, archiveSummaryByCode = {}, disclosureByCode = {}) {
 
     const publicPct = Number.isFinite(summaryPublicPct) ? summaryPublicPct : null;
     const internationalPct = Number.isFinite(summaryInternationalPct) ? summaryInternationalPct : null;
-    const allotmentRatePct = strictUsable && Number.isFinite(Number(summary.allotmentRatePct)) ? Number(summary.allotmentRatePct) : null;
+    const allotmentRatePct = (strictUsable && Number.isFinite(Number(summary.allotmentRatePct))) ? Number(summary.allotmentRatePct) : (disclosure && Number.isFinite(Number(disclosure.allotmentRatePct)) ? Number(disclosure.allotmentRatePct) : null);
 
     const publicText = Number.isFinite(publicAmount)
       ? (Number.isFinite(publicPct) ? `${fmtPct(publicPct)}：${fmtHkd(publicAmount)}` : fmtHkd(publicAmount))
