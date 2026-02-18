@@ -1,0 +1,655 @@
+{
+  "generatedAt": "2026-02-18T14:19:40.629Z",
+  "total": 25,
+  "items": [
+    {
+      "code": "00100",
+      "title": "00100 MINIMAX-WP",
+      "file": "00100 MINIMAX-WP.txt",
+      "rows": []
+    },
+    {
+      "code": "01384",
+      "title": "01384 滴普科技",
+      "file": "01384 滴普科技.txt",
+      "rows": []
+    },
+    {
+      "code": "02259",
+      "title": "02259 紫金黄金国际",
+      "file": "02259 紫金黄金国际.txt",
+      "rows": []
+    },
+    {
+      "code": "02513",
+      "title": "02513 智谱",
+      "file": "02513 智谱.txt",
+      "rows": []
+    },
+    {
+      "code": "02546",
+      "title": "02546 智汇矿业",
+      "file": "02546 智汇矿业.txt",
+      "rows": []
+    },
+    {
+      "code": "02565",
+      "title": "02565 派格生物医药-B",
+      "file": "02565 派格生物医药-B.txt",
+      "rows": []
+    },
+    {
+      "code": "02575",
+      "title": "02575 轩竹生物-B",
+      "file": "02575 轩竹生物-B.txt",
+      "rows": []
+    },
+    {
+      "code": "02583",
+      "title": "02583 西普尼",
+      "file": "02583 西普尼.txt",
+      "rows": []
+    },
+    {
+      "code": "02617",
+      "title": "02617 药捷安康-B",
+      "file": "02617 药捷安康-B.txt",
+      "rows": []
+    },
+    {
+      "code": "02627",
+      "title": "02627 中慧生物-B",
+      "file": "02627 中慧生物-B.txt",
+      "rows": []
+    },
+    {
+      "code": "02630",
+      "title": "02630 旺山旺水-B",
+      "file": "02630 旺山旺水-B.txt",
+      "rows": []
+    },
+    {
+      "code": "02635",
+      "title": "02635 诺比侃",
+      "file": "02635 诺比侃.txt",
+      "rows": []
+    },
+    {
+      "code": "02650",
+      "title": "02650 挚达科技",
+      "file": "02650 挚达科技.txt",
+      "rows": []
+    },
+    {
+      "code": "02655",
+      "title": "02655 果下科技",
+      "file": "02655 果下科技.txt",
+      "rows": []
+    },
+    {
+      "code": "02656",
+      "title": "02656 健康160",
+      "file": "02656 健康160.txt",
+      "rows": []
+    },
+    {
+      "code": "02659",
+      "title": "02659 宝济药业-B",
+      "file": "02659 宝济药业-B.txt",
+      "rows": []
+    },
+    {
+      "code": "02661",
+      "title": "02661 轻松健康",
+      "file": "02661 轻松健康.txt",
+      "rows": []
+    },
+    {
+      "code": "02685",
+      "title": "02685 量化派",
+      "file": "02685 量化派.txt",
+      "rows": []
+    },
+    {
+      "code": "02706",
+      "title": "02706（海致科技集团）关键信息总表（披露易 + 第三方补充）",
+      "file": "02706 海致科技集团.txt",
+      "rows": [
+        {
+          "category": "基本信息",
+          "field": "股票代码",
+          "value": "02706",
+          "sourceType": "披露易",
+          "source": "https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706"
+        },
+        {
+          "category": "基本信息",
+          "field": "股票简称",
+          "value": "海致科技集团",
+          "sourceType": "第三方",
+          "source": "https://stock.finance.sina.com.cn/hkstock/quotes/02706.html"
+        },
+        {
+          "category": "基本信息",
+          "field": "上市/开始买卖日",
+          "value": "2026/02/13",
+          "sourceType": "第三方(富途IPO列表)",
+          "source": "https://www.futunn.com/quote/hk/ipo"
+        },
+        {
+          "category": "发行定价",
+          "field": "发售价",
+          "value": "HK$27.060/股",
+          "sourceType": "第三方(富途IPO列表)",
+          "source": "https://www.futunn.com/quote/hk/ipo"
+        },
+        {
+          "category": "全球发售",
+          "field": "全球发售股份",
+          "value": "2803.02万",
+          "sourceType": "第三方(富途IPO列表)",
+          "source": "https://www.futunn.com/quote/hk/ipo"
+        },
+        {
+          "category": "募资金额",
+          "field": "全球募资总额（估算）",
+          "value": "7.6 亿港元",
+          "sourceType": "第三方(由发行价×发行量)",
+          "source": "https://www.futunn.com/quote/hk/ipo"
+        },
+        {
+          "category": "全球发售拆分",
+          "field": "香港公开发售股份",
+          "value": "未检索到披露易配发结果公告（截至2026-02-18）",
+          "sourceType": "披露易检索",
+          "source": "https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706"
+        },
+        {
+          "category": "全球发售拆分",
+          "field": "国际发售股份",
+          "value": "未检索到披露易配发结果公告（截至2026-02-18）",
+          "sourceType": "披露易检索",
+          "source": "https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706"
+        },
+        {
+          "category": "全球发售拆分",
+          "field": "公开发售比例",
+          "value": "未检索到披露易配发结果公告（截至2026-02-18）",
+          "sourceType": "披露易检索",
+          "source": "https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706"
+        },
+        {
+          "category": "全球发售拆分",
+          "field": "国际发售比例",
+          "value": "未检索到披露易配发结果公告（截至2026-02-18）",
+          "sourceType": "披露易检索",
+          "source": "https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706"
+        },
+        {
+          "category": "公开发售",
+          "field": "一手中签率",
+          "value": "未检索到披露易配发结果公告（截至2026-02-18）",
+          "sourceType": "披露易检索",
+          "source": "https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706"
+        },
+        {
+          "category": "公开发售",
+          "field": "公开发售超购倍数",
+          "value": "未检索到披露易配发结果公告（截至2026-02-18）",
+          "sourceType": "披露易检索",
+          "source": "https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706"
+        },
+        {
+          "category": "国际发售",
+          "field": "国际发售超购倍数",
+          "value": "未检索到披露易配发结果公告（截至2026-02-18）",
+          "sourceType": "披露易检索",
+          "source": "https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706"
+        },
+        {
+          "category": "交易复盘",
+          "field": "首日涨幅",
+          "value": "+242.20%",
+          "sourceType": "第三方(富途IPO列表)",
+          "source": "https://www.futunn.com/quote/hk/ipo"
+        },
+        {
+          "category": "交易复盘",
+          "field": "暗盘涨跌额",
+          "value": "+56.940",
+          "sourceType": "第三方(富途IPO列表)",
+          "source": "https://www.futunn.com/quote/hk/ipo"
+        },
+        {
+          "category": "交易复盘",
+          "field": "暗盘涨跌幅",
+          "value": "+210.42%",
+          "sourceType": "第三方(富途IPO列表)",
+          "source": "https://www.futunn.com/quote/hk/ipo"
+        },
+        {
+          "category": "交易复盘",
+          "field": "累计涨幅",
+          "value": "+343.46%",
+          "sourceType": "第三方(富途IPO列表)",
+          "source": "https://www.futunn.com/quote/hk/ipo"
+        }
+      ]
+    },
+    {
+      "code": "02720",
+      "title": "02720（乐欣户外）关键信息总表（披露易 + 第三方补充，一张表）",
+      "file": "02720 乐欣户外.txt",
+      "rows": [
+        {
+          "category": "基本信息",
+          "field": "股票代码",
+          "value": "02720",
+          "sourceType": "披露易",
+          "source": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0209/2026020901097_c.pdf"
+        },
+        {
+          "category": "基本信息",
+          "field": "股票简称",
+          "value": "RIDGE OUTDOOR（乐欣户外）",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "基本信息",
+          "field": "上市/开始买卖日",
+          "value": "2026-02-10",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "发行定价",
+          "field": "发售价",
+          "value": "HK$12.25/股",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "交易单位",
+          "field": "每手",
+          "value": "500股（招股章程）",
+          "sourceType": "披露易",
+          "source": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0130/2026013002015_c.pdf"
+        },
+        {
+          "category": "全球发售",
+          "field": "全球发售股份",
+          "value": "28,205,000 股",
+          "sourceType": "披露易",
+          "source": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0209/2026020901097_c.pdf"
+        },
+        {
+          "category": "全球发售拆分",
+          "field": "香港公开发售股份",
+          "value": "2,820,500 股（10%）",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "全球发售拆分",
+          "field": "国际发售股份",
+          "value": "25,384,500 股（90%）",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "募资金额",
+          "field": "公开招募金额（散户）",
+          "value": "0.3亿港元（3,455.1万）",
+          "sourceType": "披露易+计算",
+          "source": "2,820,500 × 12.25"
+        },
+        {
+          "category": "募资金额",
+          "field": "国际发售金额（当前口径=总募资）",
+          "value": "3.5亿港元（34,551.1万）",
+          "sourceType": "披露易+计算",
+          "source": "28,205,000 × 12.25"
+        },
+        {
+          "category": "募资金额",
+          "field": "募资总额（Gross proceeds）",
+          "value": "3.5亿港元（34,550.0万）",
+          "sourceType": "披露易",
+          "source": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0209/2026020901097_c.pdf"
+        },
+        {
+          "category": "募资金额",
+          "field": "估算上市费用",
+          "value": "0.6亿港元（6,040.0万）",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "募资金额",
+          "field": "净筹资（Net proceeds）",
+          "value": "2.9亿港元（28,520.0万）",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "公开发售",
+          "field": "有效申请数",
+          "value": "111,036",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "公开发售",
+          "field": "成功申请数",
+          "value": "5,641",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "公开发售",
+          "field": "公开发售超购倍数",
+          "value": "3,654.23 倍",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "公开发售",
+          "field": "是否触发回拨",
+          "value": "否（重新分配：不适用）",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "公开发售",
+          "field": "一手（500股）中签率",
+          "value": "1.00%（56,367人中564人获500股）",
+          "sourceType": "披露易",
+          "source": "同上（甲组分配基准）"
+        },
+        {
+          "category": "公开发售",
+          "field": "甲组成功申请人数",
+          "value": "2,821",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "公开发售",
+          "field": "乙组成功申请人数",
+          "value": "2,820",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "国际发售",
+          "field": "国际发售超购倍数",
+          "value": "2.94 倍",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "国际发售",
+          "field": "承配人数量",
+          "value": "74",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "国际发售",
+          "field": "承配人集中度（最大）",
+          "value": "占国际发售25.73%；占发售总数23.15%",
+          "sourceType": "披露易",
+          "source": "同上（承配人集中度分析）"
+        },
+        {
+          "category": "国际发售",
+          "field": "承配人集中度（前5）",
+          "value": "占国际发售66.56%；占发售总数59.90%",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "国际发售",
+          "field": "承配人集中度（前10）",
+          "value": "占国际发售88.10%；占发售总数79.29%",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "国际发售",
+          "field": "承配人集中度（前25）",
+          "value": "占国际发售99.84%；占发售总数89.85%",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "股东集中度（上市后）",
+          "field": "最大股东占比",
+          "value": "73.92%",
+          "sourceType": "披露易",
+          "source": "同上（股東集中度分析）"
+        },
+        {
+          "category": "股东集中度（上市后）",
+          "field": "前5股东占比",
+          "value": "88.33%",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "股东集中度（上市后）",
+          "field": "前10股东占比",
+          "value": "93.99%",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "股东集中度（上市后）",
+          "field": "前25股东占比",
+          "value": "97.75%",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "稳价/绿鞋",
+          "field": "超额配股权（绿鞋）",
+          "value": "公告正文未列明（待后续公告核对）",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "股本（绿鞋前）",
+          "field": "上市后已发行股份",
+          "value": "128,205,000 股",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "股本信息",
+          "field": "每股面值",
+          "value": "US$0.0005",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "基石",
+          "field": "基石合计获配",
+          "value": "10,612,000 股（占发售37.62%；占上市后股本8.28%）",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "基石",
+          "field": "基石投资者明细",
+          "value": "地平綫創投、黃山德鈞",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "公众持股/自由流通",
+          "field": "公众持股比例（上市后）",
+          "value": "26.08%（高于25%最低要求）",
+          "sourceType": "披露易",
+          "source": "同上（公眾持股量與自由流通量）"
+        },
+        {
+          "category": "公众持股/自由流通",
+          "field": "自由流通量合规",
+          "value": "符合上市规则8.08A（基石12个月禁售不计入）",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "上市合规",
+          "field": "公众股东人数下限",
+          "value": "至少300名股东（已满足）",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "上市合规",
+          "field": "配售集中度限制",
+          "value": "无单一承配人获配超过上市后10%",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "控股股东禁售",
+          "field": "首6个月禁售期截止",
+          "value": "2026-08-09",
+          "sourceType": "披露易",
+          "source": "同上（禁售承諾）"
+        },
+        {
+          "category": "控股股东禁售",
+          "field": "第二个6个月禁售期截止",
+          "value": "2027-02-09",
+          "sourceType": "披露易",
+          "source": "同上"
+        },
+        {
+          "category": "资金热度（孖展）",
+          "field": "招股期孖展认购金额",
+          "value": "富途IPO页未提供（待阿斯达克/媒体）",
+          "sourceType": "第三方",
+          "source": "富途IPO页 + 阿斯达克检索"
+        },
+        {
+          "category": "资金热度（孖展）",
+          "field": "孖展超购口径",
+          "value": "富途IPO页未提供（待阿斯达克/媒体）",
+          "sourceType": "第三方",
+          "source": "富途IPO页 + 阿斯达克检索"
+        },
+        {
+          "category": "暗盘",
+          "field": "暗盘涨跌额",
+          "value": "+12.230",
+          "sourceType": "富途（IPO列表）",
+          "source": "https://www.futunn.com/quote/hk/ipo"
+        },
+        {
+          "category": "暗盘",
+          "field": "暗盘涨跌幅",
+          "value": "+99.84%",
+          "sourceType": "富途（IPO列表）",
+          "source": "同上"
+        },
+        {
+          "category": "首日表现",
+          "field": "首日涨幅",
+          "value": "+102.29%",
+          "sourceType": "富途（IPO列表）",
+          "source": "同上"
+        },
+        {
+          "category": "首日表现",
+          "field": "累计涨幅（当前）",
+          "value": "+145.22%",
+          "sourceType": "富途（IPO列表）",
+          "source": "同上"
+        },
+        {
+          "category": "首日表现",
+          "field": "首日开/高/收",
+          "value": "富途IPO页未提供开高收（待阿斯达克/新浪）",
+          "sourceType": "第三方",
+          "source": "富途IPO页 + 阿斯达克/新浪检索"
+        },
+        {
+          "category": "首日成交",
+          "field": "首日成交量/成交额",
+          "value": "富途IPO页未提供首日成交明细（待阿斯达克/新浪）",
+          "sourceType": "第三方",
+          "source": "富途IPO页 + 阿斯达克/新浪检索"
+        },
+        {
+          "category": "每手盈亏（首日）",
+          "field": "一手账面盈亏",
+          "value": "约 +6,265.3港元（按富途首日涨幅102.29%反推）",
+          "sourceType": "计算字段",
+          "source": "12.25×(1+102.29%) 与发售价差额 ×500"
+        },
+        {
+          "category": "行情（快照）",
+          "field": "最新价",
+          "value": "HK$30.040",
+          "sourceType": "富途（IPO列表）",
+          "source": "https://www.futunn.com/quote/hk/ipo"
+        },
+        {
+          "category": "行情（快照）",
+          "field": "成交量",
+          "value": "32.04万",
+          "sourceType": "富途（IPO列表）",
+          "source": "同上"
+        },
+        {
+          "category": "行情（快照）",
+          "field": "成交额",
+          "value": "904.28万",
+          "sourceType": "富途（IPO列表）",
+          "source": "同上"
+        },
+        {
+          "category": "行情（快照）",
+          "field": "总市值",
+          "value": "38.51亿",
+          "sourceType": "富途（IPO列表）",
+          "source": "同上"
+        }
+      ]
+    },
+    {
+      "code": "02889",
+      "title": "02889 博泰车联",
+      "file": "02889 博泰车联.txt",
+      "rows": []
+    },
+    {
+      "code": "03696",
+      "title": "03696 英矽智能",
+      "file": "03696 英矽智能.txt",
+      "rows": []
+    },
+    {
+      "code": "03858",
+      "title": "03858 佳鑫国际资源",
+      "file": "03858 佳鑫国际资源.txt",
+      "rows": []
+    },
+    {
+      "code": "06693",
+      "title": "06693 赤峰黄金",
+      "file": "06693 赤峰黄金.txt",
+      "rows": []
+    },
+    {
+      "code": "09606",
+      "title": "09606 映恩生物-B",
+      "file": "09606 映恩生物-B.txt",
+      "rows": []
+    }
+  ]
+}

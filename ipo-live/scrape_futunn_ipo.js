@@ -311,6 +311,7 @@ tr:hover{background:#111827}
 <body>
 <div class="wrap">
   <h1>Futunn 港股IPO（已排除ETF）</h1>
+  <div class="meta"><a href="./stock-archives.html" style="color:#93c5fd">查看基于TXT的完整建档详情（静态）</a></div>
   <div class="meta">来源：<a href="${data.source}" target="_blank" style="color:#93c5fd">${data.source}</a> ｜ 抓取时间：${new Date(data.scrapedAt).toLocaleString('zh-CN', {hour12:false})} ｜ 抓取页数：${data.pages} ｜ 原始条目：${data.rawCount} ｜ 过滤后：${data.filteredCount} ｜ 建档目录：archive/&lt;code&gt;/summary.json</div>
   <div class="table">
     <table>
