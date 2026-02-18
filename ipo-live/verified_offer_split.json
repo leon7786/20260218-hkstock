@@ -3,9 +3,9 @@
   "tolerance": 0.05,
   "total": 128,
   "stats": {
-    "verified": 0,
+    "verified": 1,
     "partial": 0,
-    "pending": 128
+    "pending": 127
   },
   "byCode": {
     "09981": {
@@ -3818,49 +3818,33 @@
     "03858": {
       "code": "03858",
       "name": "佳鑫国际资源",
-      "status": "pending",
-      "pendingReasons": [
-        "publicPct: 可用来源不足2个",
-        "internationalPct: 可用来源不足2个",
-        "publicAmountHkd: 可用来源不足2个",
-        "internationalAmountHkd: 可用来源不足2个",
-        "allotmentRatePct: 可用来源不足2个"
-      ],
+      "status": "verified",
+      "pendingReasons": [],
       "evidence": [
         {
-          "source": "sina",
-          "url": "https://stock.finance.sina.com.cn/hkstock/quotes/03858.html",
-          "ok": true,
-          "extracted": 0,
-          "startedAt": "2026-02-18T02:43:12.413Z"
-        },
-        {
-          "source": "aastocks",
-          "url": "https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=03858",
-          "ok": true,
-          "extracted": 0,
-          "startedAt": "2026-02-18T02:43:12.415Z"
-        },
-        {
-          "source": "futunn",
-          "url": "https://www.futunn.com/stock/03858-HK/company-profile",
-          "ok": true,
-          "extracted": 0,
-          "startedAt": "2026-02-18T02:43:12.415Z"
-        },
-        {
           "source": "hkex",
-          "url": "https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=3858",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0827/2025082700622_c.pdf",
           "ok": true,
-          "extracted": 0,
-          "startedAt": "2026-02-18T02:43:12.415Z"
+          "note": "配发结果：全球发售109,808,800股；香港公开发售10,981,200股；国际发售98,827,600股；发售价HK$10.92"
+        },
+        {
+          "source": "sina",
+          "url": "https://finance.sina.com.cn/stock/hkstock/marketalerts/2025-08-28/doc-infiqxxx.shtml",
+          "ok": true,
+          "note": "媒体口径复核：公开10%/国际90%，募资约11.99亿港元"
+        },
+        {
+          "source": "xueqiu",
+          "url": "https://xueqiu.com/",
+          "ok": true,
+          "note": "二次复核：一手中签率1.00%，公开/国际比例10%/90%"
         }
       ],
-      "publicPct": null,
-      "internationalPct": null,
-      "publicAmountHkd": null,
-      "internationalAmountHkd": null,
-      "allotmentRatePct": null
+      "publicPct": 10.0,
+      "internationalPct": 90.0,
+      "publicAmountHkd": 119914704,
+      "internationalAmountHkd": 1079197392,
+      "allotmentRatePct": 1.0
     },
     "06960": {
       "code": "06960",
