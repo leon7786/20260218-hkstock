@@ -193,6 +193,9 @@ tr:hover{background:#111827}
 <div class="wrap">
   <h1>Futunn 港股IPO（已排除ETF）</h1>
   <div class="meta">来源：<a href="${data.source}" target="_blank" style="color:#93c5fd">${data.source}</a> ｜ 抓取时间：${new Date(data.scrapedAt).toLocaleString('zh-CN', {hour12:false})} ｜ 抓取页数：${data.pages} ｜ 原始条目：${data.rawCount} ｜ 过滤后：${data.filteredCount} ｜ 建档目录：archive/&lt;code&gt;/summary.json</div>
+  <div class="meta" style="margin-bottom:12px">
+    <button id="btn-sort-cum" style="background:#1e293b;color:#e2e8f0;border:1px solid #334155;border-radius:8px;padding:4px 8px;cursor:pointer">累计涨幅↓</button>
+  </div>
   <div class="table">
     <table>
       <thead>
@@ -259,6 +262,15 @@ tr:hover{background:#111827}
     const dir = !last ? 'desc' : (last === 'desc' ? 'asc' : 'desc');
     sortBy(idx, dir);
   }));
+
+  const cumBtn = document.getElementById('btn-sort-cum');
+  if (cumBtn) {
+    cumBtn.addEventListener('click',()=>{
+      const cumIdx = headers.findIndex(h => h.textContent.includes('累计涨幅'));
+      sortBy(cumIdx >= 0 ? cumIdx : 0, 'desc');
+    });
+  }
+
   const dateIdx = headers.findIndex(h => h.textContent.includes('上市日期'));
   sortBy(dateIdx >= 0 ? dateIdx : 0, 'desc');
 })();
