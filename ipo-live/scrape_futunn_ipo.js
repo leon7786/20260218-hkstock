@@ -72,6 +72,13 @@ function parseMoneyToHkd(raw) {
   if (!m) return null;
   const n = Number(m[1]);
   if (!Number.isFinite(n)) return null;
+  // 先匹配复合单位，避免“千万”被“万”误判
+  if (s.includes('万亿')) return n * 1e12;
+  if (s.includes('千亿')) return n * 1e11;
+  if (s.includes('百亿')) return n * 1e10;
+  if (s.includes('十亿')) return n * 1e9;
+  if (s.includes('千万')) return n * 1e7;
+  if (s.includes('百万')) return n * 1e6;
   if (s.includes('亿')) return n * 1e8;
   if (s.includes('万')) return n * 1e4;
   if (/\bm\b/i.test(s)) return n * 1e6;
