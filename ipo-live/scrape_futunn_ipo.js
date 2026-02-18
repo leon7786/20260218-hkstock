@@ -18,6 +18,9 @@ function loadVerifiedMap(filePath) {
   try {
     if (!fs.existsSync(filePath)) return {};
     const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    if (data && typeof data === 'object' && data.byCode && typeof data.byCode === 'object') {
+      return data.byCode;
+    }
     return (data && typeof data === 'object') ? data : {};
   } catch (e) {
     console.warn(`failed to load map: ${filePath}`, e.message);
@@ -146,6 +149,7 @@ function buildHtml(data, verifiedPublicOfferByCode = {}, verifiedGlobalOfferByCo
     const verifiedGlobalOffer = verifiedGlobalOfferByCode[r.code];
     const splitCfg = verifiedOfferSplitByCode[r.code] || {};
     const publicPctFromCfg = Number(splitCfg.publicPct);
+    const allotmentRatePct = Number(splitCfg.allotmentRatePct);
 
     const globalOffer = Number.isFinite(verifiedGlobalOffer) ? verifiedGlobalOffer : (Number.isFinite(estFund) ? estFund : null);
     const publicOffer = Number.isFinite(verifiedPublicOffer) ? verifiedPublicOffer : null;
@@ -176,7 +180,7 @@ function buildHtml(data, verifiedPublicOfferByCode = {}, verifiedGlobalOfferByCo
     const tds = [
       `<td data-col="上市日期" data-sort="${(v[14] ?? '-').replace(/"/g,'&quot;')}">${v[14] ?? '-'}</td>`,
       `<td class="code" data-sort="${r.code}">${r.code}</td>`,
-      `<td data-col="中签率" data-sort="-1">待定</td>`,
+      `<td data-col="中签率" data-sort="${Number.isFinite(allotmentRatePct) ? allotmentRatePct : -1}">${Number.isFinite(allotmentRatePct) ? fmtPct(allotmentRatePct) : '待定'}</td>`,
       `<td class="name" data-sort="${r.name}">${r.name}</td>`,
       `<td data-col="价格" data-sort="${(v[0] ?? '-').replace(/"/g,'&quot;')}">${formatOneDecimal(v[0] ?? '-')}</td>`,
       `<td data-col="公开募资" data-sort="${publicAmount ?? -1}" title="${splitTitle}">${publicText}</td>`,
