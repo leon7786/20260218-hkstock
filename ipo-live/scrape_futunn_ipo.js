@@ -100,9 +100,13 @@ function parseStockArchiveTable(text) {
     if (!/^\|.*\|\s*$/.test(line.trim())) continue;
     if (/^\|[-\s:|]+\|\s*$/.test(line.trim())) continue;
     const cols = line.split('|').slice(1, -1).map(c => c.trim());
-    if (cols.length < 3) continue;
+    if (cols.length < 5) continue;
     const field = cols[1] || '';
     const value = cols[2] || '';
+    const sourceType = cols[3] || '';
+    const isHKEX = /披露易/.test(sourceType);
+
+    if (!isHKEX) continue;
 
     if (field.includes('公开招募金额')) {
       const v = parseMoneyToHkd(value);
@@ -157,17 +161,17 @@ function loadDisclosureByCode() {
     try { text = fs.readFileSync(fullPath, 'utf-8'); } catch (_) { continue; }
 
     const publicShares = parseSharesFromText(text, [
-      /香港公开发售[^\n]*?\|[^\n]*?([\d,]+)\s*H股/,
-      /HK Public Offering[^\n]*?([\d,]+)\s*H股/i
+      /香港公开发售[^\n]*?\|[^\n]*?([\d,]+)\s*(?:H?股)/,
+      /HK Public Offering[^\n]*?([\d,]+)\s*(?:H?股)/i
     ]);
     const internationalShares = parseSharesFromText(text, [
-      /国际发售[^\n]*?\|[^\n]*?([\d,]+)\s*H股/,
-      /International Offering[^\n]*?([\d,]+)\s*H股/i
+      /国际发售[^\n]*?\|[^\n]*?([\d,]+)\s*(?:H?股)/,
+      /International Offering[^\n]*?([\d,]+)\s*(?:H?股)/i
     ]);
     const globalShares = parseSharesFromText(text, [
-      /全球发售股份[^\n]*?\|[^\n]*?([\d,]+)\s*H股/,
-      /Offer Shares[^\n]*?\|[^\n]*?([\d,]+)\s*H股/i,
-      /全球发售股份数[^\n]*?([\d,]+)\s*H股/
+      /全球发售股份[^\n]*?\|[^\n]*?([\d,]+)\s*(?:H?股)/,
+      /Offer Shares[^\n]*?\|[^\n]*?([\d,]+)\s*(?:H?股)/i,
+      /全球发售股份数[^\n]*?([\d,]+)\s*(?:H?股)/
     ]);
     const offerPriceHkd = parseOfferPriceFromText(text);
 
@@ -299,22 +303,18 @@ function buildHtml(data, archiveSummaryByCode = {}, disclosureByCode = {}) {
     const summary = archiveSummaryByCode[code] || null;
     const disclosure = disclosureByCode[code] || null;
 
-    const strictUsable = summary && summary.status === 'verified';
-
-    const summaryPublicAmount = strictUsable && Number.isFinite(Number(summary.publicGrossHkd)) ? Number(summary.publicGrossHkd) : null;
-    const summaryInternationalAmount = strictUsable && Number.isFinite(Number(summary.internationalGrossHkd)) ? Number(summary.internationalGrossHkd) : null;
-    const summaryPublicPct = strictUsable && Number.isFinite(Number(summary.publicPct)) ? Number(summary.publicPct) : null;
-    const summaryInternationalPct = strictUsable && Number.isFinite(Number(summary.internationalPct)) ? Number(summary.internationalPct) : null;
+    // 本专项口径：仅使用披露易明确披露的数据，不使用 summary.json 的第三方/估算混合值
+    const strictUsable = false;
 
     const disclosurePublicAmount = disclosure && Number.isFinite(Number(disclosure.publicGrossHkd)) ? Number(disclosure.publicGrossHkd) : null;
     const disclosureInternationalAmount = disclosure && Number.isFinite(Number(disclosure.internationalGrossHkd)) ? Number(disclosure.internationalGrossHkd) : null;
 
-    const publicAmount = Number.isFinite(summaryPublicAmount) ? summaryPublicAmount : disclosurePublicAmount;
-    const internationalAmount = Number.isFinite(summaryInternationalAmount) ? summaryInternationalAmount : disclosureInternationalAmount;
+    const publicAmount = disclosurePublicAmount;
+    const internationalAmount = disclosureInternationalAmount;
 
-    const publicPct = Number.isFinite(summaryPublicPct) ? summaryPublicPct : null;
-    const internationalPct = Number.isFinite(summaryInternationalPct) ? summaryInternationalPct : null;
-    const allotmentRatePct = (strictUsable && Number.isFinite(Number(summary.allotmentRatePct))) ? Number(summary.allotmentRatePct) : (disclosure && Number.isFinite(Number(disclosure.allotmentRatePct)) ? Number(disclosure.allotmentRatePct) : null);
+    const publicPct = null;
+    const internationalPct = null;
+    const allotmentRatePct = disclosure && Number.isFinite(Number(disclosure.allotmentRatePct)) ? Number(disclosure.allotmentRatePct) : null;
 
     const publicText = Number.isFinite(publicAmount)
       ? (Number.isFinite(publicPct) ? `${fmtPct(publicPct)}：${fmtHkd(publicAmount)}` : fmtHkd(publicAmount))
