@@ -1,35 +1,27 @@
-# 09981 沃尔核材
+# 09981（沃尔核材）关键信息总表（披露易 + 第三方补充）
 
-- 股票代码：09981
-- 股票名称：沃尔核材
-- 上市日期：2026/02/13
-- 建档状态：pending
+> 口径说明：披露易优先；披露易暂无则用第三方线索并标注“待定/估算”。
 
-## 上市前一日核心数据（优先口径）
-- 发售价（Offer Price）：20.09 港元/股
-- 全球发售股份：1.40亿
-- 每手（Board Lot）：400 股（如无公告变更）
-
-## 募资与比例
-- 公开募资比例：待定
-- 国际发售比例：待定
-- 公开募资金额：待定
-- 国际发售金额：待定
-- 全球募资金额：28.1 亿港元
-
-## 认购/中签
-- 一手中签率：待定
-- 香港公开发售认购倍数：待定
-- 国际发售认购倍数：待定
-- 有效申请数：待定
-- 成功申请数：待定
-
-## 数据来源（建档证据）
-1. [sina] https://stock.finance.sina.com.cn/hkstock/quotes/09981.html
-2. [aastocks] https://www.aastocks.com/sc/stocks/analysis/company-fundamental/?symbol=09981
-3. [futunn] https://www.futunn.com/stock/09981-HK/company-profile
-4. [hkex] https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981
+| 类别 | 字段 | 数值 | 来源类型 | 来源 |
+|---|---|---:|---|---|
+| 基本信息 | 股票代码 | 09981 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
+| 基本信息 | 股票简称 | 沃尔核材 | 第三方 | https://stock.finance.sina.com.cn/hkstock/quotes/09981.html |
+| 基本信息 | 上市/开始买卖日 | 2026/02/13 | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
+| 发行定价 | 发售价 | HK$20.090/股 | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
+| 全球发售 | 全球发售股份 | 1.40亿 | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
+| 募资金额 | 全球募资总额（估算） | 28.1 亿港元 | 第三方(由发行价×发行量) | https://www.futunn.com/quote/hk/ipo |
+| 全球发售拆分 | 香港公开发售股份 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
+| 全球发售拆分 | 国际发售股份 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
+| 全球发售拆分 | 公开发售比例 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
+| 全球发售拆分 | 国际发售比例 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
+| 公开发售 | 一手中签率 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
+| 公开发售 | 公开发售超购倍数 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
+| 国际发售 | 国际发售超购倍数 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
+| 交易复盘 | 首日涨幅 | +2.94% | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
+| 交易复盘 | 暗盘涨跌额 | +0.990 | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
+| 交易复盘 | 暗盘涨跌幅 | +4.93% | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
+| 交易复盘 | 累计涨幅 | +3.53% | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |
 
 ## 备注
-- 本档案由本地建档流程自动生成，可人工补充与纠错。
-- 写入规则：优先 HKEX/披露易，至少两源接近才标记 verified；否则保持待定/partial。
+- 本档案先给出可核对骨架；后续我会把披露易《配发结果公告》中的公开/国际拆分和中签率补齐。
+- 当同字段满足“至少两源接近”后，状态会从待定升级为已核对。
