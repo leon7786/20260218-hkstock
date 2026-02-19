@@ -21,33 +21,45 @@ function toNum(s) {
 
 function parseFromText(txt) {
   const text = String(txt || '');
+  // pdftotext 常把中文拆成「香 港 公 開 發 售」这种间隔，做一份去空白版本增强匹配
+  const compact = text.replace(/[\s\u3000]+/g, '');
 
-  const offerPrice = [
-    /最終發售價[^\n]{0,120}?HK\$\s*([0-9]+(?:\.[0-9]+)?)/i,
-    /最终发售价[^\n]{0,120}?HK\$\s*([0-9]+(?:\.[0-9]+)?)/i,
-    /Final Offer Price[^\n]{0,160}?HK\$\s*([0-9]+(?:\.[0-9]+)?)/i,
-    /發售價[^\n]{0,120}?HK\$\s*([0-9]+(?:\.[0-9]+)?)/i,
-  ].map(rx => text.match(rx)?.[1]).map(toNum).find(Number.isFinite) ?? null;
+  const matchFirstNum = (rules, source = text) =>
+    rules.map(rx => source.match(rx)?.[1]).map(toNum).find(Number.isFinite) ?? null;
 
-  const publicShares = [
-    /香港公開發售[^\n]{0,180}?([0-9,]+)\s*股(?:H股|股份)?/i,
-    /香港公开发售[^\n]{0,180}?([0-9,]+)\s*股(?:H股|股份)?/i,
-    /Hong Kong Public Offer(?:ing)?[^\n]{0,200}?([0-9,]+)\s*(?:Shares|H Shares)/i,
-  ].map(rx => text.match(rx)?.[1]).map(toNum).find(Number.isFinite) ?? null;
+  const offerPrice = matchFirstNum([
+    /最終發售價[^\n]{0,200}?HK\$\s*([0-9]+(?:\.[0-9]+)?)/i,
+    /最终发售价[^\n]{0,200}?HK\$\s*([0-9]+(?:\.[0-9]+)?)/i,
+    /Final Offer Price[^\n]{0,240}?HK\$\s*([0-9]+(?:\.[0-9]+)?)/i,
+    /發售價[^\n]{0,180}?HK\$\s*([0-9]+(?:\.[0-9]+)?)/i,
+    /最終發售價HK\$([0-9]+(?:\.[0-9]+)?)/i,
+    /最终发售价HK\$([0-9]+(?:\.[0-9]+)?)/i,
+  ], compact.includes('最終發售價') || compact.includes('最终发售价') ? compact : text);
 
-  const globalShares = [
-    /全球發售(?:股份)?[^\n]{0,180}?([0-9,]+)\s*股(?:H股|股份)?/i,
-    /全球发售(?:股份)?[^\n]{0,180}?([0-9,]+)\s*股(?:H股|股份)?/i,
-    /Global Offer(?:ing)?[^\n]{0,200}?([0-9,]+)\s*(?:Shares|H Shares)/i,
-    /Offer Shares[^\n]{0,160}?([0-9,]+)\s*(?:Shares|H Shares)/i,
-  ].map(rx => text.match(rx)?.[1]).map(toNum).find(Number.isFinite) ?? null;
+  const publicShares = matchFirstNum([
+    /香港公開發售[^\n]{0,260}?([0-9,]+)\s*股(?:H股|股份)?/i,
+    /香港公开发售[^\n]{0,260}?([0-9,]+)\s*股(?:H股|股份)?/i,
+    /Hong Kong Public Offer(?:ing)?[^\n]{0,260}?([0-9,]+)\s*(?:Shares|H Shares)/i,
+    /香港公開發售[^\n]{0,120}?股份數目[^\n]{0,80}?([0-9,]+)/i,
+    /香港公开发售[^\n]{0,120}?股份数目[^\n]{0,80}?([0-9,]+)/i,
+  ], compact.includes('香港公開發售') || compact.includes('香港公开发售') ? compact : text);
 
-  const allotmentRatePct = [
-    /甲組\s*\(\s*\d+\s*手\s*\)[^\n]{0,100}?中籤率\s*([0-9]+(?:\.[0-9]+)?)\s*%/i,
-    /甲组\s*\(\s*\d+\s*手\s*\)[^\n]{0,100}?中签率\s*([0-9]+(?:\.[0-9]+)?)\s*%/i,
-    /一手[^\n]{0,60}?(?:中籤率|中签率)\s*([0-9]+(?:\.[0-9]+)?)\s*%/i,
-    /allotment\s+ratio[^\n]{0,80}?([0-9]+(?:\.[0-9]+)?)\s*%/i,
-  ].map(rx => text.match(rx)?.[1]).map(toNum).find(Number.isFinite) ?? null;
+  const globalShares = matchFirstNum([
+    /全球發售(?:股份)?[^\n]{0,260}?([0-9,]+)\s*股(?:H股|股份)?/i,
+    /全球发售(?:股份)?[^\n]{0,260}?([0-9,]+)\s*股(?:H股|股份)?/i,
+    /Global Offer(?:ing)?[^\n]{0,260}?([0-9,]+)\s*(?:Shares|H Shares)/i,
+    /Offer Shares[^\n]{0,200}?([0-9,]+)\s*(?:Shares|H Shares)/i,
+    /全球發售股份數目[^\n]{0,100}?([0-9,]+)/i,
+    /全球发售股份数目[^\n]{0,100}?([0-9,]+)/i,
+  ], compact.includes('全球發售') || compact.includes('全球发售') ? compact : text);
+
+  const allotmentRatePct = matchFirstNum([
+    /甲組\s*\(\s*\d+\s*手\s*\)[^\n]{0,140}?中籤率\s*([0-9]+(?:\.[0-9]+)?)\s*%/i,
+    /甲组\s*\(\s*\d+\s*手\s*\)[^\n]{0,140}?中签率\s*([0-9]+(?:\.[0-9]+)?)\s*%/i,
+    /一手[^\n]{0,100}?(?:中籤率|中签率)\s*([0-9]+(?:\.[0-9]+)?)\s*%/i,
+    /allotment\s+ratio[^\n]{0,120}?([0-9]+(?:\.[0-9]+)?)\s*%/i,
+    /一手(?:中籤率|中签率)([0-9]+(?:\.[0-9]+)?)%/i,
+  ], compact.includes('中籤率') || compact.includes('中签率') ? compact : text);
 
   return {
     offerPriceHkd: offerPrice,
@@ -104,17 +116,28 @@ function pickBest(rows, stockName = '') {
   const n = String(stockName || '').trim();
   const score = (row) => {
     const t = String(row?.title || '');
+    const d = String(row?.date || '');
+    const y = Number((d.match(/(20\d{2})/) || [])[1] || 0);
     let x = 0;
-    if (/最終發售價及配發結果公告|最终发售价及配发结果公告/i.test(t)) x += 220;
-    if (/配發結果公告|配发结果公告/i.test(t)) x += 180;
-    if (/配發結果|配发结果|allotment results/i.test(t)) x += 120;
-    if (/發售價|发售价|final offer price/i.test(t)) x += 60;
+
+    if (/最終發售價及配發結果公告|最终发售价及配发结果公告/i.test(t)) x += 260;
+    if (/配發結果公告|配发结果公告|分配结果公告/i.test(t)) x += 220;
+    if (/配發結果|配发结果|allotment results/i.test(t)) x += 150;
+    if (/發售價|发售价|final offer price/i.test(t)) x += 80;
     if (/公告|announcement/i.test(t)) x += 20;
-    if (n && t.includes(n)) x += 40;
-    if (/聆訊後資料集|hearing|年報|月報表|翌日披露報表|翌日披露|回購|撤回上市地位/i.test(t)) x -= 120;
+    if (n && t.includes(n)) x += 60;
+
+    // 历史旧公告（同代码老公司）大幅降权
+    if (y && y < 2020) x -= 260;
+    else if (y && y < 2023) x -= 120;
+
+    if (/聆訊後資料集|hearing|年報|月報表|翌日披露報表|翌日披露|回購|撤回上市地位|最後交易日期|關於.*交易所公告/i.test(t)) x -= 200;
     return x;
   };
-  return [...rows].sort((a, b) => score(b) - score(a))[0];
+
+  const sorted = [...rows].sort((a, b) => score(b) - score(a));
+  const best = sorted[0];
+  return score(best) > 80 ? best : null;
 }
 
 async function downloadFile(url, outPath) {
