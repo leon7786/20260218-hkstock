@@ -14,7 +14,7 @@
 | 全球发售拆分 | 国际发售股份 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
 | 全球发售拆分 | 公开发售比例 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
 | 全球发售拆分 | 国际发售比例 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
-| 公开发售 | 一手中签率 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
+| 公开发售 | 一手中签率 | 0.33% | 阿斯达克+雅虎财经（相互印证） | https://www.aastocks.com/sc/stocks/news/aafn-con/NOW.1503096/ipo-news/ |
 | 公开发售 | 公开发售超购倍数 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
 | 国际发售 | 国际发售超购倍数 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
 | 交易复盘 | 首日涨幅 | +2.94% | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |

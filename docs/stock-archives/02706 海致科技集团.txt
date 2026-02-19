@@ -14,7 +14,7 @@
 | 全球发售拆分 | 国际发售股份 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
 | 全球发售拆分 | 公开发售比例 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
 | 全球发售拆分 | 国际发售比例 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
-| 公开发售 | 一手中签率 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
+| 公开发售 | 一手中签率 | 未知 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
 | 公开发售 | 公开发售超购倍数 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
 | 国际发售 | 国际发售超购倍数 | 待定 | 披露易（待补配发结果公告） | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
 | 交易复盘 | 首日涨幅 | +242.20% | 第三方(富途IPO列表) | https://www.futunn.com/quote/hk/ipo |

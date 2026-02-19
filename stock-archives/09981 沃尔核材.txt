@@ -17,7 +17,7 @@
 | 募资金额 | 国际发售金额（当前口径=总募资） | 28.1亿港元 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
 | 募资金额 | 募资总额 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
 | 公开发售 | 公开发售超购倍数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
-| 公开发售 | 一手中签率 | 未知 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
+| 公开发售 | 一手中签率 | 0.33% | 阿斯达克+雅虎财经（相互印证） | https://www.aastocks.com/sc/stocks/news/aafn-con/NOW.1503096/ipo-news/ |
 | 公开发售 | 有效申请数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
 | 公开发售 | 成功申请数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
 | 国际发售 | 国际发售超购倍数 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=9981 |
