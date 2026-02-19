@@ -24,20 +24,29 @@ function parseFromText(txt) {
 
   const offerPrice = [
     /最終發售價[^\n]{0,120}?HK\$\s*([0-9]+(?:\.[0-9]+)?)/i,
+    /最终发售价[^\n]{0,120}?HK\$\s*([0-9]+(?:\.[0-9]+)?)/i,
     /Final Offer Price[^\n]{0,160}?HK\$\s*([0-9]+(?:\.[0-9]+)?)/i,
     /發售價[^\n]{0,120}?HK\$\s*([0-9]+(?:\.[0-9]+)?)/i,
   ].map(rx => text.match(rx)?.[1]).map(toNum).find(Number.isFinite) ?? null;
 
   const publicShares = [
-    /香港公開發售[^\n]{0,120}?([0-9,]+)\s*股(?:H股|股份)?/i,
-    /香港公开发售[^\n]{0,120}?([0-9,]+)\s*股(?:H股|股份)?/i,
-    /Hong Kong Public Offering[^\n]{0,160}?([0-9,]+)\s*(?:Shares|H Shares)/i,
+    /香港公開發售[^\n]{0,180}?([0-9,]+)\s*股(?:H股|股份)?/i,
+    /香港公开发售[^\n]{0,180}?([0-9,]+)\s*股(?:H股|股份)?/i,
+    /Hong Kong Public Offer(?:ing)?[^\n]{0,200}?([0-9,]+)\s*(?:Shares|H Shares)/i,
   ].map(rx => text.match(rx)?.[1]).map(toNum).find(Number.isFinite) ?? null;
 
   const globalShares = [
-    /全球發售[^\n]{0,120}?([0-9,]+)\s*股(?:H股|股份)?/i,
-    /全球发售[^\n]{0,120}?([0-9,]+)\s*股(?:H股|股份)?/i,
+    /全球發售(?:股份)?[^\n]{0,180}?([0-9,]+)\s*股(?:H股|股份)?/i,
+    /全球发售(?:股份)?[^\n]{0,180}?([0-9,]+)\s*股(?:H股|股份)?/i,
+    /Global Offer(?:ing)?[^\n]{0,200}?([0-9,]+)\s*(?:Shares|H Shares)/i,
     /Offer Shares[^\n]{0,160}?([0-9,]+)\s*(?:Shares|H Shares)/i,
+  ].map(rx => text.match(rx)?.[1]).map(toNum).find(Number.isFinite) ?? null;
+
+  const allotmentRatePct = [
+    /甲組\s*\(\s*\d+\s*手\s*\)[^\n]{0,100}?中籤率\s*([0-9]+(?:\.[0-9]+)?)\s*%/i,
+    /甲组\s*\(\s*\d+\s*手\s*\)[^\n]{0,100}?中签率\s*([0-9]+(?:\.[0-9]+)?)\s*%/i,
+    /一手[^\n]{0,60}?(?:中籤率|中签率)\s*([0-9]+(?:\.[0-9]+)?)\s*%/i,
+    /allotment\s+ratio[^\n]{0,80}?([0-9]+(?:\.[0-9]+)?)\s*%/i,
   ].map(rx => text.match(rx)?.[1]).map(toNum).find(Number.isFinite) ?? null;
 
   return {
@@ -46,15 +55,16 @@ function parseFromText(txt) {
     globalShares,
     publicGrossHkd: Number.isFinite(offerPrice) && Number.isFinite(publicShares) ? Math.round(offerPrice * publicShares) : null,
     internationalGrossHkd: Number.isFinite(offerPrice) && Number.isFinite(globalShares) ? Math.round(offerPrice * globalShares) : null,
+    allotmentRatePct,
   };
 }
 
 async function fetchSearchRows(page, stockId) {
   const url = `https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=${stockId}`;
   await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
-  await page.waitForTimeout(2500);
+  await page.waitForTimeout(2000);
 
-  const rows = await page.evaluate(() => {
+  return await page.evaluate(() => {
     const out = [];
     const trs = Array.from(document.querySelectorAll('table tbody tr'));
     for (const tr of trs) {
@@ -68,21 +78,43 @@ async function fetchSearchRows(page, stockId) {
     }
     return out;
   });
-
-  return rows;
 }
 
-function pickBest(rows) {
-  if (!rows || !rows.length) return null;
-  const score = (t) => {
-    const s = String(t || '');
+async function resolveStockIdsByName(name) {
+  const q = encodeURIComponent(String(name || '').trim());
+  if (!q) return [];
+  const url = `https://www1.hkexnews.hk/search/partial.do?lang=ZH&type=A&name=${q}&market=SEHK&callback=callback`;
+  try {
+    const res = await fetch(url);
+    const txt = await res.text();
+    const m = txt.match(/callback\((.*)\)\s*;?\s*$/s);
+    if (!m) return [];
+    const arr = JSON.parse(m[1]);
+    const ids = (Array.isArray(arr) ? arr : [])
+      .map(x => String(x?.stockId || '').trim())
+      .filter(Boolean);
+    return [...new Set(ids)];
+  } catch {
+    return [];
+  }
+}
+
+function pickBest(rows, stockName = '') {
+  if (!rows?.length) return null;
+  const n = String(stockName || '').trim();
+  const score = (row) => {
+    const t = String(row?.title || '');
     let x = 0;
-    if (/配發結果|配发结果|allotment results/i.test(s)) x += 100;
-    if (/公告|announcement/i.test(s)) x += 10;
-    if (/聆訊後資料集|hearing/i.test(s)) x -= 20;
+    if (/最終發售價及配發結果公告|最终发售价及配发结果公告/i.test(t)) x += 220;
+    if (/配發結果公告|配发结果公告/i.test(t)) x += 180;
+    if (/配發結果|配发结果|allotment results/i.test(t)) x += 120;
+    if (/發售價|发售价|final offer price/i.test(t)) x += 60;
+    if (/公告|announcement/i.test(t)) x += 20;
+    if (n && t.includes(n)) x += 40;
+    if (/聆訊後資料集|hearing|年報|月報表|翌日披露報表|翌日披露|回購|撤回上市地位/i.test(t)) x -= 120;
     return x;
   };
-  return [...rows].sort((a, b) => score(b.title) - score(a.title))[0];
+  return [...rows].sort((a, b) => score(b) - score(a))[0];
 }
 
 async function downloadFile(url, outPath) {
@@ -121,13 +153,27 @@ async function run() {
 
   for (const it of items) {
     const code = String(it.code).padStart(5, '0');
-    const stockId = String(Number(code));
+    const stockIdByCode = String(Number(code));
+    const name = String(it.name || '').trim();
 
     try {
-      const rows = await fetchSearchRows(page, stockId);
-      const best = pickBest(rows);
+      const idsByName = await resolveStockIdsByName(name);
+      const candidateIds = [...new Set([stockIdByCode, ...idsByName])];
+
+      let best = null;
+      let pickedId = null;
+      for (const sid of candidateIds) {
+        const rows = await fetchSearchRows(page, sid);
+        const p = pickBest(rows, name);
+        if (!p) continue;
+        if (!best || pickBest([p, best], name) === p) {
+          best = p;
+          pickedId = sid;
+        }
+      }
+
       if (!best) {
-        out[code] = { status: 'not_found', rows: 0 };
+        out[code] = { status: 'not_found', rows: 0, triedStockIds: candidateIds };
         continue;
       }
 
@@ -144,6 +190,8 @@ async function run() {
         date: best.date,
         title: best.title,
         pdf: href,
+        matchedStockId: pickedId,
+        triedStockIds: candidateIds,
         ...parsed,
       };
     } catch (e) {
@@ -156,7 +204,8 @@ async function run() {
 
   const okCount = Object.values(out).filter(v => v.status === 'ok').length;
   const parsedCount = Object.values(out).filter(v => v.status === 'ok' && Number.isFinite(v.offerPriceHkd) && Number.isFinite(v.publicShares) && Number.isFinite(v.globalShares)).length;
-  console.log(`done: scanned=${items.length}, found=${okCount}, parsed=${parsedCount}, out=${OUT_JSON}`);
+  const allotmentCount = Object.values(out).filter(v => v.status === 'ok' && Number.isFinite(v.allotmentRatePct)).length;
+  console.log(`done: scanned=${items.length}, found=${okCount}, parsed=${parsedCount}, allotment=${allotmentCount}, out=${OUT_JSON}`);
 }
 
 run().catch((e) => {
