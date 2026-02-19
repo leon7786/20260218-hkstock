@@ -11,8 +11,8 @@
 | 发行定价 | 发售价 | HK$27.060 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
 | 发行规模 | 发行量 | 2803.02万 | 富途IPO页 | https://www.futunn.com/quote/hk/ipo |
 | 发行规模 | 全球发售股份 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
-| 全球发售拆分 | 香港公开发售股份 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
-| 全球发售拆分 | 国际发售股份 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
+| 全球发售拆分 | 香港公开发售股份 | 未知 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
+| 全球发售拆分 | 国际发售股份 | 未知 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
 | 募资金额 | 公开招募金额 | 未知 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
 | 募资金额 | 国际发售金额（当前口径=总募资） | 7.6亿港元 | 第三方补充 | https://www.futunn.com/quote/hk/ipo |
 | 募资金额 | 募资总额 | 待定 | 披露易 | https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=zh&market=SEHK&stockId=2706 |
