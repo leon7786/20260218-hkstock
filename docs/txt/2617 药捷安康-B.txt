@@ -1,48 +1,122 @@
-【2617 药捷安康-B】
+2617 药捷安康-B 新股「一张大表」（披露易 + 富途/AASTOCKS/新浪补充）
+模块	条目	数值（统一单位）	来源
+0 基本	公司英文名	TransThera Sciences (Nanjing), Inc.	(www1.hkexnews.hk
+)
+0 基本	公司中文名	药捷安康（南京）科技股份有限公司	(www1.hkexnews.hk
+)
+0 基本	股票代码	2617	(www1.hkexnews.hk
+)
+0 基本	股票简称	TRANSTHERA-B	(www1.hkexnews.hk
+)
+0 上市	开始买卖日	2025-06-23	(www1.hkexnews.hk
+)
+1 定价	最终发售价	HK$13.15/股	(www1.hkexnews.hk
+)
+1 定价	交易/征费提示	另加经纪佣金及各类征费（公告列明）	(www1.hkexnews.hk
+)
+1 发行规模	全球发售股份数（发售股份数目）	1,528.1万股H股	(www1.hkexnews.hk
+)
+1 发行结构	香港公开发售最终股数	305.7万股H股	(www1.hkexnews.hk
+)
+1 发行结构	国际发售最终股数	1,222.4万股H股	(www1.hkexnews.hk
+)
+1 发行结构	公开发售最终占比	20.00%	(www1.hkexnews.hk
+)
+1 发行结构	国际发售最终占比	80.00%	(www1.hkexnews.hk
+)
+1 回拨/再分配	公开发售初始股数	152.85万股	(www1.hkexnews.hk
+)
+1 回拨/再分配	由国际发售重新分配至公开发售	152.85万股	(www1.hkexnews.hk
+)
+1 回拨/再分配	“触发回补机制”字段	否（但发生再分配，公开占比变20%）	(www1.hkexnews.hk
+)
+2 股本	上市时已发行股份数目	3.96897633亿股	(www1.hkexnews.hk
+)
+2 募资	所得款项总额（Gross）	2.0095亿港元	(www1.hkexnews.hk
+)
+2 募资	预计上市费用	3,961万港元	(www1.hkexnews.hk
+)
+2 募资	所得款项净额（Net）	1.6134亿港元	(www1.hkexnews.hk
+)
+2 募资（散户）	公开募资金额（散户可买）	4,020万港元	(www1.hkexnews.hk
+)
+3 公开发售	有效申请数目	135,427	(www1.hkexnews.hk
+)
+3 公开发售	受理申请数目	6,114	(www1.hkexnews.hk
+)
+3 公开发售	公开发售认购倍数	3,419.87倍	(www1.hkexnews.hk
+)
+4 国际发售	承配人数量	123	(www1.hkexnews.hk
+)
+4 国际发售	国际发售认购倍数	0.97倍	(www1.hkexnews.hk
+)
+5 稳价期	稳定价格期结束日（公告写明）	2025-07-18	(www1.hkexnews.hk
+)
+6 基石	基石合计获配（总计）	977.4万股	(www1.hkexnews.hk
+)
+6 基石	基石合计占发售股份	63.96%	(www1.hkexnews.hk
+)
+6 基石	基石禁售到期（公告列“最后一天”）	2025-12-22	(www1.hkexnews.hk
+)
+6 基石明细	Jiangbei Pharmaceutical Technology (HK)	574.05万股；占发售37.57%	(www1.hkexnews.hk
+)
+6 基石明细	Sinohsc Honest（华盛敦行）	164.2万股；占发售10.75%	(www1.hkexnews.hk
+)
+6 基石明细	Pharmablock Horizon Capital	82.15万股；占发售5.38%	(www1.hkexnews.hk
+)
+6 基石明细	Kelingan（香港）科技	81.75万股；占发售5.35%	(www1.hkexnews.hk
+)
+6 基石明细	Akeso（康方生物）	75.25万股；占发售4.92%	(www1.hkexnews.hk
+)
+7 集中度（承配人）	最大承配人获配占国际发售	46.96%	(www1.hkexnews.hk
+)
+7 集中度（承配人）	前5承配人获配占国际发售	79.96%	(www1.hkexnews.hk
+)
+7 集中度（承配人）	前10承配人获配占国际发售	96.34%	(www1.hkexnews.hk
+)
+7 集中度（承配人）	前25承配人获配占国际发售	99.37%	(www1.hkexnews.hk
+)
+8 集中度（H股股东）	最大H股股东上市后持H股占比	26.72%	(www1.hkexnews.hk
+)
+8 集中度（H股股东）	前5 H股股东上市后持H股占比	61.37%	(www1.hkexnews.hk
+)
+8 集中度（H股股东）	前10 H股股东上市后持H股占比	88.66%	(www1.hkexnews.hk
+)
+9 配发基准	申请500股（1手）档位：约中签率	0.80%	(www1.hkexnews.hk
+)
+9 配发基准	申请1,000股档位：约获配比例	0.54%	(www1.hkexnews.hk
+)
+9 配发基准	申请1,500股档位：约获配比例	0.43%	(www1.hkexnews.hk
+)
+9 配发基准	申请2,000股档位：约获配比例	0.36%	(www1.hkexnews.hk
+)
+9 配发基准	申请2,500股档位：约获配比例	0.32%	(www1.hkexnews.hk
+)
+10 风险提示	“股权高度集中”警告	公告摘要明确提示	(www1.hkexnews.hk
+)
+11 查询	公开发售结果查询网站	hkeipo.hk/iporesult（公告列明）	(www1.hkexnews.hk
+)
+—— 底部补充（仅：富途 / AASTOCKS / 新浪财经）——
+模块	条目	数值	来源
+12 暗盘（AASTOCKS）	富途暗盘开报	16.02港元	(aastocks.com
+)
+12 暗盘（AASTOCKS）	富途暗盘盘中价（报道时点）	22.85港元（较13.15约+73.8%）	(aastocks.com
+)
+12 暗盘（AASTOCKS）	辉立暗盘开报	13.00港元	(aastocks.com
+)
+12 暗盘（AASTOCKS）	辉立暗盘盘中价（报道时点）	22.75港元（较13.15约+73.0%）	(aastocks.com
+)
+13 认购热度（AASTOCKS）	公开发售超购	约3,419倍	(aastocks.com
+)
+13 认购热度（AASTOCKS）	国际发售超购	0.97倍	(aastocks.com
+)
+13 中签率（AASTOCKS）	1手（500股）中签率	0.8%	(aastocks.com
+)
+14 首日表现（新浪）	首日高开	21.65港元（文内称高开约64.64%）	(finance.sina.com.cn
+)
+14 暗盘收盘（新浪复述）	富途暗盘收盘价	22.25港元（文内称+69.2%）	(finance.sina.com.cn
+)
+14 口径对照（新浪 vs 披露易）	新浪提到“公开发售最终305.70万股占20%”	与披露易一致	(finance.sina.com.cn
+)
 
-# 0 基本
-- 股票代码：2617
-- 股票简称：药捷安康-B
-
-# 1 发行与定价（优先：港交所披露易）
-- 最终发售价：待补
-- 招股价区间：待补
-- 每手股数：待补
-- 发售总股数：待补
-- 上市时已发行股数：待补
-
-# 2 募资金额
-- 募资总额（Gross）：待补
-- 上市费用：待补
-- 净筹资（Net）：待补
-- 公开发售募资金额：待补
-
-# 3 认购与中签
-- 公开发售超购：待补
-- 配售超购：待补
-- 1手中签率：待补
-
-# 4 暗盘（次级：富途 / 阿斯达克 / 新浪）
-- 富途暗盘收盘：待补
-- 辉立暗盘收盘：待补
-- 暗盘成交量/额：待补
-
-# 5 首日表现
-- 开盘：待补
-- 最高/最低：待补
-- 收盘：待补
-- 成交量/额：待补
-
-# 6 数据来源（按优先级）
-1) 港交所披露易（优先）
-2) 富途
-3) 新浪财经
-4) 阿斯达克
-
-- 披露易检索： https://www1.hkexnews.hk/search/titlesearch.xhtml
-- 富途（参考页）： https://www.futunn.com/quote/hk/02617
-- 新浪（港股）： https://finance.sina.com.cn/stock/hkstock/marketalerts/
-- 阿斯达克（个股）： https://www.aastocks.com/sc/stocks/analysis/stock-aafn/02617/0/hk-stock-news/1
-
-# 7 备注
-- 本文件为自动骨架，待逐条核对并补齐数值与来源链接。
+这张表里，“发行结构/募资/公开与国际超购/再分配/基石明细与锁定/集中度/中签率档位”全部来自披露易；“暗盘/首日”只用你点名的三方补充。
