@@ -9,7 +9,7 @@
 交易单位	每手（board lot）	500股/手	
 发行定价	最终发售价	HK$13.55/股	
 发行定价	招股价区间	HK$13.55–15.15/股	
-发行定价	价格调整（Offer Price Adjustment）	N/A	
+发行定价	价格调整（Offer Price Adjustment）	不适用	
 发售规模	全球发售股份数（Global Offering）	3,044万股	
 发售结构	香港公开发售股数	304.40万股	
 发售结构	国际发售股数	2,739.60万股	

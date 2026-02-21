@@ -5,7 +5,7 @@
 0 基本	开始买卖日	2025-06-10	
 0 基本	董事签发（主席/CEO）	Dr. Sun Xi	
 1 定价	最终发售价（Final Offer Price）	HK$9.75/股	
-1 定价	Offer Price Adjustment	N/A	
+1 定价	Offer Price Adjustment	不适用	
 1 发售规模	全球发售股份（Offer Shares）	2,485.6万股	
 1 发售结构	香港公开发售股数（回拨后）	1,242.8万股	
 1 发售结构	国际配售股数（回拨后）	1,242.8万股	
