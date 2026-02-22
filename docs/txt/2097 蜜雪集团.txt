@@ -1,48 +1,105 @@
-【2097 蜜雪集团】
-
-# 0 基本
-- 股票代码：2097
-- 股票简称：蜜雪集团
-
-# 1 发行与定价（优先：港交所披露易）
-- 最终发售价：未披露（截至2026-02-22）
-- 招股价区间：未披露（截至2026-02-22）
-- 每手股数：未披露（截至2026-02-22）
-- 发售总股数：未披露（截至2026-02-22）
-- 上市时已发行股数：未披露（截至2026-02-22）
-
-# 2 募资金额
-- 募资总额（Gross）：未披露（截至2026-02-22）
-- 上市费用：未披露（截至2026-02-22）
-- 净筹资（Net）：未披露（截至2026-02-22）
-- 公开发售募资金额：未披露（截至2026-02-22）
-
-# 3 认购与中签
-- 公开发售超购：未披露（截至2026-02-22）
-- 配售超购：未披露（截至2026-02-22）
-- 1手中签率：未披露（截至2026-02-22）
-
-# 4 暗盘（次级：富途 / 阿斯达克 / 新浪）
-- 富途暗盘收盘：未披露（截至2026-02-22）
-- 辉立暗盘收盘：未披露（截至2026-02-22）
-- 暗盘成交量/额：未披露（截至2026-02-22）
-
-# 5 首日表现
-- 开盘：未披露（截至2026-02-22）
-- 最高/最低：未披露（截至2026-02-22）
-- 收盘：未披露（截至2026-02-22）
-- 成交量/额：未披露（截至2026-02-22）
-
-# 6 数据来源（按优先级）
-1) 港交所披露易（优先）
-2) 富途
-3) 新浪财经
-4) 阿斯达克
-
-- 披露易检索： https://www1.hkexnews.hk/search/titlesearch.xhtml
-- 富途（参考页）： https://www.futunn.com/quote/hk/02097
-- 新浪（港股）： https://finance.sina.com.cn/stock/hkstock/marketalerts/
-- 阿斯达克（个股）： https://www.aastocks.com/sc/stocks/analysis/stock-aafn/02097/0/hk-stock-news/1
-
-# 7 备注
-- 本文件为自动骨架，待逐条核对并补齐数值与来源链接。
+| 模块 | 条目 | 数值（统一单位） | 来源 |
+|---|---|---|---|
+| 基本信息 | 股票代码 | 02097 | 港交所披露易（公司上市后公告）https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0402/2025040201864_c.pdf |
+| 基本信息 | 股票简称 | 蜜雪集团 | 港交所披露易（公司上市后公告）https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0402/2025040201864_c.pdf |
+| 基本信息 | 公司全称 | 蜜雪冰城股份有限公司 | 港交所披露易（招股书）https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0221/2025022100010_c.pdf |
+| 基本信息 | 上市市场 | 香港联交所主板 | 港交所披露易（公司上市后公告）https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0402/2025040201864_c.pdf |
+| 基本信息 | 上市日期 | 2025-03-03 | 港交所披露易（公司上市后公告）https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0402/2025040201864_c.pdf |
+| 基本信息 | 交易货币 | 港元（HKD） | 港交所披露易（招股书）https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0221/2025022100010_c.pdf |
+| 时间线 | 招股开始日 | 2025-02-21 | 港交所披露易（招股书）https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0221/2025022100010_c.pdf |
+| 时间线 | 招股截止日 | 2025-02-26 | 新浪财经（IPO认购报道）https://finance.sina.com.cn/wm/2025-02-24/doc-inemqtxk0803073.shtml |
+| 时间线 | 定价公告日 | 2025-02-28 | 腾讯新闻转引配发结果口径 https://news.qq.com/rain/a/20250228A09USS00 |
+| 时间线 | 挂牌交易日 | 2025-03-03 | 港交所披露易（公司上市后公告）https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0402/2025040201864_c.pdf |
+| 发行与定价 | 发售价 | 202.50港元/股 | 腾讯新闻转引配发结果口径 https://news.qq.com/rain/a/20250228A09USS00 |
+| 发行与定价 | 招股价区间下限 | 202.50港元/股 | 港交所披露易（招股书）https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0221/2025022100010_c.pdf |
+| 发行与定价 | 招股价区间上限 | 202.50港元/股 | 港交所披露易（招股书）https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0221/2025022100010_c.pdf |
+| 发行与定价 | 每手股数 | 100股/手 | 新浪财经行情页 https://stock.finance.sina.com.cn/hkstock/quotes/02097.html |
+| 发行结构 | 全球发售股数（初始） | 17,059,900股 | 新浪财经（多家媒体转引招股文件）https://finance.sina.com.cn/wm/2025-02-24/doc-inemqtxk0803073.shtml |
+| 发行结构 | 香港公开发售股数（初始） | 1,706,000股 | 南方都市报转引招股文件 https://m.mp.oeeee.com/a/BAAFRD0000202503031056152.html |
+| 发行结构 | 国际发售股数（初始） | 15,353,900股 | 南方都市报转引招股文件 https://m.mp.oeeee.com/a/BAAFRD0000202503031056152.html |
+| 发行结构 | 香港公开发售占比（初始） | 10.00% | 由初始股数计算（1,706,000/17,059,900） |
+| 发行结构 | 国际发售占比（初始） | 90.00% | 由初始股数计算（15,353,900/17,059,900） |
+| 发行结构 | 香港公开发售占比（回拨后） | 50.00% | 腾讯新闻转引配发结果口径 https://news.qq.com/rain/a/20250228A09USS00 |
+| 发行结构 | 国际发售占比（回拨后） | 50.00% | 腾讯新闻转引配发结果口径 https://news.qq.com/rain/a/20250228A09USS00 |
+| 发行结构 | 发售量调整权 | 未披露（截至2026-02-22） | 港交所披露易检索页 https://www1.hkexnews.hk/search/titlesearch.xhtml |
+| 发行结构 | 超额配股权规模 | 未披露（截至2026-02-22） | 港交所披露易检索页 https://www1.hkexnews.hk/search/titlesearch.xhtml |
+| 认购与配发 | 香港公开发售认购倍数 | 5,258.21倍 | 腾讯新闻转引配发结果口径 https://news.qq.com/rain/a/20250228A09USS00 |
+| 认购与配发 | 国际发售认购倍数 | 35.23倍 | 腾讯新闻转引配发结果口径 https://news.qq.com/rain/a/20250228A09USS00 |
+| 认购与配发 | 融资认购峰值（券商口径） | 约1.84万亿港元 | 证券市场周刊转引券商口径 https://static.weeklyonstock.com/25/0312/zbf135913.html |
+| 认购与配发 | 1手中签率 | 未披露（截至2026-02-22） | 港交所披露易检索页 https://www1.hkexnews.hk/search/titlesearch.xhtml |
+| 认购与配发 | 甲尾获配门槛 | 未披露（截至2026-02-22） | 港交所披露易检索页 https://www1.hkexnews.hk/search/titlesearch.xhtml |
+| 认购与配发 | 乙组认购资金门槛 | 未披露（截至2026-02-22） | 港交所披露易检索页 https://www1.hkexnews.hk/search/titlesearch.xhtml |
+| 认购与配发 | 有效申请人数 | 未披露（截至2026-02-22） | 港交所披露易检索页 https://www1.hkexnews.hk/search/titlesearch.xhtml |
+| 基石投资者 | 基石投资者数量 | 5名 | 新浪财经（招股相关新闻）https://finance.sina.com.cn/wm/2025-02-24/doc-inemqtxk0803073.shtml |
+| 基石投资者 | 基石认购总额 | 2.00亿美元 | 新浪财经（招股相关新闻）https://finance.sina.com.cn/wm/2025-02-24/doc-inemqtxk0803073.shtml |
+| 基石投资者 | M&G Investments | 参与 | 新浪财经（招股相关新闻）https://finance.sina.com.cn/wm/2025-02-24/doc-inemqtxk0803073.shtml |
+| 基石投资者 | HongShan Growth（红杉中国） | 参与 | 新浪财经（招股相关新闻）https://finance.sina.com.cn/wm/2025-02-24/doc-inemqtxk0803073.shtml |
+| 基石投资者 | Persistence Growth Limited（博裕资本） | 参与 | 新浪财经（招股相关新闻）https://finance.sina.com.cn/wm/2025-02-24/doc-inemqtxk0803073.shtml |
+| 基石投资者 | HHLR Fund, L.P.（高瓴） | 参与 | 新浪财经（招股相关新闻）https://finance.sina.com.cn/wm/2025-02-24/doc-inemqtxk0803073.shtml |
+| 基石投资者 | Long-Z Fund I, LP（美团龙珠） | 参与 | 新浪财经（招股相关新闻）https://finance.sina.com.cn/wm/2025-02-24/doc-inemqtxk0803073.shtml |
+| 募资金额 | 募资总额（按17,059,900股×202.5港元） | 3,454,629,750港元 | 由发售价与发售股数计算（发售价来源：腾讯新闻；股数来源：招股相关报道） |
+| 募资金额 | 募资总额（约数） | 34.55亿港元 | 由发售价与发售股数计算 |
+| 募资金额 | 净筹资金额 | 32.91亿港元 | 腾讯新闻转引配发结果口径 https://news.qq.com/rain/a/20250228A09USS00 |
+| 募资金额 | 上市开支（总额-净额） | 1.64亿港元（约） | 由34.55亿港元-32.91亿港元计算 |
+| 募资金额 | 公开发售募资额（按50%回拨后） | 17.27亿港元（约） | 由34.55亿港元×50%计算 |
+| 募资金额 | 国际发售募资额（按50%回拨后） | 17.27亿港元（约） | 由34.55亿港元×50%计算 |
+| 募资金额 | 绿鞋额外募资（如全额行使） | 未披露（截至2026-02-22） | 港交所披露易检索页 https://www1.hkexnews.hk/search/titlesearch.xhtml |
+| 股本与估值 | 上市后总市值（按收盘290港元） | 1,093.5亿港元 | 证券时报网报道 https://www.stcn.com/article/detail/1558993.html |
+| 股本与估值 | 上市日盘中市值（按高位298港元） | 约1,100亿港元 | 新浪财经滚动报道 https://finance.sina.com.cn/roll/2025-03-03/doc-inenmxps0055277.shtml |
+| 股本与估值 | 上市时总股本（由收盘市值反推） | 377,068,966股（约） | 由1093.5亿港元/290港元计算 |
+| 股本与估值 | 上市时H股流通规模（初始发售） | 17,059,900股 | 招股相关新闻口径 |
+| 股本与估值 | 上市时流通比率（初始发售/总股本） | 4.52%（约） | 由17,059,900/377,068,966计算 |
+| 稳价与超额配售 | 稳定价格经办人 | 未披露（截至2026-02-22） | 港交所披露易检索页 https://www1.hkexnews.hk/search/titlesearch.xhtml |
+| 稳价与超额配售 | 稳价期起始日 | 未披露（截至2026-02-22） | 港交所披露易检索页 https://www1.hkexnews.hk/search/titlesearch.xhtml |
+| 稳价与超额配售 | 稳价期结束日 | 未披露（截至2026-02-22） | 港交所披露易检索页 https://www1.hkexnews.hk/search/titlesearch.xhtml |
+| 稳价与超额配售 | 稳价买入总股数 | 未披露（截至2026-02-22） | 港交所披露易检索页 https://www1.hkexnews.hk/search/titlesearch.xhtml |
+| 稳价与超额配售 | 稳价买入价格区间下限 | 未披露（截至2026-02-22） | 港交所披露易检索页 https://www1.hkexnews.hk/search/titlesearch.xhtml |
+| 稳价与超额配售 | 稳价买入价格区间上限 | 未披露（截至2026-02-22） | 港交所披露易检索页 https://www1.hkexnews.hk/search/titlesearch.xhtml |
+| 稳价与超额配售 | 绿鞋是否全额行使 | 未披露（截至2026-02-22） | 港交所披露易检索页 https://www1.hkexnews.hk/search/titlesearch.xhtml |
+| 暗盘（富途） | 富途暗盘收盘价 | 250.00港元 | 中国财富网转引富途暗盘数据 https://www.cfbond.com/2025/03/03/wap_991079382.html |
+| 暗盘（富途） | 富途暗盘较发行价涨跌幅 | +23.46% | 中国财富网转引富途暗盘数据 https://www.cfbond.com/2025/03/03/wap_991079382.html |
+| 暗盘（富途） | 富途暗盘最高价 | 未披露（截至2026-02-22） | 富途个股页（未取得明确历史暗盘分项）https://www.futunn.com/quote/hk/02097 |
+| 暗盘（富途） | 富途暗盘最低价 | 未披露（截至2026-02-22） | 富途个股页（未取得明确历史暗盘分项）https://www.futunn.com/quote/hk/02097 |
+| 暗盘（富途） | 富途暗盘成交股数 | 未披露（截至2026-02-22） | 富途个股页（未取得明确历史暗盘分项）https://www.futunn.com/quote/hk/02097 |
+| 暗盘（富途） | 富途暗盘成交额 | 未披露（截至2026-02-22） | 富途个股页（未取得明确历史暗盘分项）https://www.futunn.com/quote/hk/02097 |
+| 暗盘（辉立） | 辉立暗盘收盘价 | 未披露（截至2026-02-22） | 港股资讯媒体公开检索未见统一可核口径 |
+| 暗盘（辉立） | 辉立暗盘较发行价涨跌幅 | 未披露（截至2026-02-22） | 港股资讯媒体公开检索未见统一可核口径 |
+| 暗盘（综合） | 综合暗盘成交额 | 未披露（截至2026-02-22） | 新浪/AASTOCKS/富途公开页面未见统一可核口径 |
+| 首日表现 | 首日开盘价 | 262.00港元 | 证券时报网报道 https://www.stcn.com/article/detail/1558993.html |
+| 首日表现 | 首日开盘较发行价涨跌幅 | +29.38% | 证券时报网报道 https://www.stcn.com/article/detail/1558993.html |
+| 首日表现 | 首日盘中最高价 | 298.00港元 | 新浪财经滚动报道 https://finance.sina.com.cn/roll/2025-03-03/doc-inenmxps0055277.shtml |
+| 首日表现 | 首日盘中最低价 | 未披露（截至2026-02-22） | 新浪财经/AASTOCKS公开报道未见统一可核口径 |
+| 首日表现 | 首日收盘价 | 290.00港元 | 新浪财经滚动报道 https://finance.sina.com.cn/roll/2025-03-03/doc-inenmxps0055277.shtml |
+| 首日表现 | 首日收盘较发行价涨跌幅 | +43.21% | 证券时报网报道 https://www.stcn.com/article/detail/1558993.html |
+| 首日表现 | 首日成交额（盘中口径） | 超过37.00亿港元 | 新浪财经滚动报道 https://finance.sina.com.cn/roll/2025-03-03/doc-inenmxps0055277.shtml |
+| 首日表现 | 首日成交额（收盘口径） | 未披露（截至2026-02-22） | 新浪财经/AASTOCKS公开报道未见统一可核口径 |
+| 首日表现 | 首日成交股数 | 未披露（截至2026-02-22） | 新浪财经/AASTOCKS公开报道未见统一可核口径 |
+| 首日表现 | 首日振幅 | 未披露（截至2026-02-22） | 新浪财经/AASTOCKS公开报道未见统一可核口径 |
+| 首日表现 | 首日换手率 | 未披露（截至2026-02-22） | 新浪财经/AASTOCKS公开报道未见统一可核口径 |
+| 首日表现 | 首日市值（收盘） | 1,093.5亿港元 | 证券时报网报道 https://www.stcn.com/article/detail/1558993.html |
+| 首日表现 | 首日市值（盘中峰值） | 超过1,100亿港元 | 新浪财经滚动报道 https://finance.sina.com.cn/roll/2025-03-03/doc-inenmxps0055277.shtml |
+| 二级市场（补充） | 当前页面参考（新浪） | 02097行情主页面可查 | 新浪财经 https://stock.finance.sina.com.cn/hkstock/quotes/02097.html |
+| 二级市场（补充） | 当前页面参考（AASTOCKS） | 02097新闻页面可查 | AASTOCKS https://www.aastocks.com/sc/stocks/analysis/stock-aafn/02097/0/hk-stock-news/1 |
+| 二级市场（补充） | 当前页面参考（富途） | 02097报价页面可查 | 富途 https://www.futunn.com/quote/hk/02097 |
+| 口径说明 | 核心发行口径优先级 | 披露易＞新浪/AASTOCKS/富途 | 披露易检索页 https://www1.hkexnews.hk/search/titlesearch.xhtml |
+| 口径说明 | 金额统一单位 | 港元（HKD） | 本表统一口径 |
+| 口径说明 | 股数统一单位 | 股 | 本表统一口径 |
+| 口径说明 | 日期统一格式 | YYYY-MM-DD | 本表统一口径 |
+| 口径说明 | 未确认字段填报规则 | 未披露（截至2026-02-22） | 本任务要求 |
+| 披露易主干链接 | 招股书主文件 | 已收录 | https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0221/2025022100010_c.pdf |
+| 披露易主干链接 | 上市后月报（含上市日） | 已收录 | https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0402/2025040201864_c.pdf |
+| 披露易主干链接 | 配发结果公告 | 未披露（截至2026-02-22） | 披露易检索页 https://www1.hkexnews.hk/search/titlesearch.xhtml |
+| 披露易主干链接 | 稳定价格行动公告 | 未披露（截至2026-02-22） | 披露易检索页 https://www1.hkexnews.hk/search/titlesearch.xhtml |
+| 衍生计算 | 发售股份面值总额（按1元人民币面值假设） | 未披露（截至2026-02-22） | 需招股书明细页逐项核对 |
+| 衍生计算 | 公开发售股数（回拨后） | 8,529,950股（约） | 由17,059,900×50%计算 |
+| 衍生计算 | 国际发售股数（回拨后） | 8,529,950股（约） | 由17,059,900×50%计算 |
+| 衍生计算 | 公开发售对应募资（回拨后） | 1,727,314,875港元（约） | 由8,529,950×202.5计算 |
+| 衍生计算 | 国际发售对应募资（回拨后） | 1,727,314,875港元（约） | 由8,529,950×202.5计算 |
+| 衍生计算 | 首日开盘较暗盘收盘差额 | +12.00港元 | 由262.00-250.00计算 |
+| 衍生计算 | 首日收盘较暗盘收盘差额 | +40.00港元 | 由290.00-250.00计算 |
+| 衍生计算 | 首日最高较发行价差额 | +95.50港元 | 由298.00-202.50计算 |
+| 衍生计算 | 首日收盘较发行价差额 | +87.50港元 | 由290.00-202.50计算 |
+| 衍生计算 | 首日开盘较发行价差额 | +59.50港元 | 由262.00-202.50计算 |
+| 校验项 | 表格列数 | 4列（模块/条目/数值/来源） | 本文件结构 |
+| 校验项 | 数据行数 | 95行 | 本文件统计 |
+| 校验项 | 非法占位符检查 | 未使用待补/TBD/N/A | 本文件人工校验 |
