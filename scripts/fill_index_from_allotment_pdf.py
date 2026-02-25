@@ -143,7 +143,8 @@ def find_dir_by_code(code: str) -> Optional[Path]:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--limit", type=int, default=0, help="本次最多处理多少只（0=不限）")
+    ap.add_argument("--limit", type=int, default=0, help="本次最多扫描多少只缺失股票（0=不限）")
+    ap.add_argument("--update-limit", type=int, default=0, help="本次最多实际更新多少只（0=不限，用于每10只一批）")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--report", type=Path, default=ROOT / "reports" / "fill_index_from_allotment_pdf_last.txt")
     args = ap.parse_args()
@@ -168,10 +169,16 @@ def main() -> None:
             continue
 
         missing_codes.append(code)
+
+        # scan limit (how many missing rows we examine)
         if args.limit and scanned >= args.limit:
             continue
-
         scanned += 1
+
+        # update limit (how many rows we actually modify)
+        if args.update_limit and touched >= args.update_limit:
+            continue
+
         d = find_dir_by_code(code)
         if not d:
             logs.append(f"{code}: 未找到目录")
