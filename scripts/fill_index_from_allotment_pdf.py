@@ -41,10 +41,14 @@ def extract_from_text(text: str) -> Extracted:
     out = Extracted()
 
     # 1) 一手中签率（优先）
+    # 实务：很多「配發結果」并不会写“一手中签率”字样，而是在甲组表格里用：
+    #   「獲配發股份佔所申請總數的概約百分比」列出每个申请档位的百分比。
+    # 我们要的是“最小申請档位（通常=1手/最少申请股数）对应的第一个百分比”。
+
+    # a) 先尝试显式表述
     pats = [
         r"一手(?:中[籤签]率|獲配發比率|配發比率|分配比率|中[签籤]率)?[^\d%]{0,40}([0-9]+(?:\.[0-9]+)?)\s*%",
         r"甲組[^\n]{0,120}?(?:第一|首)[^\n]{0,40}?(?:概約|概略|中[籤签]率|獲配發比率)?[^\d%]{0,40}([0-9]+(?:\.[0-9]+)?)\s*%",
-        r"甲組[^\n]{0,120}?([0-9]+(?:\.[0-9]+)?)\s*%",
     ]
     for pat in pats:
         m = re.search(pat, text, flags=re.IGNORECASE)
@@ -54,32 +58,68 @@ def extract_from_text(text: str) -> Extracted:
                 out.hit_rate = v
                 break
 
-    # 2) 认购水平（第一个通常是公开发售，第二个是国际配售）
-    levels = [parse_num(x) for x in re.findall(r"認購水平\s*([0-9][0-9,]*(?:\.[0-9]+)?)\s*倍", text)]
-    levels = [x for x in levels if x is not None]
+    # b) 回退：从甲组“概约百分比”列抓第一条百分比
+    if out.hit_rate is None:
+        m = re.search(r"獲配發股份佔所申請[\s\S]{0,200}?概約百分比[\s\S]{0,400}?\b([0-9]+(?:\.[0-9]+)?)\s*%", text)
+        if m:
+            v = parse_num(m.group(1))
+            if v is not None:
+                out.hit_rate = v
 
-    pub_m = re.search(r"香港公開發售[\s\S]{0,420}?認購水平\s*([0-9][0-9,]*(?:\.[0-9]+)?)\s*倍", text)
-    if pub_m:
-        out.public_oversub = parse_num(pub_m.group(1))
-    elif levels:
-        out.public_oversub = levels[0]
+    # 2) 超购倍数/认购倍数
+    # 中文常见：
+    # - 「香港公開發售超額認購約xxx倍」/「公開發售超購xxx倍」
+    # - 「香港公開發售認購水平xxx倍」
+    # 英文常见：
+    # - "Hong Kong Public Offering was over-subscribed by approximately xxx times"
 
-    plc_m = re.search(r"國際發售[\s\S]{0,420}?認購水平\s*([0-9][0-9,]*(?:\.[0-9]+)?)\s*倍", text)
-    if plc_m:
-        out.placing_oversub = parse_num(plc_m.group(1))
-    elif len(levels) >= 2:
-        out.placing_oversub = levels[1]
-
-    # 3) 英文补充（如有）
+    # a) 中文：公开发售超购/超额认购
     if out.public_oversub is None:
-        m = re.search(r"Hong\s*Kong\s*Public\s*Offering[\s\S]{0,200}?([0-9][0-9,]*(?:\.[0-9]+)?)\s*times", text, flags=re.IGNORECASE)
+        m = re.search(r"(?:香港)?公開發售[\s\S]{0,200}?(?:超額認購|超额认购|超購|超购)[\s\S]{0,80}?(?:約|约)?\s*([0-9][0-9,]*(?:\.[0-9]+)?)\s*倍", text)
         if m:
             out.public_oversub = parse_num(m.group(1))
 
+    # b) 中文：认购水平
+    if out.public_oversub is None:
+        pub_m = re.search(r"香港公開發售[\s\S]{0,800}?認購水平[\s\S]{0,80}?([0-9][0-9,]*(?:\.[0-9]+)?)\s*倍", text)
+        if pub_m:
+            out.public_oversub = parse_num(pub_m.group(1))
+
+    # c) 英文兜底：over-subscribed / times
+    if out.public_oversub is None:
+        m = re.search(
+            r"Hong\s*Kong\s*Public\s*Offering[\s\S]{0,400}?over\-?subscribed[\s\S]{0,120}?(?:approximately\s*)?([0-9][0-9,]*(?:\.[0-9]+)?)\s*times",
+            text,
+            flags=re.IGNORECASE,
+        )
+        if m:
+            out.public_oversub = parse_num(m.group(1))
+        else:
+            m = re.search(
+                r"Hong\s*Kong\s*Public\s*Offering[\s\S]{0,200}?([0-9][0-9,]*(?:\.[0-9]+)?)\s*times",
+                text,
+                flags=re.IGNORECASE,
+            )
+            if m:
+                out.public_oversub = parse_num(m.group(1))
+
+    # d) 配售/国际配售（若文本存在）
     if out.placing_oversub is None:
-        m = re.search(r"International\s*Offering[\s\S]{0,220}?([0-9][0-9,]*(?:\.[0-9]+)?)\s*times", text, flags=re.IGNORECASE)
+        m = re.search(r"(?:國際發售|国际发售|國際配售|国际配售|International\s*Offering)[\s\S]{0,220}?(?:超額認購|超额认购|超購|超购)[\s\S]{0,80}?(?:約|约)?\s*([0-9][0-9,]*(?:\.[0-9]+)?)\s*倍", text, flags=re.IGNORECASE)
         if m:
             out.placing_oversub = parse_num(m.group(1))
+        else:
+            m = re.search(r"International\s*Offering[\s\S]{0,300}?over\-?subscribed[\s\S]{0,120}?(?:approximately\s*)?([0-9][0-9,]*(?:\.[0-9]+)?)\s*times", text, flags=re.IGNORECASE)
+            if m:
+                out.placing_oversub = parse_num(m.group(1))
+
+    # e) 最后兜底：若文档里存在多个「認購水平xxx倍」，取第一个当公开、第二个当配售
+    levels = [parse_num(x) for x in re.findall(r"認購水平\s*([0-9][0-9,]*(?:\.[0-9]+)?)\s*倍", text)]
+    levels = [x for x in levels if x is not None]
+    if out.public_oversub is None and levels:
+        out.public_oversub = levels[0]
+    if out.placing_oversub is None and len(levels) >= 2:
+        out.placing_oversub = levels[1]
 
     return out
 
