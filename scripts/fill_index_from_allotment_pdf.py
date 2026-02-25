@@ -125,7 +125,8 @@ def extract_from_text(text: str) -> Extracted:
 
 
 def fmt_percent(v: float) -> str:
-    return f"{v:.2f}%"
+    # 用户口径：一手中签率保留 1 位小数
+    return f"{v:.1f}%"
 
 
 def fmt_times(v: float) -> str:
