@@ -213,11 +213,51 @@ def fmt_percent(v: float) -> str:
 
 
 def fmt_times(v: float) -> str:
+    # keep 2 decimals, but avoid scientific/absurd OCR numbers
+    if v is None:
+        return "—"
+    if v < 0:
+        return "—"
+    if v > 100000:
+        return "—"
     return f"{v:.2f}倍"
 
 
+def _parse_cell_number(s: str) -> Optional[float]:
+    s = (s or "").strip()
+    if not s or s == "—":
+        return None
+    s = s.replace(",", "")
+    s = s.replace("倍", "").replace("%", "").strip()
+    try:
+        return float(s)
+    except Exception:
+        return None
+
+
 def has_missing(td) -> bool:
-    return td.get_text(strip=True) == "—"
+    """Cell is considered missing if:
+    - it's '—'
+    - or it contains an obviously invalid value (OCR garbage), so we allow overwrite.
+    """
+
+    t = td.get_text(strip=True)
+    if t == "—" or t == "":
+        return True
+
+    v = _parse_cell_number(t)
+    if v is None:
+        return True
+
+    if t.endswith("%"):
+        return not (0 <= v <= 100)
+
+    if t.endswith("倍"):
+        # allow 0.00倍 (explicitly no oversub), but cap upper bound
+        return not (0 <= v < 100000)
+
+    # unknown format
+    return True
 
 
 def find_dir_by_code(code: str) -> Optional[Path]:
