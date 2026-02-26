@@ -22,11 +22,19 @@ class Extracted:
     placing_oversub: Optional[float] = None
 
 
-def to_text(pdf: Path) -> str:
-    cp = subprocess.run(["pdftotext", str(pdf), "-"], capture_output=True, text=True)
+def to_text(pdf: Path, *, pages: int = 12) -> str:
+    # 只提取前 N 页，避免把 Next Day Disclosure Return 等后续公告混进来
+    cp = subprocess.run(
+        ["pdftotext", "-f", "1", "-l", str(pages), "-enc", "UTF-8", str(pdf), "-"],
+        capture_output=True,
+        text=True,
+    )
     if cp.returncode != 0:
         return ""
-    return cp.stdout
+    return cp.stdout or ""
+
+
+_NUM_RE = re.compile(r"\d{1,3}(?:,\d{3})*(?:\.\d+)?")
 
 
 def parse_num(s: str) -> Optional[float]:
@@ -37,55 +45,114 @@ def parse_num(s: str) -> Optional[float]:
         return None
 
 
+def pick_last_number(s: str) -> Optional[float]:
+    """Pick the last well-formatted number in a snippet.
+
+    Useful when OCR concatenates multiple columns (e.g. 236,078 71,945 2,682.35倍).
+    """
+    nums = _NUM_RE.findall(s)
+    if not nums:
+        return None
+    return parse_num(nums[-1])
+
+
+def slice_between(text: str, start_pat: re.Pattern, end_pats: list[re.Pattern]) -> Optional[str]:
+    m = start_pat.search(text)
+    if not m:
+        return None
+    start = m.start()
+    end = len(text)
+    for ep in end_pats:
+        m2 = ep.search(text, m.end())
+        if m2:
+            end = min(end, m2.start())
+    return text[start:end]
+
+
+def extract_hit_rate_one_lot(text: str) -> Optional[float]:
+    # 统一做 compact（去空白），以应对 pdftotext 把中文拆字。
+    compact = re.sub(r"\s+", "", text)
+
+    def _parse_int(s: str) -> Optional[int]:
+        s = s.replace(",", "").strip()
+        if not s.isdigit():
+            return None
+        try:
+            return int(s)
+        except Exception:
+            return None
+
+    # 1) 显式「一手中签率」
+    for pat in [
+        r"一手(?:中[籤签]率|獲配發比率|配發比率|分配比率|中[签籤]率)?[^\d%]{0,40}([0-9]+(?:\.[0-9]+)?)\s*%",
+        r"一手(?:中[籤签]率|獲配發比率|配發比率|分配比率|中[签籤]率)?[^\d%]{0,40}([0-9]+(?:\.[0-9]+)?)%",  # compact
+    ]:
+        m = re.search(pat, text, flags=re.IGNORECASE) or re.search(pat, compact, flags=re.IGNORECASE)
+        if m:
+            v = parse_num(m.group(1))
+            if v is not None and 0 <= v <= 100:
+                return v
+
+    # 2) 甲组表格首档（通常一手）「X名中的Y名獲得Z股」
+    sec = slice_between(
+        compact,
+        re.compile(r"甲組"),
+        [re.compile(r"乙組"), re.compile(r"國際"), re.compile(r"国际"), re.compile(r"International", re.I)],
+    )
+    blob = sec or compact
+
+    # We should take the FIRST valid row after 甲組, not a greedy match that swallows many numbers.
+    pat = re.compile(
+        r"([0-9]{1,3}(?:,[0-9]{3})*)名中(?:的)?([0-9]{1,3}(?:,[0-9]{3})*)名獲(?:得|配發|發)([0-9]{1,3}(?:,[0-9]{3})*)股"
+    )
+    for m in pat.finditer(blob):
+        total = _parse_int(m.group(1))
+        success = _parse_int(m.group(2))
+        if total and success is not None and total > 0:
+            v = success / total * 100.0
+            if 0 <= v <= 100:
+                return v
+
+    # 3) 兜底：甲组「概约百分比」列第一项
+    m = re.search(r"獲配發股份佔所申請[\s\S]{0,200}?概約百分比[\s\S]{0,400}?([0-9]+(?:\.[0-9]+)?)%", blob)
+    if m:
+        v = parse_num(m.group(1))
+        if v is not None and 0 <= v <= 100:
+            return v
+
+    return None
+
+
 def extract_from_text(text: str) -> Extracted:
     out = Extracted()
 
-    # 1) 一手中签率（优先）
-    # 实务：很多「配發結果」并不会写“一手中签率”字样，而是在甲组表格里用：
-    #   「獲配發股份佔所申請總數的概約百分比」列出每个申请档位的百分比。
-    # 我们要的是“最小申請档位（通常=1手/最少申请股数）对应的第一个百分比”。
+    # 为应对 pdftotext 把中文拆成“香 港 交 易 …”，我们同时对去空白版本做匹配。
+    compact = re.sub(r"\s+", "", text)
 
-    # a) 先尝试显式表述
-    pats = [
-        r"一手(?:中[籤签]率|獲配發比率|配發比率|分配比率|中[签籤]率)?[^\d%]{0,40}([0-9]+(?:\.[0-9]+)?)\s*%",
-        r"甲組[^\n]{0,120}?(?:第一|首)[^\n]{0,40}?(?:概約|概略|中[籤签]率|獲配發比率)?[^\d%]{0,40}([0-9]+(?:\.[0-9]+)?)\s*%",
-    ]
-    for pat in pats:
-        m = re.search(pat, text, flags=re.IGNORECASE)
-        if m:
-            v = parse_num(m.group(1))
-            if v is not None:
-                out.hit_rate = v
-                break
-
-    # b) 回退：从甲组“概约百分比”列抓第一条百分比
+    # 1) 一手中签率（raw + compact）
+    out.hit_rate = extract_hit_rate_one_lot(text)
     if out.hit_rate is None:
-        m = re.search(r"獲配發股份佔所申請[\s\S]{0,200}?概約百分比[\s\S]{0,400}?\b([0-9]+(?:\.[0-9]+)?)\s*%", text)
-        if m:
-            v = parse_num(m.group(1))
-            if v is not None:
-                out.hit_rate = v
+        out.hit_rate = extract_hit_rate_one_lot(compact)
 
-    # 2) 超购倍数/认购倍数
-    # 中文常见：
-    # - 「香港公開發售超額認購約xxx倍」/「公開發售超購xxx倍」
-    # - 「香港公開發售認購水平xxx倍」
-    # 英文常见：
-    # - "Hong Kong Public Offering was over-subscribed by approximately xxx times"
+    # 2) 香港公开发售超购倍数
+    # 只在明确语境（公开发售 + 超额认购/超购/认购水平/over-subscribed）下提取。
 
-    # a) 中文：公开发售超购/超额认购
     if out.public_oversub is None:
-        m = re.search(r"(?:香港)?公開發售[\s\S]{0,200}?(?:超額認購|超额认购|超購|超购)[\s\S]{0,80}?(?:約|约)?\s*([0-9][0-9,]*(?:\.[0-9]+)?)\s*倍", text)
+        m = re.search(
+            r"(?:香港)?公開發售[\s\S]{0,200}?(?:超額認購|超额认购|超購|超购)[\s\S]{0,80}?(?:約|约)?([0-9][0-9,]*(?:\.[0-9]+)?)倍",
+            compact,
+        )
         if m:
-            out.public_oversub = parse_num(m.group(1))
+            out.public_oversub = pick_last_number(m.group(1))
 
-    # b) 中文：认购水平
     if out.public_oversub is None:
-        pub_m = re.search(r"香港公開發售[\s\S]{0,800}?認購水平[\s\S]{0,80}?([0-9][0-9,]*(?:\.[0-9]+)?)\s*倍", text)
+        pub_m = re.search(
+            r"香港公開發售[\s\S]{0,800}?認購水平[\s\S]{0,80}?([0-9][0-9,]*(?:\.[0-9]+)?)倍",
+            compact,
+        )
         if pub_m:
-            out.public_oversub = parse_num(pub_m.group(1))
+            out.public_oversub = pick_last_number(pub_m.group(1))
 
-    # c) 英文兜底：over-subscribed / times
     if out.public_oversub is None:
         m = re.search(
             r"Hong\s*Kong\s*Public\s*Offering[\s\S]{0,400}?over\-?subscribed[\s\S]{0,120}?(?:approximately\s*)?([0-9][0-9,]*(?:\.[0-9]+)?)\s*times",
@@ -93,39 +160,55 @@ def extract_from_text(text: str) -> Extracted:
             flags=re.IGNORECASE,
         )
         if m:
-            out.public_oversub = parse_num(m.group(1))
+            out.public_oversub = pick_last_number(m.group(1))
+
+    # 不再使用“全文第一个 xxx倍”兜底：误判风险过高（可能来自别的段落/表格/引用）。
+
+    # 3) 配售超购 = International Offering oversubscription
+    if out.placing_oversub is None:
+        m = re.search(
+            r"(?:國際發售|国际发售|國際配售|国际配售|InternationalOffering)[\s\S]{0,220}?(?:超額認購|超额认购|超購|超购)[\s\S]{0,80}?(?:約|约)?([0-9][0-9,]*(?:\.[0-9]+)?)倍",
+            compact,
+            flags=re.IGNORECASE,
+        )
+        if m:
+            out.placing_oversub = pick_last_number(m.group(1))
         else:
             m = re.search(
-                r"Hong\s*Kong\s*Public\s*Offering[\s\S]{0,200}?([0-9][0-9,]*(?:\.[0-9]+)?)\s*times",
+                r"International\s*Offering[\s\S]{0,300}?over\-?subscribed[\s\S]{0,120}?(?:approximately\s*)?([0-9][0-9,]*(?:\.[0-9]+)?)\s*times",
                 text,
                 flags=re.IGNORECASE,
             )
             if m:
-                out.public_oversub = parse_num(m.group(1))
-
-    # d) 配售/国际配售（若文本存在）
-    if out.placing_oversub is None:
-        m = re.search(r"(?:國際發售|国际发售|國際配售|国际配售|International\s*Offering)[\s\S]{0,220}?(?:超額認購|超额认购|超購|超购)[\s\S]{0,80}?(?:約|约)?\s*([0-9][0-9,]*(?:\.[0-9]+)?)\s*倍", text, flags=re.IGNORECASE)
-        if m:
-            out.placing_oversub = parse_num(m.group(1))
-        else:
-            m = re.search(r"International\s*Offering[\s\S]{0,300}?over\-?subscribed[\s\S]{0,120}?(?:approximately\s*)?([0-9][0-9,]*(?:\.[0-9]+)?)\s*times", text, flags=re.IGNORECASE)
-            if m:
                 out.placing_oversub = parse_num(m.group(1))
 
-    # e) 最后兜底：若文档里存在多个「認購水平xxx倍」，取第一个当公开、第二个当配售
-    levels = [parse_num(x) for x in re.findall(r"認購水平\s*([0-9][0-9,]*(?:\.[0-9]+)?)\s*倍", text)]
-    levels = [x for x in levels if x is not None]
-    if out.public_oversub is None and levels:
-        out.public_oversub = levels[0]
-    if out.placing_oversub is None and len(levels) >= 2:
-        out.placing_oversub = levels[1]
+    # If text clearly states no oversubscription, set placing_oversub=0.0
+    if out.placing_oversub is None and re.search(r"並無超額分配|没有超额分配|無超額分配", compact):
+        out.placing_oversub = 0.0
+
+    # 4) 中文双「認購水平」兜底（带语境）：
+    # - 公开：必须出现「香港公開發售 ... 認購水平 ... 倍」
+    # - 国际：必须出现「國際發售/International Offering ... 認購水平 ... 倍」
+
+    if out.public_oversub is None:
+        m = re.search(r"香港公開發售[\s\S]{0,200}?認購水平[\s\S]{0,60}?([0-9][0-9,]*(?:\.[0-9]+)?)倍", compact)
+        if m:
+            out.public_oversub = pick_last_number(m.group(1))
+
+    if out.placing_oversub is None:
+        m = re.search(
+            r"(?:國際發售|国际发售|國際配售|国际配售|InternationalOffering)[\s\S]{0,220}?認購水平[\s\S]{0,60}?([0-9][0-9,]*(?:\.[0-9]+)?)倍",
+            compact,
+            flags=re.IGNORECASE,
+        )
+        if m:
+            out.placing_oversub = pick_last_number(m.group(1))
 
     return out
 
 
 def fmt_percent(v: float) -> str:
-    # 用户口径：一手中签率保留 1 位小数
+    # 一手中签率保留 1 位小数
     return f"{v:.1f}%"
 
 
@@ -142,6 +225,77 @@ def find_dir_by_code(code: str) -> Optional[Path]:
     return ms[0] if ms else None
 
 
+def _code_variants(code: str) -> list[str]:
+    c5 = code.strip().zfill(5)
+    out: set[str] = {c5}
+    try:
+        n = int(c5)
+        out.add(str(n))
+        out.add(str(n).zfill(4))
+    except Exception:
+        pass
+    out.add(c5[-4:])
+    return sorted(v for v in out if v)
+
+
+def _name_keys(name: str) -> list[str]:
+    keys: list[str] = []
+
+    zh = "".join(re.findall(r"[\u4e00-\u9fff]", name))
+    if len(zh) >= 3:
+        keys.append(zh[:3])
+    if len(zh) >= 2:
+        keys.append(zh[:2])
+
+    # 英文前缀：至少 4 字母
+    ascii_words = re.findall(r"[A-Za-z]{4,}", name)
+    if ascii_words:
+        keys.append(ascii_words[0][:4].upper())
+    joined = "".join(re.findall(r"[A-Za-z]", name)).upper()
+    if len(joined) >= 4:
+        keys.append(joined[:4])
+
+    # 去重保序
+    seen = set()
+    uniq: list[str] = []
+    for k in keys:
+        if k and k not in seen:
+            seen.add(k)
+            uniq.append(k)
+    return uniq
+
+
+def identity_ok(text: str, code: str, name: str) -> tuple[bool, str]:
+    code_vars = _code_variants(code)
+    name_keys = _name_keys(name)
+
+    for cv in code_vars:
+        if re.search(rf"(?<!\d){re.escape(cv)}(?!\d)", text):
+            return True, f"code={cv}"
+
+    upper = text.upper()
+    for nk in name_keys:
+        if nk.isascii():
+            if nk in upper:
+                return True, f"name={nk}"
+        else:
+            if nk in text:
+                return True, f"name={nk}"
+
+    return False, f"code_vars={code_vars};name_keys={name_keys}"
+
+
+def count_missing_rows(soup: BeautifulSoup) -> int:
+    n = 0
+    for tr in soup.select("table tbody tr"):
+        tds = tr.find_all("td")
+        if len(tds) < 6:
+            continue
+        if has_missing(tds[2]) or has_missing(tds[4]) or has_missing(tds[5]):
+            n += 1
+    return n
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=0, help="本次最多扫描多少只缺失股票（0=不限）")
@@ -153,6 +307,7 @@ def main() -> None:
     soup = BeautifulSoup(INDEX.read_text(encoding="utf-8"), "html.parser")
     rows = soup.select("table tbody tr")
 
+    missing_before = count_missing_rows(soup)
     scanned = 0
     touched = 0
     processed_codes: list[str] = []
@@ -163,7 +318,8 @@ def main() -> None:
         tds = tr.find_all("td")
         if len(tds) < 6:
             continue
-        code = tds[1].get_text(strip=True)
+        code = tds[1].get_text(strip=True).zfill(5)
+        name = tds[8].get_text(strip=True) if len(tds) > 8 else ""
         td_hit, td_place, td_public = tds[2], tds[4], tds[5]
 
         if not (has_missing(td_hit) or has_missing(td_place) or has_missing(td_public)):
@@ -194,7 +350,26 @@ def main() -> None:
             logs.append(f"{code}: pdftotext 失败或空文本")
             continue
 
+        ok, why = identity_ok(txt, code, name)
+        if not ok:
+            logs.append(f"{code}: 身份校验失败，不更新 ({why})")
+            continue
+
         ex = extract_from_text(txt)
+
+        # Sanity checks: drop suspicious values
+        if ex.hit_rate is not None:
+            if not (0 <= ex.hit_rate <= 100):
+                ex.hit_rate = None
+
+        for k in ("public_oversub", "placing_oversub"):
+            v = getattr(ex, k)
+            if v is None:
+                continue
+            # oversub times can be 0.0 (explicitly "并无超额分配"), otherwise must be positive.
+            if not (0 <= v < 100000):
+                setattr(ex, k, None)
+
         row_changed = False
 
         if has_missing(td_hit) and ex.hit_rate is not None:
@@ -219,10 +394,12 @@ def main() -> None:
             touched += 1
             processed_codes.append(code)
             logs.append(
-                f"{code}: 命中 hit={ex.hit_rate} public={ex.public_oversub} placing={ex.placing_oversub}"
+                f"{code}: 命中[{why}] hit={ex.hit_rate} public={ex.public_oversub} placing={ex.placing_oversub}"
             )
         else:
-            logs.append(f"{code}: 未提取到可用字段")
+            logs.append(f"{code}: 身份通过[{why}]，但未提取到可用字段")
+
+    missing_after = count_missing_rows(soup)
 
     if touched and not args.dry_run:
         INDEX.write_text(str(soup), encoding="utf-8")
@@ -231,9 +408,11 @@ def main() -> None:
     args.report.write_text(
         "\n".join(
             [
+                f"missing_before={missing_before}",
                 f"missing_total={len(missing_codes)}",
                 f"attempted={scanned}",
                 f"updated={touched}",
+                f"missing_after={missing_after}",
                 f"updated_codes={','.join(processed_codes)}",
                 "---",
                 *logs,
@@ -242,7 +421,10 @@ def main() -> None:
         encoding="utf-8",
     )
 
-    print(f"missing_total={len(missing_codes)} attempted={scanned} updated={touched}")
+    print(
+        f"missing_before={missing_before} missing_total={len(missing_codes)} "
+        f"attempted={scanned} updated={touched} missing_after={missing_after}"
+    )
     if processed_codes:
         print("updated_codes=" + ",".join(processed_codes))
     print(f"report={args.report}")

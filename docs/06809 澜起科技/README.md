@@ -19,7 +19,8 @@
   - HKEX 直链: https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0130/2026013000008_c.pdf
   - 匹配标题: 全球發售
 - `穩價期終.pdf`
-  - 状态: need-refresh:missing
+  - 状态: need-refresh:code-name-both-miss
+  - MD5: aa4b4bfff2fcb6aa6659e0e87bce7f2e
   - HKEX 直链: (未找到)
 - `綠鞋悉行.pdf`
   - 状态: need-refresh:code-name-both-miss
@@ -27,7 +28,7 @@
   - HKEX 直链: (未找到)
 
 ## 抓取信息
-- 抓取时间: 2026-02-26 14:05:19
+- 抓取时间: 2026-02-26 16:28:51
 - 维护工具: scripts/sync_ipo_pdf_kit.py
 
 ## 说明
