@@ -112,6 +112,8 @@ def extract_offer_price_hkd(text: str) -> Optional[float]:
     for pat in [
         r"發售價[:：]?每股發售股份([0-9][0-9,]*(?:\.[0-9]+)?)港元",
         r"每股發售股份([0-9][0-9,]*(?:\.[0-9]+)?)港元",
+        r"最終發售價[:：]?(?:每股)?(?:H股)?([0-9][0-9,]*(?:\.[0-9]+)?)港元",
+        r"最終發售價[:：]?每股(?:H股)?([0-9][0-9,]*(?:\.[0-9]+)?)港元",
         r"OfferPrice(?:perShare)?[:：]?HK\$\s*([0-9][0-9,]*(?:\.[0-9]+)?)",
     ]:
         m = re.search(pat, compact, flags=re.IGNORECASE)
@@ -122,11 +124,16 @@ def extract_offer_price_hkd(text: str) -> Optional[float]:
 
 def extract_public_offering_shares(text: str) -> Optional[int]:
     compact = re.sub(r"\s+", "", text)
-    # Look for '香港公開發售' and a nearby share count ending with 股
+    # Look for '香港發售股份數目/香港公开发售股份数目/公開發售股份數目'
     pats = [
-        r"香港公開發售[^\d]{0,120}?(?:提呈發售|可供認購|初步提呈發售|項下提呈發售)[^\d]{0,80}?([0-9][0-9,]*)股",
-        r"香港公開發售項下[^\d]{0,80}?([0-9][0-9,]*)股",
-        r"HongKongPublicOffering[^\d]{0,80}?([0-9][0-9,]*)shares",
+        r"香港公開發售[^\d]{0,200}?(?:提呈發售|可供認購|初步提呈發售|項下提呈發售)[^\d]{0,120}?([0-9][0-9,]*)股",
+        r"香港公開發售項下[^\d]{0,120}?([0-9][0-9,]*)股",
+        r"香港發售股份數目[^\d]{0,80}?([0-9][0-9,]*)股",
+        r"香港發售股份數 目[^\d]{0,120}?([0-9][0-9,]*)股",
+        r"香港发售股份数目[^\d]{0,80}?([0-9][0-9,]*)股",
+        r"公開發售股份數目[^\d]{0,80}?([0-9][0-9,]*)股",
+        r"公開發售股份數 目[^\d]{0,120}?([0-9][0-9,]*)股",
+        r"HongKongPublicOffering[^\d]{0,120}?([0-9][0-9,]*)shares",
     ]
     for pat in pats:
         m = re.search(pat, compact, flags=re.IGNORECASE)

@@ -1,1338 +1,474 @@
 {
-  "attempted": 111,
-  "updated": 71,
+  "attempted": 39,
+  "updated": 39,
   "dry_run": false,
   "items": [
     {
-      "code": "02720",
-      "dir": "02720 乐欣户外",
-      "new": "5182.4万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 12.25,
-        "shares": 4230500
-      }
-    },
-    {
-      "code": "06809",
-      "dir": "06809 澜起科技",
-      "new": "10.56亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 106.89,
-        "shares": 9883500
-      }
-    },
-    {
       "code": "03200",
       "dir": "03200 大族数控",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "4.83亿港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
+        "fn": "配發結果.pdf",
         "price": 95.8,
-        "shares": null
-      }
-    },
-    {
-      "code": "02714",
-      "dir": "02714 牧原股份",
-      "new": "10.68亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 39.0,
-        "shares": 27395200
-      }
-    },
-    {
-      "code": "02677",
-      "dir": "02677 卓正医疗",
-      "new": "3163.5万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 66.6,
-        "shares": 475000
-      }
-    },
-    {
-      "code": "02768",
-      "dir": "02768 国恩科技",
-      "new": "1.26亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 42.0,
-        "shares": 3000000
-      }
-    },
-    {
-      "code": "09980",
-      "dir": "09980 东鹏饮料",
-      "new": "15.21亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 248.0,
-        "shares": 6133400
-      }
-    },
-    {
-      "code": "09611",
-      "dir": "09611 龙旗科技",
-      "new": "2.43亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 31.0,
-        "shares": 7838800
+        "shares": 5045200
       }
     },
     {
       "code": "03986",
       "dir": "03986 兆易创新",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": 162.0,
-        "shares": null
-      }
-    },
-    {
-      "code": "06938",
-      "dir": "06938 瑞博生物-B",
-      "new": "1.59亿港元",
+      "new": "4.68亿港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
         "fn": "配發結果.pdf",
-        "price": 57.97,
-        "shares": 2748800
-      }
-    },
-    {
-      "code": "03636",
-      "dir": "03636 金浔资源",
-      "new": "1.65亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 30.0,
-        "shares": 5514800
-      }
-    },
-    {
-      "code": "09903",
-      "dir": "09903 天数智芯",
-      "new": "5.52亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 144.6,
-        "shares": 3814700
+        "price": 162.0,
+        "shares": 2891600
       }
     },
     {
       "code": "02675",
       "dir": "02675 精锋医疗-B",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "1.2亿港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
+        "fn": "配發結果.pdf",
         "price": 43.24,
-        "shares": null
-      }
-    },
-    {
-      "code": "02513",
-      "dir": "02513 智谱",
-      "new": "4.35亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 116.2,
-        "shares": 3742000
-      }
-    },
-    {
-      "code": "06082",
-      "dir": "06082 壁仞科技",
-      "new": "4.85亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 19.6,
-        "shares": 24769600
-      }
-    },
-    {
-      "code": "06651",
-      "dir": "06651 五一视界",
-      "new": "7312.7万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 30.5,
-        "shares": 2397600
-      }
-    },
-    {
-      "code": "06600",
-      "dir": "06600 卧安机器人",
-      "new": "1.8亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 81.0,
-        "shares": 2222300
+        "shares": 2772300
       }
     },
     {
       "code": "03696",
       "dir": "03696 英矽智能",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "2.28亿港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
+        "fn": "配發結果.pdf",
         "price": 24.05,
-        "shares": null
+        "shares": 9469500
       }
     },
     {
       "code": "03317",
       "dir": "03317 迅策",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "1.08亿港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
-        "price": 55.0,
-        "shares": null
+        "fn": "配發結果.pdf",
+        "price": 48.0,
+        "shares": 2250000
       }
     },
     {
       "code": "02671",
       "dir": "02671 美联股份",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": 9.16,
-        "shares": null
-      }
-    },
-    {
-      "code": "02657",
-      "dir": "02657 林清轩",
-      "new": "1.09亿港元",
+      "new": "1746.6万港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "正式通告.pdf",
-        "price": 77.77,
-        "shares": 1396650
-      }
-    },
-    {
-      "code": "03378",
-      "dir": "03378 翰思艾泰-B",
-      "new": "2931.2万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 32.0,
-        "shares": 916000
-      }
-    },
-    {
-      "code": "02661",
-      "dir": "02661 轻松健康",
-      "new": "9028.9万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 22.68,
-        "shares": 3981000
-      }
-    },
-    {
-      "code": "02635",
-      "dir": "02635 诺比侃",
-      "new": "6020.3万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 106.0,
-        "shares": 567950
-      }
-    },
-    {
-      "code": "02695",
-      "dir": "02695 印象大红袍",
-      "new": "1480.1万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 4.1,
-        "shares": 3610000
-      }
-    },
-    {
-      "code": "02691",
-      "dir": "02691 南华期货股份",
-      "new": "15.5亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 16.0,
-        "shares": 96893000
-      }
-    },
-    {
-      "code": "02581",
-      "dir": "02581 明基医院",
-      "new": "1.17亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 11.68,
-        "shares": 10050000
-      }
-    },
-    {
-      "code": "02396",
-      "dir": "02396 华芢生物-B",
-      "new": "1.35亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 51.0,
-        "shares": 2647200
+        "fn": "配發結果.pdf",
+        "price": 7.1,
+        "shares": 2460000
       }
     },
     {
       "code": "03881",
       "dir": "03881 希迪智驾",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "7111.5万港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
         "fn": "上市文件.pdf",
         "price": 263.0,
-        "shares": null
-      }
-    },
-    {
-      "code": "02546",
-      "dir": "02546 智汇矿业",
-      "new": "5500.4万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 4.51,
-        "shares": 12196000
-      }
-    },
-    {
-      "code": "03887",
-      "dir": "03887 HASHKEY HLDGS",
-      "new": "1.67亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 6.95,
-        "shares": 24057200
-      }
-    },
-    {
-      "code": "02655",
-      "dir": "02655 果下科技",
-      "new": "1.02亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 20.1,
-        "shares": 5077900
+        "shares": 270400
       }
     },
     {
       "code": "07618",
       "dir": "07618 京东工业",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": 15.5,
-        "shares": null
-      }
-    },
-    {
-      "code": "02659",
-      "dir": "02659 宝济药业-B",
-      "new": "1亿港元",
+      "new": "2.98亿港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "正式通告.pdf",
-        "price": 26.38,
-        "shares": 3791200
-      }
-    },
-    {
-      "code": "02687",
-      "dir": "02687 卓越睿新",
-      "new": "6226万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 62.26,
-        "shares": 1000000
-      }
-    },
-    {
-      "code": "02676",
-      "dir": "02676 纳芯微",
-      "new": "3.32亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 116.0,
-        "shares": 2860200
+        "fn": "配發結果.pdf",
+        "price": 14.1,
+        "shares": 21121000
       }
     },
     {
       "code": "02658",
       "dir": "02658 天域半导体",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": null,
-        "shares": null
-      }
-    },
-    {
-      "code": "02408",
-      "dir": "02408 遇见小面",
-      "new": "3427.1万港元",
+      "new": "1.74亿港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
         "fn": "正式通告.pdf",
-        "price": 7.04,
-        "shares": 4868000
-      }
-    },
-    {
-      "code": "02693",
-      "dir": "02693 金岩高岭新材",
-      "new": "2660.8万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 7.3,
-        "shares": 3645000
+        "price": 58.0,
+        "shares": 3007050
       }
     },
     {
       "code": "02539",
       "dir": "02539 乐摩科技",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": null,
-        "shares": null
-      }
-    },
-    {
-      "code": "09609",
-      "dir": "09609 海伟股份",
-      "new": "4402.8万港元",
+      "new": "2222.4万港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "正式通告.pdf",
-        "price": 14.28,
-        "shares": 3083200
-      }
-    },
-    {
-      "code": "02685",
-      "dir": "02685 量化派",
-      "new": "1962万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 9.8,
-        "shares": 2002000
-      }
-    },
-    {
-      "code": "02788",
-      "dir": "02788 创新实业",
-      "new": "5.5亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 10.99,
-        "shares": 50000000
-      }
-    },
-    {
-      "code": "02579",
-      "dir": "02579 中伟新材",
-      "new": "5.91亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 37.8,
-        "shares": 15633800
+        "fn": "配發結果.pdf",
+        "price": 40.0,
+        "shares": 555600
       }
     },
     {
       "code": "02698",
       "dir": "02698 乐舒适",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "2.38亿港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
+        "fn": "配發結果.pdf",
         "price": 26.2,
-        "shares": null
+        "shares": 9088400
       }
     },
     {
       "code": "02630",
       "dir": "02630 旺山旺水-B",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "5872.5万港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
-        "price": null,
-        "shares": null
+        "fn": "配發結果.pdf",
+        "price": 33.37,
+        "shares": 1759800
       }
     },
     {
       "code": "00800",
       "dir": "00800 文远知行-W",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "1.54亿港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
         "fn": "上市文件.pdf",
         "price": 35.0,
-        "shares": null
+        "shares": 4412500
       }
     },
     {
       "code": "09927",
       "dir": "09927 赛力斯",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "14.28亿港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
+        "fn": "配發結果.pdf",
         "price": 131.5,
-        "shares": null
+        "shares": 10861900
       }
     },
     {
       "code": "02718",
       "dir": "02718 明略科技-W",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "1.02亿港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
+        "fn": "配發結果.pdf",
         "price": 141.0,
-        "shares": null
-      }
-    },
-    {
-      "code": "06980",
-      "dir": "06980 八马茶业",
-      "new": "4500万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 50.0,
-        "shares": 900000
-      }
-    },
-    {
-      "code": "06166",
-      "dir": "06166 剑桥科技",
-      "new": "6.92亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 68.88,
-        "shares": 10051550
+        "shares": 721920
       }
     },
     {
       "code": "06031",
       "dir": "06031 三一重工",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": 21.3,
-        "shares": null
-      }
-    },
-    {
-      "code": "06687",
-      "dir": "06687 聚水潭",
-      "new": "2.09亿港元",
+      "new": "12.36亿港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
         "fn": "配發結果.pdf",
-        "price": 30.6,
-        "shares": 6816700
+        "price": 21.3,
+        "shares": 58042600
       }
     },
     {
       "code": "02637",
       "dir": "02637 海西新药",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "9936万港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
+        "fn": "正式通告.pdf",
         "price": 86.4,
-        "shares": null
-      }
-    },
-    {
-      "code": "02670",
-      "dir": "02670 云迹",
-      "new": "6596.4万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 95.6,
-        "shares": 690000
-      }
-    },
-    {
-      "code": "02575",
-      "dir": "02575 轩竹生物-B",
-      "new": "1.17亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 11.6,
-        "shares": 10100000
-      }
-    },
-    {
-      "code": "08549",
-      "dir": "08549 金叶国际集团",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": 0.65,
-        "shares": null
-      }
-    },
-    {
-      "code": "02650",
-      "dir": "02650 挚达科技",
-      "new": "7499.9万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 83.63,
-        "shares": 896800
+        "shares": 1150000
       }
     },
     {
       "code": "02652",
       "dir": "02652 长风药业",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "6.08亿港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
+        "fn": "配發結果.pdf",
         "price": 14.75,
-        "shares": null
+        "shares": 41198000
       }
     },
     {
       "code": "02889",
       "dir": "02889 博泰车联",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": 102.23,
-        "shares": null
-      }
-    },
-    {
-      "code": "02583",
-      "dir": "02583 西普尼",
-      "new": "4293万港元",
+      "new": "1.07亿港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "正式通告.pdf",
-        "price": 27.0,
-        "shares": 1590000
+        "fn": "配發結果.pdf",
+        "price": 102.23,
+        "shares": 1043700
       }
     },
     {
       "code": "02259",
       "dir": "02259 紫金黄金国际",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "24.98亿港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
+        "fn": "配發結果.pdf",
         "price": 71.59,
-        "shares": null
+        "shares": 34899100
       }
     },
     {
       "code": "09973",
       "dir": "09973 奇瑞汽车",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "9.14亿港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
+        "fn": "配發結果.pdf",
         "price": 30.75,
-        "shares": null
+        "shares": 29739700
       }
     },
     {
       "code": "06090",
       "dir": "06090 不同集团",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "7818.5万港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
+        "fn": "配發結果.pdf",
         "price": 71.2,
-        "shares": null
-      }
-    },
-    {
-      "code": "02595",
-      "dir": "02595 劲方医药-B",
-      "new": "1.58亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "配發結果.pdf",
-        "price": 20.39,
-        "shares": 7760000
-      }
-    },
-    {
-      "code": "02656",
-      "dir": "02656 健康160",
-      "new": "5000万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 14.86,
-        "shares": 3364750
-      }
-    },
-    {
-      "code": "02525",
-      "dir": "02525 禾赛-W",
-      "new": "3.88亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 228.0,
-        "shares": 1700000
-      }
-    },
-    {
-      "code": "02543",
-      "dir": "02543 大行科工",
-      "new": "3920.4万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 49.5,
-        "shares": 792000
-      }
-    },
-    {
-      "code": "02580",
-      "dir": "02580 奥克斯电气",
-      "new": "1.8亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "配發結果.pdf",
-        "price": 17.42,
-        "shares": 10358200
-      }
-    },
-    {
-      "code": "03858",
-      "dir": "03858 佳鑫国际资源",
-      "new": "1.8亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 10.92,
-        "shares": 16471200
+        "shares": 1098100
       }
     },
     {
       "code": "06960",
       "dir": "06960 双登股份",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": 14.51,
-        "shares": null
-      }
-    },
-    {
-      "code": "02631",
-      "dir": "02631 天岳先进",
-      "new": "2.04亿港元",
+      "new": "8497.1万港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "正式通告.pdf",
-        "price": 42.8,
-        "shares": 4774600
+        "fn": "配發結果.pdf",
+        "price": 14.51,
+        "shares": 5856000
       }
     },
     {
       "code": "02591",
       "dir": "02591 银诺医药-B",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": null,
-        "shares": null
-      }
-    },
-    {
-      "code": "02627",
-      "dir": "02627 中慧生物-B",
-      "new": "1.04亿港元",
+      "new": "6829万港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
         "fn": "正式通告.pdf",
-        "price": 15.5,
-        "shares": 6688800
-      }
-    },
-    {
-      "code": "09887",
-      "dir": "09887 维立志博-B",
-      "new": "2.24亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 35.0,
-        "shares": 6411000
+        "price": 18.68,
+        "shares": 3655800
       }
     },
     {
       "code": "06613",
       "dir": "06613 蓝思科技",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "21.46亿港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
+        "fn": "配發結果.pdf",
         "price": 18.18,
-        "shares": null
+        "shares": 118015600
       }
     },
     {
       "code": "02651",
       "dir": "02651 大众口腔",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": 21.4,
-        "shares": null
-      }
-    },
-    {
-      "code": "02597",
-      "dir": "02597 讯众通信",
-      "new": "9223.3万港元",
+      "new": "2.32亿港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
         "fn": "正式通告.pdf",
-        "price": 15.15,
-        "shares": 6088000
+        "price": 21.4,
+        "shares": 10861800
       }
     },
     {
       "code": "02590",
       "dir": "02590 极智嘉-W",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": 16.8,
-        "shares": null
-      }
-    },
-    {
-      "code": "01828",
-      "dir": "01828 富卫集团",
-      "new": "10.41亿港元",
+      "new": "11.79亿港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
         "fn": "配發結果.pdf",
-        "price": 38.0,
-        "shares": 27402700
+        "price": 16.8,
+        "shares": 70176600
       }
     },
     {
       "code": "02648",
       "dir": "02648 安井食品",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": 66.0,
-        "shares": null
-      }
-    },
-    {
-      "code": "02592",
-      "dir": "02592 拨康视云-B",
-      "new": "6119.1万港元",
+      "new": "7.2亿港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "正式通告.pdf",
-        "price": 10.1,
-        "shares": 6058500
+        "fn": "配發結果.pdf",
+        "price": 60.0,
+        "shares": 11998500
       }
     },
     {
       "code": "09678",
       "dir": "09678 云知声",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": 165.0,
-        "shares": null
-      }
-    },
-    {
-      "code": "06603",
-      "dir": "06603 IFBH",
-      "new": "1.16亿港元",
+      "new": "1.28亿港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "正式通告.pdf",
-        "price": 27.8,
-        "shares": 4166800
-      }
-    },
-    {
-      "code": "03880",
-      "dir": "03880 泰德医药",
-      "new": "9542.4万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 28.4,
-        "shares": 3360000
-      }
-    },
-    {
-      "code": "06883",
-      "dir": "06883 颖通控股",
-      "new": "1.13亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 3.38,
-        "shares": 33340000
-      }
-    },
-    {
-      "code": "06168",
-      "dir": "06168 周六福",
-      "new": "1.12亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 24.0,
-        "shares": 4680800
-      }
-    },
-    {
-      "code": "02508",
-      "dir": "02508 圣贝拉",
-      "new": "5.65亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 6.58,
-        "shares": 85878000
+        "fn": "配發結果.pdf",
+        "price": 205.0,
+        "shares": 624400
       }
     },
     {
       "code": "02643",
       "dir": "02643 曹操出行",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": 41.94,
-        "shares": null
-      }
-    },
-    {
-      "code": "02619",
-      "dir": "02619 香江电器",
-      "new": "4570.7万港元",
+      "new": "1.85亿港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
         "fn": "正式通告.pdf",
-        "price": 3.35,
-        "shares": 13644000
+        "price": 41.94,
+        "shares": 4417900
       }
     },
     {
       "code": "02617",
       "dir": "02617 药捷安康-B",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": null,
-        "shares": null
-      }
-    },
-    {
-      "code": "02609",
-      "dir": "02609 佰泽医疗",
-      "new": "1.8亿港元",
+      "new": "2010万港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
         "fn": "正式通告.pdf",
-        "price": 6.75,
-        "shares": 26622000
-      }
-    },
-    {
-      "code": "02050",
-      "dir": "02050 三花智控",
-      "new": "5.68亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 22.53,
-        "shares": 25223100
-      }
-    },
-    {
-      "code": "03288",
-      "dir": "03288 海天味业",
-      "new": "11.47亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 36.3,
-        "shares": 31588600
-      }
-    },
-    {
-      "code": "02605",
-      "dir": "02605 METALIGHT",
-      "new": "2423.5万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "配發結果.pdf",
-        "price": 9.75,
-        "shares": 2485600
+        "price": 13.15,
+        "shares": 1528500
       }
     },
     {
       "code": "09881",
       "dir": "09881 容大科技",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": null,
-        "shares": null
-      }
-    },
-    {
-      "code": "02573",
-      "dir": "02573 新琪安",
-      "new": "4424.9万港元",
+      "new": "2429万港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "正式通告.pdf",
-        "price": 20.9,
-        "shares": 2117200
-      }
-    },
-    {
-      "code": "02621",
-      "dir": "02621 手回集团",
-      "new": "3936.6万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 8.08,
-        "shares": 4872000
+        "fn": "配發結果.pdf",
+        "price": 10.0,
+        "shares": 2429000
       }
     },
     {
       "code": "02565",
       "dir": "02565 派格生物医药-B",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": 15.6,
-        "shares": null
-      }
-    },
-    {
-      "code": "02629",
-      "dir": "02629 MIRXES-B",
-      "new": "2.17亿港元",
+      "new": "1.5亿港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "正式通告.pdf",
-        "price": 23.3,
-        "shares": 9324000
+        "fn": "配發結果.pdf",
+        "price": 15.6,
+        "shares": 9642000
       }
     },
     {
       "code": "03750",
       "dir": "03750 宁德时代",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "310.06亿港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
         "fn": "上市文件.pdf",
         "price": 263.0,
-        "shares": null
+        "shares": 117894500
       }
     },
     {
       "code": "06831",
       "dir": "06831 绿茶集团",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "6.05亿港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
-        "price": null,
-        "shares": 16836400
+        "fn": "配發結果.pdf",
+        "price": 7.19,
+        "shares": 84182000
       }
     },
     {
       "code": "02865",
       "dir": "02865 钧达股份",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "1.41亿港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
-        "price": null,
-        "shares": null
+        "fn": "配發結果.pdf",
+        "price": 22.15,
+        "shares": 6343300
       }
     },
     {
       "code": "02589",
       "dir": "02589 沪上阿姨",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "1.36亿港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
+        "fn": "配發結果.pdf",
         "price": 113.12,
-        "shares": null
-      }
-    },
-    {
-      "code": "09606",
-      "dir": "09606 映恩生物-B",
-      "new": "3.11亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": 103.2,
-        "shares": 3014400
-      }
-    },
-    {
-      "code": "03677",
-      "dir": "03677 正力新能",
-      "new": "2.01亿港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 8.27,
-        "shares": 24304800
-      }
-    },
-    {
-      "code": "02625",
-      "dir": "02625 江苏宏信",
-      "new": "3214.2万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 3.0,
-        "shares": 10714000
-      }
-    },
-    {
-      "code": "02569",
-      "dir": "02569 舒宝国际",
-      "new": "3000万港元",
-      "why": "pdf-computed",
-      "src": null,
-      "debug": {
-        "fn": "正式通告.pdf",
-        "price": 0.6,
-        "shares": 50000000
+        "shares": 1205670
       }
     },
     {
       "code": "02610",
       "dir": "02610 南山铝业国际",
-      "status": "no-fill",
-      "why": "pdf-not-found",
+      "new": "2.35亿港元",
+      "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "上市文件.pdf",
+        "fn": "配發結果.pdf",
         "price": 26.6,
-        "shares": null
+        "shares": 8823600
       }
     },
     {
       "code": "02561",
       "dir": "02561 维昇药业-B",
-      "status": "no-fill",
-      "why": "pdf-not-found",
-      "src": null,
-      "debug": {
-        "fn": "上市文件.pdf",
-        "price": 75.28,
-        "shares": null
-      }
-    },
-    {
-      "code": "06693",
-      "dir": "06693 赤峰黄金",
-      "new": "3.26亿港元",
+      "new": "3.13亿港元",
       "why": "pdf-computed",
       "src": null,
       "debug": {
-        "fn": "正式通告.pdf",
-        "price": 15.83,
-        "shares": 20565200
+        "fn": "配發結果.pdf",
+        "price": 68.8,
+        "shares": 4554000
       }
     }
   ]
