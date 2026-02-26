@@ -24,11 +24,12 @@
   - HKEX 直链: https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0223/2026022300459_c.pdf
   - 匹配标题: 穩定價格行動及穩定價格期間結束
 - `綠鞋悉行.pdf`
-  - 状态: need-refresh:missing
+  - 状态: need-refresh:code-name-both-miss
+  - MD5: ad16b171f9c6db200e95d0dd9aa69b13
   - HKEX 直链: (未找到)
 
 ## 抓取信息
-- 抓取时间: 2026-02-26 14:03:16
+- 抓取时间: 2026-02-26 16:34:47
 - 维护工具: scripts/sync_ipo_pdf_kit.py
 
 ## 说明
