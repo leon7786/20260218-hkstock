@@ -192,10 +192,14 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
     # HK final shares (common: 香港公開發售項下最終發售股份數目)
     if hk is None:
         for pat in [
-            r"香港公開發售項下最終發售股份數目[^0-9]{0,60}?([0-9][0-9,]*)",
-            r"最終香港公開發售股份數目[^0-9]{0,60}?([0-9][0-9,]*)",
-            r"最終香港發售股份數目[^0-9]{0,60}?([0-9][0-9,]*)",
-            r"Finalno\.ofOfferSharesundertheHongKongPublic[\s\S]{0,120}?Offer(?:ing)?[^0-9]{0,60}?([0-9][0-9,]*)",
+            # Common HKEX summary section (number often on next line)
+            r"香港公開發售(?:項下)?最終發售股份數目[^0-9]{0,80}?([0-9][0-9,]*)",
+            r"香港发售(?:项下)?最终发售股份数目[^0-9]{0,80}?([0-9][0-9,]*)",
+            r"最終香港公開發售股份數目[^0-9]{0,80}?([0-9][0-9,]*)",
+            r"最终香港公开发售股份数目[^0-9]{0,80}?([0-9][0-9,]*)",
+            r"最終香港發售股份數目[^0-9]{0,80}?([0-9][0-9,]*)",
+            r"最终香港发售股份数目[^0-9]{0,80}?([0-9][0-9,]*)",
+            r"Finalno\.ofOfferSharesundertheHongKongPublic[\s\S]{0,140}?Offer(?:ing)?[^0-9]{0,80}?([0-9][0-9,]*)",
         ]:
             hk = get_int(pat)
             if hk is not None:
@@ -204,10 +208,13 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
     # Intl final shares (common: 國際發售項下最終發售股份數目)
     if intl is None:
         for pat in [
-            r"國際發售項下最終發售股份數目[^0-9]{0,60}?([0-9][0-9,]*)",
-            r"最終國際發售股份數目[^0-9]{0,60}?([0-9][0-9,]*)",
-            r"最終國際配售股份數目[^0-9]{0,60}?([0-9][0-9,]*)",
-            r"Finalno\.ofOfferSharesundertheInternational[\s\S]{0,140}?Offer(?:ing)?[^0-9]{0,60}?([0-9][0-9,]*)",
+            r"國際發售(?:項下)?最終發售股份數目[^0-9]{0,80}?([0-9][0-9,]*)",
+            r"国际发售(?:项下)?最终发售股份数目[^0-9]{0,80}?([0-9][0-9,]*)",
+            r"最終國際發售股份數目[^0-9]{0,80}?([0-9][0-9,]*)",
+            r"最终国际发售股份数目[^0-9]{0,80}?([0-9][0-9,]*)",
+            r"最終國際配售股份數目[^0-9]{0,80}?([0-9][0-9,]*)",
+            r"最终国际配售股份数目[^0-9]{0,80}?([0-9][0-9,]*)",
+            r"Finalno\.ofOfferSharesundertheInternational[\s\S]{0,180}?Offer(?:ing)?[^0-9]{0,80}?([0-9][0-9,]*)",
         ]:
             intl = get_int(pat)
             if intl is not None:
