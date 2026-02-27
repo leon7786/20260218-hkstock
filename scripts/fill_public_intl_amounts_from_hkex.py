@@ -120,7 +120,9 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
     def sane_shares(v: Optional[int]) -> Optional[int]:
         if v is None:
             return None
-        if v < 1000 or v > 500_000_000:
+        # Offer share counts are typically in millions. Values below 100,000 are almost always
+        # application counts / placees / lot sizes accidentally captured.
+        if v < 100_000 or v > 500_000_000:
             return None
         return v
 
@@ -175,7 +177,7 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
     if hk is not None and intl is not None:
         return hk, intl
 
-    # 2) Fallback regex
+    # 2) Fallback regex (layout varies a lot)
     compact = re.sub(r"\s+", "", text or "")
 
     def get_int(pat: str) -> Optional[int]:
@@ -187,21 +189,25 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
         except Exception:
             return None
 
+    # HK final shares (common: 香港公開發售項下最終發售股份數目)
     if hk is None:
         for pat in [
+            r"香港公開發售項下最終發售股份數目[^0-9]{0,60}?([0-9][0-9,]*)",
             r"最終香港公開發售股份數目[^0-9]{0,60}?([0-9][0-9,]*)",
             r"最終香港發售股份數目[^0-9]{0,60}?([0-9][0-9,]*)",
-            r"Finalno\.ofOfferSharesundertheHongKongPublic[\s\S]{0,120}?Offering[^0-9]{0,40}?([0-9][0-9,]*)",
+            r"Finalno\.ofOfferSharesundertheHongKongPublic[\s\S]{0,120}?Offer(?:ing)?[^0-9]{0,60}?([0-9][0-9,]*)",
         ]:
             hk = get_int(pat)
             if hk is not None:
                 break
 
+    # Intl final shares (common: 國際發售項下最終發售股份數目)
     if intl is None:
         for pat in [
+            r"國際發售項下最終發售股份數目[^0-9]{0,60}?([0-9][0-9,]*)",
             r"最終國際發售股份數目[^0-9]{0,60}?([0-9][0-9,]*)",
             r"最終國際配售股份數目[^0-9]{0,60}?([0-9][0-9,]*)",
-            r"Finalno\.ofOfferSharesundertheInternational[\s\S]{0,140}?Offer(?:ing)?[^0-9]{0,40}?([0-9][0-9,]*)",
+            r"Finalno\.ofOfferSharesundertheInternational[\s\S]{0,140}?Offer(?:ing)?[^0-9]{0,60}?([0-9][0-9,]*)",
         ]:
             intl = get_int(pat)
             if intl is not None:
