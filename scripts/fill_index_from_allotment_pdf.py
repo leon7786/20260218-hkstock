@@ -123,6 +123,84 @@ def extract_hit_rate_one_lot(text: str) -> Optional[float]:
     return None
 
 
+def _extract_section_subscription_level_times(text: str, *, section: str) -> Optional[float]:
+    """Extract "Subscription Level ... xx.xx times" within a specific section.
+
+    We intentionally require a nearby 'Subscription Level' label to avoid capturing generic
+    narrative thresholds like '15 times ... less than 50 times'.
+    """
+
+    # Work on a whitespace-collapsed variant for robustness.
+    compact = re.sub(r"\s+", " ", text)
+
+    if section == "hk":
+        # STRICT anchor: only start from the allotment-results table.
+        start_pat = re.compile(
+            r"ALLOTMENT\s*RESULTS\s*DETAILS",
+            re.I,
+        )
+    elif section == "intl":
+        # We will first locate ALLOTMENT RESULTS DETAILS, then search within that region for INTERNATIONAL OFFER/OFFERING.
+        start_pat = re.compile(r"ALLOTMENT\s*RESULTS\s*DETAILS", re.I)
+    else:
+        return None
+
+    m = start_pat.search(compact)
+    if not m:
+        return None
+
+    seg = compact[m.start() : m.start() + 6000]
+
+    # 1) Preferred: explicit "Subscription Level" row
+    # We want the subscription level that belongs to THIS section.
+    # For HK: the first 'Subscription level' in PUBLIC OFFER table.
+    # For Intl: the first 'Subscription Level' after INTERNATIONAL OFFER table label.
+
+    if section == "hk":
+        # PUBLIC OFFER table: capture the first times value after the 'Subscription level' label.
+        # PUBLIC OFFER table: between the label and the next section marker, take the first times.
+        m2 = re.search(
+            r"PUBLIC\s*OFFER[\s\S]{0,1200}?Subscription\s*level[\s\S]{0,600}?([0-9][0-9,]*(?:\.[0-9]+)?)\s*times",
+            seg,
+            flags=re.I,
+        )
+        if m2:
+            # This regex can still jump to the next 'times' (e.g. Intl 2.68). Guard by cutting at INTERNATIONAL OFFER.
+            block = seg
+            cut = re.search(r"INTERNATIONAL\s*OFFER\b", block, flags=re.I)
+            if cut:
+                block = block[: cut.start()]
+            # take first times in the PUBLIC OFFER block
+            nums = re.findall(r"([0-9][0-9,]*(?:\.[0-9]+)?)\s*times", block, flags=re.I)
+            if nums:
+                return pick_last_number(nums[0])
+
+        idx = seg.lower().find("subscription level")
+        if idx != -1:
+            win = seg[idx : idx + 600]
+            nums = re.findall(r"([0-9][0-9,]*(?:\.[0-9]+)?)\s*times", win, flags=re.I)
+            if nums:
+                return pick_last_number(nums[0])
+
+    if section == "intl":
+        # Narrow to the International table inside allotment results details.
+        mi = re.search(r"INTERNATIONAL\s*OFFER(?:ING)?\b", seg, flags=re.I)
+        if not mi:
+            return None
+        seg2 = seg[mi.start() : mi.start() + 2500]
+        idx = seg2.lower().find("subscription level")
+        if idx != -1:
+            win = seg2[idx : idx + 1200]
+            nums = re.findall(r"([0-9][0-9,]*(?:\.[0-9]+)?)\s*times", win, flags=re.I)
+            if nums:
+                return pick_last_number(nums[0])
+        return None
+
+    return None
+
+    return None
+
+
 def extract_from_text(text: str) -> Extracted:
     out = Extracted()
 
@@ -139,9 +217,15 @@ def extract_from_text(text: str) -> Extracted:
 
     if out.public_oversub is None:
         m = re.search(
-            r"(?:香港)?公開發售[\s\S]{0,200}?(?:超額認購|超额认购|超購|超购)[\s\S]{0,80}?(?:約|约)?([0-9][0-9,]*(?:\.[0-9]+)?)倍",
+            r"(?:香港)?公開發售[\s\S]{0,240}?(?:超額認購|超额认购|超購|超购|認購額|认购额)[\s\S]{0,80}?(?:約|约)?([0-9][0-9,]*(?:\.[0-9]+)?)倍",
             compact,
         )
+        if m:
+            out.public_oversub = pick_last_number(m.group(1))
+
+    # a2) Some PDFs only have a "xxx倍" in the reallocation table without explicit "超额认购".
+    if out.public_oversub is None:
+        m = re.search(r"公開發售[\s\S]{0,120}?([0-9][0-9,]*(?:\.[0-9]+)?)倍", compact)
         if m:
             out.public_oversub = pick_last_number(m.group(1))
 
@@ -166,27 +250,50 @@ def extract_from_text(text: str) -> Extracted:
 
     # 3) 配售超购 = International Offering oversubscription
     if out.placing_oversub is None:
+        # Prefer explicit '國際發售 ... 超額認購/認購水平/認購額 ... 倍'
         m = re.search(
-            r"(?:國際發售|国际发售|國際配售|国际配售|InternationalOffering)[\s\S]{0,220}?(?:超額認購|超额认购|超購|超购)[\s\S]{0,80}?(?:約|约)?([0-9][0-9,]*(?:\.[0-9]+)?)倍",
+            r"(?:國際發售|国际发售|國際配售|国际配售|InternationalOffering)[\s\S]{0,260}?(?:超額認購|超额认购|超購|超购|認購水平|认购水平|認購額|认购额)[\s\S]{0,80}?(?:約|约)?([0-9][0-9,]*(?:\.[0-9]+)?)倍",
             compact,
             flags=re.IGNORECASE,
         )
         if m:
             out.placing_oversub = pick_last_number(m.group(1))
         else:
-            m = re.search(
-                r"International\s*Offering[\s\S]{0,300}?over\-?subscribed[\s\S]{0,120}?(?:approximately\s*)?([0-9][0-9,]*(?:\.[0-9]+)?)\s*times",
-                text,
-                flags=re.IGNORECASE,
-            )
-            if m:
-                out.placing_oversub = parse_num(m.group(1))
+            # Table-only fallback: take the last "xxx倍" occurring shortly after 國際發售
+            idx = compact.find("國際發售")
+            if idx != -1:
+                seg = compact[idx : idx + 1200]
+                nums = re.findall(r"([0-9][0-9,]*(?:\.[0-9]+)?)倍", seg)
+                if nums:
+                    out.placing_oversub = pick_last_number(nums[-1])
+            else:
+                m = re.search(
+                    r"International\s*Offering[\s\S]{0,300}?over\-?subscribed[\s\S]{0,120}?(?:approximately\s*)?([0-9][0-9,]*(?:\.[0-9]+)?)\s*times",
+                    text,
+                    flags=re.IGNORECASE,
+                )
+                if m:
+                    out.placing_oversub = parse_num(m.group(1))
 
     # If text clearly states no oversubscription, set placing_oversub=0.0
     if out.placing_oversub is None and re.search(r"並無超額分配|没有超额分配|無超額分配", compact):
         out.placing_oversub = 0.0
 
-    # 4) 中文双「認購水平」兜底（带语境）：
+    # 4) 英文表格兜底（带语境 + Subscription Level）：
+    # - 公开：Hong Kong Public Offering / Subscription Level / xx times
+    # - 国际：International Offering / Subscription Level / xx times
+
+    if out.public_oversub is None:
+        v = _extract_section_subscription_level_times(text, section="hk")
+        if v is not None:
+            out.public_oversub = v
+
+    if out.placing_oversub is None:
+        v = _extract_section_subscription_level_times(text, section="intl")
+        if v is not None:
+            out.placing_oversub = v
+
+    # 5) 中文双「認購水平」兜底（带语境）：
     # - 公开：必须出现「香港公開發售 ... 認購水平 ... 倍」
     # - 国际：必须出现「國際發售/International Offering ... 認購水平 ... 倍」
 
@@ -213,14 +320,14 @@ def fmt_percent(v: float) -> str:
 
 
 def fmt_times(v: float) -> str:
-    # keep 2 decimals, but avoid scientific/absurd OCR numbers
+    # keep 1 decimal (user requirement) and avoid absurd OCR numbers
     if v is None:
         return "—"
     if v < 0:
         return "—"
     if v > 100000:
         return "—"
-    return f"{v:.2f}倍"
+    return f"{v:.1f}倍"
 
 
 def _parse_cell_number(s: str) -> Optional[float]:
