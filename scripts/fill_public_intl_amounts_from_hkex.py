@@ -177,7 +177,31 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
     if hk is not None and intl is not None:
         return hk, intl
 
-    # 2) Fallback regex (layout varies a lot)
+    # 2) Fallback parsing for Chinese layouts
+    # Prefer line-based parsing: the number is often on the next line, and the same block
+    # also contains percent lines (10%/90%) that must be ignored.
+
+    def find_after_label(label_re: str, window: int = 12) -> Optional[int]:
+        for i, ln in enumerate(lines):
+            if re.search(label_re, ln, flags=re.I):
+                v = first_int_in_lines(lines[i : i + window])
+                return sane_shares(v)
+        return None
+
+    if hk is None:
+        hk = find_after_label(r"香港公開發售.*最終發售股份數目")
+        if hk is None:
+            hk = find_after_label(r"香港发售.*最终发售股份数目")
+
+    if intl is None:
+        intl = find_after_label(r"國際發售.*最終發售股份數目")
+        if intl is None:
+            intl = find_after_label(r"国际发售.*最终发售股份数目")
+
+    if hk is not None and intl is not None:
+        return hk, intl
+
+    # 3) Last-resort regex on compact text (very conservative)
     compact = re.sub(r"\s+", "", text or "")
 
     def get_int(pat: str) -> Optional[int]:
@@ -189,36 +213,11 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
         except Exception:
             return None
 
-    # HK final shares (common: 香港公開發售項下最終發售股份數目)
     if hk is None:
-        for pat in [
-            # Common HKEX summary section (number often on next line)
-            r"香港公開發售(?:項下)?最終發售股份數目[^0-9]{0,80}?([0-9][0-9,]*)",
-            r"香港发售(?:项下)?最终发售股份数目[^0-9]{0,80}?([0-9][0-9,]*)",
-            r"最終香港公開發售股份數目[^0-9]{0,80}?([0-9][0-9,]*)",
-            r"最终香港公开发售股份数目[^0-9]{0,80}?([0-9][0-9,]*)",
-            r"最終香港發售股份數目[^0-9]{0,80}?([0-9][0-9,]*)",
-            r"最终香港发售股份数目[^0-9]{0,80}?([0-9][0-9,]*)",
-            r"Finalno\.ofOfferSharesundertheHongKongPublic[\s\S]{0,140}?Offer(?:ing)?[^0-9]{0,80}?([0-9][0-9,]*)",
-        ]:
-            hk = get_int(pat)
-            if hk is not None:
-                break
+        hk = get_int(r"香港公開發售項下的最終發售股份數目[^0-9]{0,80}?([0-9][0-9,]*)")
 
-    # Intl final shares (common: 國際發售項下最終發售股份數目)
     if intl is None:
-        for pat in [
-            r"國際發售(?:項下)?最終發售股份數目[^0-9]{0,80}?([0-9][0-9,]*)",
-            r"国际发售(?:项下)?最终发售股份数目[^0-9]{0,80}?([0-9][0-9,]*)",
-            r"最終國際發售股份數目[^0-9]{0,80}?([0-9][0-9,]*)",
-            r"最终国际发售股份数目[^0-9]{0,80}?([0-9][0-9,]*)",
-            r"最終國際配售股份數目[^0-9]{0,80}?([0-9][0-9,]*)",
-            r"最终国际配售股份数目[^0-9]{0,80}?([0-9][0-9,]*)",
-            r"Finalno\.ofOfferSharesundertheInternational[\s\S]{0,180}?Offer(?:ing)?[^0-9]{0,80}?([0-9][0-9,]*)",
-        ]:
-            intl = get_int(pat)
-            if intl is not None:
-                break
+        intl = get_int(r"國際發售項下的最終發售股份數目[^0-9]{0,80}?([0-9][0-9,]*)")
 
     return hk, intl
 
