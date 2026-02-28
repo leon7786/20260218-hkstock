@@ -188,15 +188,28 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
                 return sane_shares(v)
         return None
 
+    # Accept spaced Chinese words (e.g. 最 終 發 售 股 份 數 目)
+    hk_labels = [
+        # allow spaces inside 發售
+        r"香港公開發\s*售.*最\s*終\s*發\s*售\s*股\s*份\s*數\s*目",
+        r"香港公开发\s*售.*最\s*终\s*发\s*售\s*股\s*份\s*数\s*目",
+    ]
+    intl_labels = [
+        r"國際發\s*售.*最\s*終\s*發\s*售\s*股\s*份\s*數\s*目",
+        r"国际发\s*售.*最\s*终\s*发\s*售\s*股\s*份\s*数\s*目",
+    ]
+
     if hk is None:
-        hk = find_after_label(r"香港公開發售.*最終發售股份數目")
-        if hk is None:
-            hk = find_after_label(r"香港发售.*最终发售股份数目")
+        for lr in hk_labels:
+            hk = find_after_label(lr)
+            if hk is not None:
+                break
 
     if intl is None:
-        intl = find_after_label(r"國際發售.*最終發售股份數目")
-        if intl is None:
-            intl = find_after_label(r"国际发售.*最终发售股份数目")
+        for lr in intl_labels:
+            intl = find_after_label(lr)
+            if intl is not None:
+                break
 
     if hk is not None and intl is not None:
         return hk, intl
