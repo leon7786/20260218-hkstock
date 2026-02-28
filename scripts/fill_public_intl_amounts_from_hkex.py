@@ -116,8 +116,10 @@ def is_allotment_results_like(text: str) -> bool:
         return True
     if "最終發售價" in t and "配發" in t:
         return True
-    # English indicators
-    if re.search(r"Allotment\s+Results", t, flags=re.I):
+    # English indicators: require strong phrase (avoid prospectus 'Allotment Results' section pointers)
+    if re.search(r"Final\s+Offer\s+Price", t, flags=re.I) and re.search(r"Allotment\s+Results", t, flags=re.I):
+        return True
+    if re.search(r"Allotment\s+Results\s+Announcement", t, flags=re.I):
         return True
     return False
 
@@ -144,9 +146,9 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
     def sane_shares(v: Optional[int]) -> Optional[int]:
         if v is None:
             return None
-        # Offer share counts are typically in millions. Values below 100,000 are almost always
+        # Offer share counts are typically in millions. Values below 50,000 are almost always
         # application counts / placees / lot sizes accidentally captured.
-        if v < 100_000 or v > 500_000_000:
+        if v < 50_000 or v > 500_000_000:
             return None
         return v
 
@@ -216,6 +218,7 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
 
     hk = sane_shares(hk)
     intl = sane_shares(intl)
+    # If we already have both, return early. Otherwise continue with fallbacks to fill the missing side.
     if hk is not None and intl is not None:
         return hk, intl
 
@@ -288,6 +291,10 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
             intl = find_after_label(lr)
             if intl is not None:
                 break
+
+    # Sanity: if we accidentally captured a tiny number (often applications/placees), discard.
+    if intl is not None and intl < 100_000:
+        intl = None
 
     # 2.5) Fallback to global-offering section share counts (still within allotment results announcements)
     # e.g. "香港發售股份數目 ： 49,538,600股H股" / "國際發售股份數目 ： 235,308,000股H股"

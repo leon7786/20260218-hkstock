@@ -61,7 +61,7 @@ def md5_file(p: Path) -> str:
     return h.hexdigest()
 
 
-def pdftotext_first_pages(pdf: Path, pages: int = 3, timeout: int = 60) -> str:
+def pdftotext_first_pages(pdf: Path, pages: int = 6, timeout: int = 60) -> str:
     try:
         out = subprocess.check_output(
             ["pdftotext", "-f", "1", "-l", str(pages), "-enc", "UTF-8", str(pdf), "-"],
@@ -163,7 +163,8 @@ def main() -> int:
         os.close(fd)
         tmp = Path(tmp_path)
         try:
-            txt = pdftotext_first_pages(tmp, pages=3)
+            # Some allotment announcements only show distinguishing keywords after a few pages.
+            txt = pdftotext_first_pages(tmp, pages=6)
             if not looks_like_allotment(txt):
                 failed += 1
                 print(f"[FAIL] {code} {d.name}: downloaded pdf not recognized as allotment")
