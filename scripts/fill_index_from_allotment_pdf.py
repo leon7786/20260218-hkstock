@@ -215,20 +215,27 @@ def extract_from_text(text: str) -> Extracted:
     # 2) 香港公开发售超购倍数
     # 只在明确语境（公开发售 + 超额认购/超购/认购水平/over-subscribed）下提取。
 
+    # Prefer anchor on "香港公開發售" (not just "公開發售") to avoid matching other contexts.
     if out.public_oversub is None:
         m = re.search(
-            r"(?:香港)?公開發售[\s\S]{0,240}?(?:超額認購|超额认购|超購|超购|認購額|认购额)[\s\S]{0,80}?(?:約|约)?([0-9][0-9,]*(?:\.[0-9]+)?)倍",
+            r"香港公開發售[\s\S]{0,240}?(?:超額認購|超额认购|超購|超购|認購水平|认购水平|認購額|认购额)[\s\S]{0,80}?(?:約|约)?([0-9][0-9,]*(?:\.[0-9]+)?)倍",
             compact,
         )
         if m:
             out.public_oversub = pick_last_number(m.group(1))
 
-    # a2) Some PDFs only have a "xxx倍" in the reallocation table without explicit "超额认购".
+    # Table-only fallback: anchor on "香港公開發售" then only look after the "認購水平" row.
     if out.public_oversub is None:
-        m = re.search(r"公開發售[\s\S]{0,120}?([0-9][0-9,]*(?:\.[0-9]+)?)倍", compact)
-        if m:
-            out.public_oversub = pick_last_number(m.group(1))
+        idx = compact.find("香港公開發售")
+        if idx != -1:
+            seg = compact[idx : idx + 2200]
+            j = seg.find("認購水平")
+            seg2 = seg[j : j + 600] if j != -1 else seg
+            nums = re.findall(r"([0-9][0-9,]*(?:\.[0-9]+)?)倍", seg2)
+            if nums:
+                out.public_oversub = pick_last_number(nums[-1])
 
+    # Extra fallback for Chinese "香港公開發售...認購水平...倍"
     if out.public_oversub is None:
         pub_m = re.search(
             r"香港公開發售[\s\S]{0,800}?認購水平[\s\S]{0,80}?([0-9][0-9,]*(?:\.[0-9]+)?)倍",
@@ -257,13 +264,24 @@ def extract_from_text(text: str) -> Extracted:
             flags=re.IGNORECASE,
         )
         if m:
-            out.placing_oversub = pick_last_number(m.group(1))
+            v = pick_last_number(m.group(1))
+            # sanity: international placing oversub is rarely in the thousands; huge values are usually HK public oversub
+            if v is not None and v > 500:
+                v = None
+            out.placing_oversub = v
         else:
-            # Table-only fallback: take the last "xxx倍" occurring shortly after 國際發售
+            # Table-only fallback: avoid mis-reading HK public oversub within the Intl section.
+            # Prefer numbers that appear AFTER the "國際發售" block AND close to the "認購水平" row.
             idx = compact.find("國際發售")
             if idx != -1:
-                seg = compact[idx : idx + 1200]
-                nums = re.findall(r"([0-9][0-9,]*(?:\.[0-9]+)?)倍", seg)
+                seg = compact[idx : idx + 2000]
+                # If we can anchor on "認購水平" within the International block, only look after it.
+                j = seg.find("認購水平")
+                if j != -1:
+                    seg2 = seg[j : j + 600]
+                else:
+                    seg2 = seg
+                nums = re.findall(r"([0-9][0-9,]*(?:\.[0-9]+)?)倍", seg2)
                 if nums:
                     out.placing_oversub = pick_last_number(nums[-1])
             else:
@@ -309,7 +327,10 @@ def extract_from_text(text: str) -> Extracted:
             flags=re.IGNORECASE,
         )
         if m:
-            out.placing_oversub = pick_last_number(m.group(1))
+            v = pick_last_number(m.group(1))
+            if v is not None and v > 500:
+                v = None
+            out.placing_oversub = v
 
     return out
 
