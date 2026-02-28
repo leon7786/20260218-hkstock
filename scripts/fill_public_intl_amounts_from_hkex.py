@@ -127,15 +127,30 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
         return v
 
     def first_int_in_lines(lines) -> Optional[int]:
-        """Pick the first plausible *share count* integer in a small table window.
+        """Pick a plausible *share count* integer in a small table window.
 
-        Avoid counts like "No. of valid applications" (often < 500k) or "No. of successful applications".
-        Heuristic: require at least 7 digits (>= 1,000,000) OR an explicit 'H Shares' indicator in nearby lines.
+        Avoid counts like "No. of valid applications".
+        Heuristic:
+        - Prefer numbers on their own line.
+        - If no 'H Shares' indicator exists, still allow >=100,000.
         """
 
         joined = " ".join(lines)
         has_h_shares = bool(re.search(r"H\s*Shares", joined, flags=re.I))
 
+        # 1) Prefer standalone numeric lines
+        for ln in lines:
+            ln2 = ln.strip()
+            if re.fullmatch(r"[0-9][0-9,]*", ln2):
+                try:
+                    v = int(ln2.replace(",", ""))
+                except Exception:
+                    continue
+                v = sane_shares(v)
+                if v is not None:
+                    return v
+
+        # 2) Otherwise, scan for the first plausible integer
         for ln in lines:
             m = re.search(r"\b([0-9][0-9,]{2,})\b", ln)
             if not m:
@@ -145,8 +160,8 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
             except Exception:
                 continue
 
-            # If table doesn't show 'H Shares', be conservative: need >= 1,000,000 to be a share count.
-            if not has_h_shares and v < 1_000_000:
+            # If table doesn't show 'H Shares', be conservative but not overly strict.
+            if not has_h_shares and v < 100_000:
                 continue
 
             v = sane_shares(v)
@@ -184,19 +199,48 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
     def find_after_label(label_re: str, window: int = 12) -> Optional[int]:
         for i, ln in enumerate(lines):
             if re.search(label_re, ln, flags=re.I):
-                v = first_int_in_lines(lines[i : i + window])
+                chunk = lines[i : i + window]
+
+                # 0) Prefer number on the same line (common for "...數目： 49,538,600股")
+                m = re.search(r"\b([0-9][0-9,]{2,})\b", ln)
+                if m:
+                    try:
+                        v0 = int(m.group(1).replace(",", ""))
+                    except Exception:
+                        v0 = None
+                    v0 = sane_shares(v0)
+                    if v0 is not None:
+                        return v0
+
+                # 1) Prefer number on the next line (label + newline + number)
+                for off in range(1, min(6, len(chunk))):
+                    v = first_int_in_lines([chunk[off]])
+                    if v is not None:
+                        return sane_shares(v)
+
+                # 2) Otherwise, scan within the small window
+                v = first_int_in_lines(chunk)
                 return sane_shares(v)
         return None
 
     # Accept spaced Chinese words (e.g. 最 終 發 售 股 份 數 目)
     hk_labels = [
-        # allow spaces inside 發售
+        # allow spaces inside 發售; many layouts
         r"香港公開發\s*售.*最\s*終\s*發\s*售\s*股\s*份\s*數\s*目",
         r"香港公开发\s*售.*最\s*终\s*发\s*售\s*股\s*份\s*数\s*目",
+        # Alternative wording: 公開發售 的 發售股份 最終數目
+        r"公\s*開\s*發\s*售.*發\s*售\s*股\s*份.*最\s*終\s*數\s*目",
+        r"公开发售.*发售股份.*最终数目",
     ]
     intl_labels = [
         r"國際發\s*售.*最\s*終\s*發\s*售\s*股\s*份\s*數\s*目",
         r"国际发\s*售.*最\s*终\s*发\s*售\s*股\s*份\s*数\s*目",
+        # Alternative wording: 國際發售 的 發售股份 最終數目
+        r"國\s*際\s*發\s*售.*發\s*售\s*股\s*份.*最\s*終\s*數\s*目",
+        r"国际发售.*发售股份.*最终数目",
+        # Explicit: 國際發售股份數目 / 國際發售股份數目
+        r"國\s*際\s*發\s*售\s*股\s*份\s*數\s*目",
+        r"国际发售股份数目",
     ]
 
     if hk is None:
@@ -210,6 +254,18 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
             intl = find_after_label(lr)
             if intl is not None:
                 break
+
+    # 2.5) Fallback to global-offering section share counts (still within allotment results announcements)
+    # e.g. "香港發售股份數目 ： 49,538,600股H股" / "國際發售股份數目 ： 235,308,000股H股"
+    if hk is None:
+        hk = find_after_label(r"香港發\\s*售\\s*股\\s*份\\s*數\\s*目")
+        if hk is None:
+            hk = find_after_label(r"香港发\\s*售\\s*股\\s*份\\s*数\\s*目")
+
+    if intl is None:
+        intl = find_after_label(r"國際發\\s*售\\s*股\\s*份\\s*數\\s*目")
+        if intl is None:
+            intl = find_after_label(r"国际发\\s*售\\s*股\\s*份\\s*数\\s*目")
 
     if hk is not None and intl is not None:
         return hk, intl
