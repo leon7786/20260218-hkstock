@@ -43,10 +43,14 @@ def is_missing_times(s: str) -> bool:
     return t in ("", "—", "未知", "待定") or (t.startswith("0.0") and t.endswith("倍"))
 
 
-def pdftotext_pages(pdf: Path, pages: int = 25, timeout: int = 120) -> str:
+def pdftotext_pages(pdf: Path, pages: int = 25, timeout: int = 120, *, layout: bool = False) -> str:
     try:
+        cmd = ["pdftotext"]
+        if layout:
+            cmd.append("-layout")
+        cmd += ["-f", "1", "-l", str(pages), "-enc", "UTF-8", str(pdf), "-"]
         out = subprocess.check_output(
-            ["pdftotext", "-f", "1", "-l", str(pages), "-enc", "UTF-8", str(pdf), "-"],
+            cmd,
             timeout=timeout,
             stderr=subprocess.DEVNULL,
         )
@@ -56,9 +60,10 @@ def pdftotext_pages(pdf: Path, pages: int = 25, timeout: int = 120) -> str:
 
 
 def _extract_one_lot_hit_rate(text: str) -> Optional[float]:
+    # Use both compact and layout text patterns.
     c = re.sub(r"\s+", "", text or "")
 
-    # Chinese
+    # 1) Direct statements (best)
     for pat in [
         r"一手(?:\([^\)]*\))?中籤率[^0-9]{0,40}?([0-9][0-9,]*(?:\.[0-9]+)?)%",
         r"一手(?:\([^\)]*\))?中签率[^0-9]{0,40}?([0-9][0-9,]*(?:\.[0-9]+)?)%",
@@ -73,7 +78,40 @@ def _extract_one_lot_hit_rate(text: str) -> Optional[float]:
             if 0 < v <= 100:
                 return v
 
-    # English (rare)
+    # 2) Fallback: from "香港公開發售的分配基準" table
+    # Many PDFs do NOT explicitly say "一手中籤率"; instead they show a percent in the rightmost column
+    # for the 1-lot row in 甲組.
+    lines = [ln.rstrip() for ln in (text or "").splitlines()]
+    start = None
+    for i, ln in enumerate(lines):
+        if "香港公開發售的分配基準" in ln or "Basis of Allocation" in ln:
+            start = i
+            break
+    if start is not None:
+        # scan next window for the first percent that looks like the minimum allocation percent
+        # Examples:
+        # - "50 ... 0.04%" (when 1 lot = 50 shares)
+        # - "100 ... 0.02%" (when 1 lot = 100 shares)
+        # Require the percent to be on (or adjacent to) a line that contains an actual allocation rule
+        # like "名中"/"獲發"/"获发" to avoid accidentally picking unrelated % (e.g. 10%/90% rows).
+        for j in range(start, min(len(lines), start + 260)):
+            ln = lines[j]
+            block = (lines[j - 1] if j - 1 >= 0 else "") + "\n" + ln + "\n" + (lines[j + 1] if j + 1 < len(lines) else "")
+            # accept either explicit allocation wording, OR the typical split-line pattern:
+            #   "... 0股H股" then next line is a percent
+            if not (re.search(r"名中|獲發|获发|將獲發|将获发|配發|配发|抽籤|抽签", block) or re.search(r"0股H股\s*\n\s*[0-9]+(?:\.[0-9]+)?%", block)):
+                continue
+            m = re.search(r"([0-9]+(?:\.[0-9]+)?)\s*%", block)
+            if not m:
+                continue
+            try:
+                v = float(m.group(1))
+            except Exception:
+                continue
+            if 0 < v <= 100:
+                return v
+
+    # 3) English (rare)
     m = re.search(r"one(?:\s|-)?lot[\s\S]{0,80}?success[\s\S]{0,20}?rate[\s\S]{0,20}?([0-9]+(?:\.[0-9]+)?)%", text or "", flags=re.I)
     if m:
         try:
@@ -126,6 +164,10 @@ def _extract_placing_oversub_times(text: str) -> Optional[float]:
 
 
 def fmt_percent(v: float) -> str:
+    # Keep 1 decimal normally, but preserve tiny hit rates (e.g. 0.03%) with 2 decimals
+    # to avoid rounding to 0.0%.
+    if v < 0.1:
+        return f"{v:.2f}%"
     return f"{v:.1f}%"
 
 
@@ -226,9 +268,13 @@ def main() -> int:
             )
             continue
 
-        text = pdftotext_pages(pdf, pages=args.pages)
-        hit_v = _extract_one_lot_hit_rate(text) if need_hit else None
-        placing_v = _extract_placing_oversub_times(text) if need_placing else None
+        # Use -layout for hit rate extraction (allocation table alignment matters),
+        # and no-layout for oversub times (usually in summary table).
+        text_hit = pdftotext_pages(pdf, pages=args.pages, layout=True)
+        text_other = pdftotext_pages(pdf, pages=args.pages, layout=False)
+
+        hit_v = _extract_one_lot_hit_rate(text_hit) if need_hit else None
+        placing_v = _extract_placing_oversub_times(text_other) if need_placing else None
 
         hit_after = hit_before
         placing_after = placing_before
@@ -239,12 +285,14 @@ def main() -> int:
             changed = True
             if args.apply:
                 tds[hit_i].string = hit_after
+                tds[hit_i]["data-sort"] = hit_after
 
         if placing_v is not None:
             placing_after = fmt_times(placing_v)
             changed = True
             if args.apply:
                 tds[placing_i].string = placing_after
+                tds[placing_i]["data-sort"] = placing_after
 
         if changed:
             updated += 1

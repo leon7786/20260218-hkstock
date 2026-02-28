@@ -124,8 +124,11 @@ def is_allotment_results_like(text: str) -> bool:
     return False
 
 
-def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
-    """Return (hk_public_shares, intl_shares).
+def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int], Optional[int]]:
+    """Return (hk_public_shares, intl_shares, total_offer_shares).
+
+    total_offer_shares is derived from the summary block (e.g. 全球發售的發售股份數目)
+    when available.
 
     IMPORTANT: pdftotext output often contains tables. We must avoid mis-reading
     "No. of valid applications" / "No. of placees" as shares.
@@ -146,25 +149,29 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
     def sane_shares(v: Optional[int]) -> Optional[int]:
         if v is None:
             return None
-        # Offer share counts are typically in millions. Values below 50,000 are almost always
+        # Offer share counts are typically in millions. Values below 100,000 are almost always
         # application counts / placees / lot sizes accidentally captured.
-        if v < 50_000 or v > 500_000_000:
+        if v < 100_000 or v > 500_000_000:
             return None
         return v
 
-    def first_int_in_lines(lines) -> Optional[int]:
+    def first_int_in_lines(lines, *, prefer: str = "auto", total_hint: Optional[int] = None) -> Optional[int]:
         """Pick a plausible *share count* integer in a small table window.
 
         Avoid counts like "No. of valid applications".
-        Heuristic:
-        - Prefer numbers on their own line.
-        - If no 'H Shares' indicator exists, still allow >=100,000.
+
+        prefer:
+        - 'hk': prefer the smallest standalone candidate >=100k (HK public final shares usually smaller)
+        - 'intl': prefer the largest standalone candidate (intl usually larger)
+        - 'auto': heuristic based on spread
         """
 
         joined = " ".join(lines)
         has_h_shares = bool(re.search(r"H\s*Shares", joined, flags=re.I))
 
-        # 1) Prefer standalone numeric lines
+        cands = []
+
+        # Standalone numeric lines
         for ln in lines:
             ln2 = ln.strip()
             if re.fullmatch(r"[0-9][0-9,]*", ln2):
@@ -174,9 +181,9 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
                     continue
                 v = sane_shares(v)
                 if v is not None:
-                    return v
+                    cands.append(v)
 
-        # 2) Otherwise, scan for the first plausible integer
+        # Numbers embedded in lines
         for ln in lines:
             m = re.search(r"\b([0-9][0-9,]{2,})\b", ln)
             if not m:
@@ -185,42 +192,122 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
                 v = int(m.group(1).replace(",", ""))
             except Exception:
                 continue
-
-            # If table doesn't show 'H Shares', be conservative but not overly strict.
             if not has_h_shares and v < 100_000:
                 continue
-
             v = sane_shares(v)
             if v is not None:
-                return v
-        return None
+                cands.append(v)
+
+        if not cands:
+            return None
+
+        # Prefer standalone numeric candidates (usually label -> value next line)
+        standalone = []
+        for ln in lines:
+            ln2 = ln.strip()
+            if re.fullmatch(r"[0-9][0-9,]*", ln2):
+                try:
+                    v = int(ln2.replace(",", ""))
+                except Exception:
+                    continue
+                v = sane_shares(v)
+                if v is not None:
+                    standalone.append(v)
+
+        if standalone:
+            if prefer == "hk":
+                # HK public final shares are usually smaller than intl, but can still be >= millions.
+                # Also avoid picking application counts like 145,228 when a million-level share count exists.
+                big = [v for v in standalone if v >= 1_000_000]
+                if big:
+                    return min(big)
+                return min(standalone)
+            if prefer == "intl":
+                # If we know total offer shares, prefer candidates <= total.
+                if total_hint is not None:
+                    le = [v for v in standalone if v <= total_hint]
+                    if le:
+                        return max(le)
+                return max(standalone)
+
+            # auto: if spread is huge, prefer min (often HK) otherwise first
+            if max(standalone) >= 20 * min(standalone):
+                return min(standalone)
+            return standalone[0]
+
+        # Otherwise pick the last plausible candidate (preserves table order)
+        return cands[-1]
 
     # Guard: skip prospectus-like docs
     if not is_allotment_results_like(text):
-        return None, None
+        return None, None, None
 
     lines = [ln.strip() for ln in (text or "").splitlines()]
 
     hk = None
     intl = None
+    total = None
 
-    # 1) Table parse
-    # Locate the HK label line index
+    # Summary block: 全球發售的發售股份數目
+    compact0 = re.sub(r"\s+", "", text or "")
+    m = re.search(r"全球發售(?:項下)?的發售股份數目[:：]?([0-9][0-9,]{2,})", compact0)
+    if m:
+        try:
+            total = int(m.group(1).replace(",", ""))
+        except Exception:
+            total = None
+    if total is not None:
+        # total offer shares can be larger than side buckets; allow up to 5,000,000,000
+        if total < 100_000 or total > 5_000_000_000:
+            total = None
+
+    # 1) Table parse (English)
     for i, ln in enumerate(lines):
         if re.search(r"Final\s+no\.\s+of\s+Offer\s+Shares\s+under\s+the\s+Hong\s+Kong\s+Public", ln, flags=re.I):
-            hk = first_int_in_lines(lines[i : i + 10])
+            hk = first_int_in_lines(lines[i : i + 10], prefer="hk", total_hint=total)
             break
 
     for i, ln in enumerate(lines):
         if re.search(r"Final\s+no\.\s+of\s+Offer\s+Shares\s+under\s+the\s+International", ln, flags=re.I):
-            intl = first_int_in_lines(lines[i : i + 12])
+            intl = first_int_in_lines(lines[i : i + 12], prefer="intl", total_hint=total)
             break
+
+    # 2) Table parse (Chinese) - common layout in HKEX PDFs
+    if hk is None:
+        for i, ln in enumerate(lines):
+            if re.search(r"香港公開發售的最終發售股份數目|香港公开发售的最终发售股份数目|公開發售最終發售股份數目|公开发售最终发售股份数目|公開發售項下最終發售股份數目|公开发售项下最终发售股份数目|香港公開發售最終發售股份數量|香港openclaw发售最终发售股份数量|公開發售最終股份數目|公开发售最终股份数目|公開發售的最終發售股份數目|公开发售的最终发售股份数目|公\s*開\s*發\s*售\s*最\s*終\s*股\s*份\s*數\s*目|公\s*开\s*发\s*售\s*最\s*终\s*股\s*份\s*数\s*目", ln):
+                window = lines[i : i + 50]
+                hk = first_int_in_lines(window, prefer="hk", total_hint=total)
+                break
+
+    # Also accept compact label (no '香港') used in many PDFs: 公開發售最終發售股份數目
+    if hk is None:
+        for i, ln in enumerate(lines):
+            if re.search(r"公開發售最終發售股份數目|公开发售最终发售股份数目", ln):
+                window = lines[i : i + 50]
+                hk = first_int_in_lines(window, prefer="hk", total_hint=total)
+                break
+
+    if intl is None:
+        for i, ln in enumerate(lines):
+            if re.search(r"國際發售的最終發售股份數目|国际发售的最终发售股份数目|國際發售最終發售股份數目|国际发售最终发售股份数目|國際發售項下最終發售股份數目|国际发售项下最终发售股份数目|國際發售的最終發售股份數量|国际发售的最终发售股份数量|國際發售最終發售股份數量|国际发售最终发售股份数量|國際配售項下最終發售股份數目|国际配售项下最终发售股份数目|國際配售項\s*下\s*最\s*終\s*發\s*售\s*股\s*份\s*數\s*目", ln):
+                window = lines[i : i + 28]
+                intl = first_int_in_lines(window, prefer="intl", total_hint=total)
+                break
+
+    # Some PDFs use label without '的': 國際發售最終發售股份數目
+    if intl is None:
+        for i, ln in enumerate(lines):
+            if re.search(r"國際發售最終發售股份數目|国际发售最终发售股份数目", ln):
+                window = lines[i : i + 20]
+                intl = first_int_in_lines(window, prefer="intl", total_hint=total)
+                break
 
     hk = sane_shares(hk)
     intl = sane_shares(intl)
     # If we already have both, return early. Otherwise continue with fallbacks to fill the missing side.
     if hk is not None and intl is not None:
-        return hk, intl
+        return hk, intl, total
 
     # 2) Fallback parsing for Chinese layouts
     # Prefer line-based parsing: the number is often on the next line, and the same block
@@ -309,7 +396,7 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
             intl = find_after_label(r"国际发\\s*售\\s*股\\s*份\\s*数\\s*目")
 
     if hk is not None and intl is not None:
-        return hk, intl
+        return hk, intl, total
 
     # 3) Last-resort regex on compact text (very conservative)
     compact = re.sub(r"\s+", "", text or "")
@@ -329,7 +416,7 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
     if intl is None:
         intl = get_int(r"國際發售項下的最終發售股份數目[^0-9]{0,80}?([0-9][0-9,]*)")
 
-    return hk, intl
+    return hk, intl, total
 
 
 def fmt_hkd_amount(hkd: float) -> str:
@@ -373,9 +460,15 @@ def extract_from_dir(dir_path: Path) -> Item:
         if price is None:
             price = extract_offer_price_hkd(text)
         if hk_shares is None or intl_shares is None:
-            hk, intl = extract_final_shares(text)
+            hk, intl, total = extract_final_shares(text)
             hk_shares = hk_shares or hk
-            intl_shares = intl_shares or intl
+            # If intl side is missing but total+hk are present, derive intl = total - hk.
+            if intl_shares is None:
+                intl_shares = intl
+            if intl_shares is None and total is not None and hk_shares is not None:
+                derived = total - hk_shares
+                if derived > 0:
+                    intl_shares = derived
         src = fn
         if price is not None and hk_shares is not None and intl_shares is not None:
             break
@@ -400,6 +493,7 @@ def main() -> int:
     ap.add_argument("--repo", type=Path, default=Path.cwd())
     ap.add_argument("--limit", type=int, default=99999)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--apply", action="store_true", help="Write results back to docs/index.html")
     ap.add_argument("--report", type=Path, default=Path("reports/public_intl_amount_fill_report.json"))
     args = ap.parse_args()
 
@@ -458,14 +552,15 @@ def main() -> int:
         if is_missing_amount(intl_txt) and item.intl_amount and item.intl_amount > 0:
             row_updates["国际发售"] = fmt_hkd_amount(item.intl_amount)
 
-        if row_updates and not args.dry_run:
-            if "公开募资" in row_updates:
-                tds[hk_i].string = row_updates["公开募资"]
-            if "国际发售" in row_updates:
-                tds[intl_i].string = row_updates["国际发售"]
+        if row_updates:
             updated += 1
+            if args.apply and not args.dry_run:
+                if "公开募资" in row_updates:
+                    tds[hk_i].string = row_updates["公开募资"]
+                if "国际发售" in row_updates:
+                    tds[intl_i].string = row_updates["国际发售"]
 
-    if not args.dry_run:
+    if args.apply and not args.dry_run:
         index_path.write_text(str(soup), encoding="utf-8")
 
     args.report.parent.mkdir(exist_ok=True)
