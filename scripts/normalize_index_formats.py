@@ -48,20 +48,24 @@ def fmt_hkd(hkd: float, *, retail: bool = False, one_decimal: bool = True) -> st
     if hkd is None:
         return "—"
     if hkd == 0:
-        return "0.0 港元"
+        return "0港元"
 
     if hkd < 1e8:
         # show as integer 万 for retail
         v = hkd / 1e4
         if retail:
             return f"{int(round(v))}万港元"
-        # other columns keep 1 decimal (万)
         if one_decimal:
+            # hide trailing .0
+            if abs(v - round(v)) < 1e-9:
+                return f"{int(round(v))}万港元"
             return f"{v:.1f}万港元"
         return f"{int(round(v))}万港元"
 
     v = hkd / 1e8
     if one_decimal:
+        if abs(v - round(v)) < 1e-9:
+            return f"{int(round(v))}亿港元"
         return f"{v:.1f}亿港元"
     return f"{v:.2f}亿港元"
 
@@ -117,6 +121,9 @@ def main() -> int:
             if tds[ret_i].get_text(strip=True) != new:
                 tds[ret_i].string = new
                 changed += 1
+            tds[ret_i]["data-sort-num"] = f"{hkd:.0f}"
+            tds[ret_i]["data-sort"] = new
+            tds[ret_i].attrs.pop("title", None)
 
         # public募资 / intl募资
         for i in [pubfund_i, intl_i]:
@@ -126,6 +133,9 @@ def main() -> int:
                 if tds[i].get_text(strip=True) != new:
                     tds[i].string = new
                     changed += 1
+                tds[i]["data-sort-num"] = f"{hkd:.0f}"
+                tds[i]["data-sort"] = new
+                tds[i].attrs.pop("title", None)
 
         # oversub times
         for i in [place_i, pub_i]:
@@ -135,6 +145,9 @@ def main() -> int:
                 if tds[i].get_text(strip=True) != new:
                     tds[i].string = new
                     changed += 1
+                tds[i]["data-sort-num"] = f"{v:.6f}"
+                tds[i]["data-sort"] = new
+                tds[i].attrs.pop("title", None)
 
     index.write_text(str(soup), encoding="utf-8")
     print(f"changed_cells={changed}")
