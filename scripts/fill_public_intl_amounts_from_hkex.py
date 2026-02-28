@@ -93,12 +93,33 @@ def extract_offer_price_hkd(text: str) -> Optional[float]:
         r"最終發售價[:：]?每股(?:H股)?([0-9][0-9,]*(?:\.[0-9]+)?)港元",
         r"發售價[:：]?每股發售股份([0-9][0-9,]*(?:\.[0-9]+)?)港元",
         r"每股發售股份([0-9][0-9,]*(?:\.[0-9]+)?)港元",
+        # Common: 每股H股30.5港元
+        r"每股H股([0-9][0-9,]*(?:\.[0-9]+)?)港元",
+        # English
         r"Offer\s*Price[\s\S]{0,30}?HK\$\s*([0-9][0-9,]*(?:\.[0-9]+)?)",
     ]:
         m = re.search(pat, compact, flags=re.I)
         if m:
             return pick_last_number(m.group(1))
     return None
+
+
+def is_allotment_results_like(text: str) -> bool:
+    """Heuristic guard: return True if pdf text looks like an allotment results / allotment announcement.
+
+    We avoid using prospectus share counts as "final" shares for fundraising columns.
+    """
+
+    t = text or ""
+    # Chinese indicators
+    if "配發結果" in t or "配发结果" in t or "分配結果" in t:
+        return True
+    if "最終發售價" in t and "配發" in t:
+        return True
+    # English indicators
+    if re.search(r"Allotment\s+Results", t, flags=re.I):
+        return True
+    return False
 
 
 def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
@@ -112,9 +133,12 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
       - HK: find the line starting with "Final no. of Offer Shares under the Hong Kong Public" and then
             take the first plausible integer from the following few lines.
       - Intl: similarly for "Final no. of Offer Shares under the International".
-    - Fallback to compact regexes (Chinese/English) if table parse fails.
+    - Fallback to Chinese line-based parsing for the HKEX summary blocks.
 
-    Shares sanity: 1,000 <= shares <= 500,000,000
+    Shares sanity: 100,000 <= shares <= 500,000,000
+
+    NOTE: Some folders have misfiled "配發結果.pdf" that is actually a prospectus.
+    In that case, we intentionally DO NOT use those numbers for fundraising columns.
     """
 
     def sane_shares(v: Optional[int]) -> Optional[int]:
@@ -169,8 +193,11 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
                 return v
         return None
 
+    # Guard: skip prospectus-like docs
+    if not is_allotment_results_like(text):
+        return None, None
+
     lines = [ln.strip() for ln in (text or "").splitlines()]
-    lo = "\n".join(lines).lower()
 
     hk = None
     intl = None
@@ -231,6 +258,8 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
         # Alternative wording: 公開發售 的 發售股份 最終數目
         r"公\s*開\s*發\s*售.*發\s*售\s*股\s*份.*最\s*終\s*數\s*目",
         r"公开发售.*发售股份.*最终数目",
+        # Variant with spaced characters: 香 港 公 開 發 售 ...
+        r"香\s*港\s*公\s*開\s*發\s*售.*股\s*份\s*數\s*目",
     ]
     intl_labels = [
         r"國際發\s*售.*最\s*終\s*發\s*售\s*股\s*份\s*數\s*目",
@@ -241,6 +270,11 @@ def extract_final_shares(text: str) -> Tuple[Optional[int], Optional[int]]:
         # Explicit: 國際發售股份數目 / 國際發售股份數目
         r"國\s*際\s*發\s*售\s*股\s*份\s*數\s*目",
         r"国际发售股份数目",
+        # International placing wording
+        r"國\s*際\s*配\s*售.*股\s*份\s*數\s*目",
+        r"国\s*际\s*配\s*售.*股\s*份\s*数\s*目",
+        # Variant with spaced characters: 國 際 配 售 ...
+        r"國\s*際\s*配\s*售.*股\s*份\s*數\s*目",
     ]
 
     if hk is None:
