@@ -76,6 +76,12 @@ def extract_section_oversub(text: str, section: str) -> Optional[float]:
     Instead we locate the table headings that appear as standalone lines:
     - HK: 香港公開發售
     - Intl: 國際發售 (or 國際配售)
+
+    Strategy:
+    - Find section heading line.
+    - Within the section, locate the column header block that contains "認購水平".
+    - Prefer the closest "xx倍" that appears *before* the header (common layout),
+      otherwise fall back to after the header.
     """
 
     lines = [ln.strip() for ln in (text or "").splitlines()]
@@ -83,9 +89,19 @@ def extract_section_oversub(text: str, section: str) -> Optional[float]:
     hk_heads = {"香港公開發售", "香港公开发售"}
     intl_heads = {"國際發售", "国际发售", "國際配售", "国际配售"}
 
+    # Prefer the heading that appears AFTER the detailed-results heading (配發結果詳情/分配結果詳情)
+    detail_heads = {"配發結果詳情", "配发结果详情", "分配結果詳情", "分配结果详情", "配發結果", "分配結果", "分配结果"}
+    detail_pos = None
+    for i, ln in enumerate(lines):
+        if _norm_line(ln) in {_norm_line(x) for x in detail_heads}:
+            detail_pos = i
+            break
+
     start = None
     for i, ln in enumerate(lines):
         n = _norm_line(ln)
+        if detail_pos is not None and i < detail_pos:
+            continue
         if section == "hk" and n in hk_heads:
             start = i
             break
@@ -107,15 +123,31 @@ def extract_section_oversub(text: str, section: str) -> Optional[float]:
     if start is None:
         return None
 
-    end = min(len(lines), start + 160)
+    end = min(len(lines), start + 200)
 
-    # Find 認購水平 row and take the first xx倍 right after it.
     for i in range(start, end):
         if re.search(r"認\s*購\s*水\s*平|认购水平|Subscription\s*level", lines[i], flags=re.I):
-            for j in range(i + 1, min(i + 10, end)):
+            before = []
+            after = []
+
+            for j in range(max(start, i - 12), i):
                 v = parse_times(lines[j])
                 if v is not None:
-                    return v
+                    before.append((i - j, v))  # smaller distance is better
+
+            for j in range(i + 1, min(end, i + 12)):
+                v = parse_times(lines[j])
+                if v is not None:
+                    after.append((j - i, v))
+
+            before.sort(key=lambda x: x[0])
+            after.sort(key=lambda x: x[0])
+
+            # Prefer the nearest value *before* the header (common HKEX layout).
+            if before:
+                return before[0][1]
+            if after:
+                return after[0][1]
             return None
 
     return None
