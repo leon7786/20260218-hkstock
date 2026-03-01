@@ -295,7 +295,19 @@ def extract_section_oversub(text: str, section: str) -> Optional[float]:
                 pass
         return None
 
+    # Determine a tighter end boundary: stop at the next section heading if present.
     end = min(len(lines), start + 260)
+    head_norm = {_norm_line(x) for x in (hk_heads | intl_heads)}
+    for j in range(start + 1, end):
+        nj = _norm_line(lines[j])
+        if nj in head_norm:
+            end = j
+            break
+        # English headings
+        up = (lines[j] or "").strip().upper()
+        if up in ("HONG KONG PUBLIC OFFERING", "INTERNATIONAL OFFERING"):
+            end = j
+            break
 
     for i in range(start, end):
         if re.search(
@@ -303,6 +315,22 @@ def extract_section_oversub(text: str, section: str) -> Optional[float]:
             lines[i],
             flags=re.I,
         ):
+            # 1) strongest: value appears on the same line as the label (common for 認購額/認購水平)
+            v_same = parse_times(lines[i])
+            if v_same is not None:
+                return v_same
+
+            # English tables may put the numeric value on the same line as the label,
+            # but without an explicit 'times' suffix.
+            m_inline = re.search(r"\b([0-9]+\.[0-9]+)\b", lines[i])
+            if m_inline:
+                try:
+                    v = float(m_inline.group(1))
+                except Exception:
+                    v = None
+                if v is not None and 0.2 <= v <= 100000:
+                    return v
+
             before = []
             after = []
 
@@ -312,7 +340,7 @@ def extract_section_oversub(text: str, section: str) -> Optional[float]:
                 if v is not None:
                     before.append((i - j, v))  # smaller distance is better
 
-            for j in range(i + 1, min(end, i + 35)):
+            for j in range(i + 1, min(end, i + 60)):
                 v = parse_times(lines[j])
                 if v is not None:
                     after.append((j - i, v))
@@ -320,11 +348,27 @@ def extract_section_oversub(text: str, section: str) -> Optional[float]:
             before.sort(key=lambda x: x[0])
             after.sort(key=lambda x: x[0])
 
-            # Prefer the nearest value *before* the header (common HKEX layout).
-            if before:
-                return before[0][1]
+            # 2) prefer nearest after (safer: avoids bleeding from previous section)
             if after:
                 return after[0][1]
+            if before:
+                return before[0][1]
+
+            # 3) English tables sometimes put a bare decimal number on its own line (no 'times').
+            for j in range(i + 1, min(end, i + 60)):
+                s = (lines[j] or "").strip()
+                if not s or any(x in s for x in ["%", "HK$", "USD", "RMB"]):
+                    continue
+                m = re.search(r"\b([0-9]+\.[0-9]+)\b", s)
+                if not m:
+                    continue
+                try:
+                    v = float(m.group(1))
+                except Exception:
+                    continue
+                if 0.2 <= v <= 100000:
+                    return v
+
             return None
 
     return None
