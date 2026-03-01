@@ -40,10 +40,25 @@ def norm_header(h: str) -> str:
     return (h or "").replace("↕", "").strip()
 
 
-def pdftotext_first_pages(pdf: Path, pages: int = 25, timeout: int = 180) -> str:
+def pdftotext_first_pages(pdf: Path, pages: int = 80, timeout: int = 180) -> str:
+    """Extract PDF text.
+
+    Use -layout to preserve table structure and avoid number concatenation.
+    """
     try:
         out = subprocess.check_output(
-            ["pdftotext", "-f", "1", "-l", str(pages), "-enc", "UTF-8", str(pdf), "-"],
+            [
+                "pdftotext",
+                "-layout",
+                "-f",
+                "1",
+                "-l",
+                str(pages),
+                "-enc",
+                "UTF-8",
+                str(pdf),
+                "-",
+            ],
             timeout=timeout,
             stderr=subprocess.DEVNULL,
         )
@@ -53,14 +68,34 @@ def pdftotext_first_pages(pdf: Path, pages: int = 25, timeout: int = 180) -> str
 
 
 def parse_times(s: str) -> Optional[float]:
-    m = re.search(r"([0-9][0-9,]*(?:\.[0-9]+)?)\s*倍", s)
+    """Parse oversubscription multiple from a line.
+
+    Supports:
+    - Chinese: "5,248.15 倍" / "254.50倍"
+    - English: "1,800 times" / "0.15 time"
+
+    Notes:
+    - We purposely avoid matching common non-oversub numbers in English tables (e.g. "No. of ...").
+      So we only accept times/time/x when it is explicitly present.
+    """
+    s = (s or "").strip()
+
+    m = re.search(r"([0-9][0-9,]*(?:\.[0-9]+)?)\s*(?:倍|᾵)", s)
+    if not m:
+        m = re.search(r"([0-9][0-9,]*(?:\.[0-9]+)?)\s*(?:times|time|x)\b", s, flags=re.I)
     if not m:
         return None
+
     try:
         v = float(m.group(1).replace(",", ""))
     except Exception:
         return None
+
+    # sanity ranges
     if v <= 0 or v > 100000:
+        return None
+    # avoid obviously unrelated small counts often present near English headings
+    if v < 0.2:
         return None
     return v
 
@@ -70,32 +105,74 @@ def _norm_line(s: str) -> str:
 
 
 def extract_section_oversub(text: str, section: str) -> Optional[float]:
-    """Extract oversub times from the *table* section.
+    """Extract oversub times from the allotment-results details section.
+
+    HKEX PDFs use multiple wordings for the oversub field, e.g.:
+    - 認購水平 / Subscription level
+    - 認購額 (this is oversub multiple in many notices)
 
     We intentionally avoid matching summary lines like "國際發售股份數目 : ...".
-    Instead we locate the table headings that appear as standalone lines:
+    Instead we locate the detailed table headings that appear as standalone lines:
     - HK: 香港公開發售
     - Intl: 國際發售 (or 國際配售)
 
     Strategy:
     - Find section heading line.
-    - Within the section, locate the column header block that contains "認購水平".
-    - Prefer the closest "xx倍" that appears *before* the header (common layout),
-      otherwise fall back to after the header.
+    - Within the section, locate the row label (認購水平/認購額/Subscription level).
+    - Prefer the nearest "xx倍" (before the label is common in some layouts),
+      otherwise fall back to after.
     """
 
+    # Some PDFs have garbled encoding on the detailed table section.
+    # A robust fallback is to strip all whitespace and search in the compact string.
     lines = [ln.strip() for ln in (text or "").splitlines()]
+    compact = _norm_line(text)
 
-    hk_heads = {"香港公開發售", "香港公开发售"}
-    intl_heads = {"國際發售", "国际发售", "國際配售", "国际配售"}
+    # Headings differ between Main Board / GEM notices.
+    hk_heads = {
+        "香港公開發售",
+        "香港公开发售",
+        "公開發售",
+        "公开发售",
+    }
+    intl_heads = {
+        "國際發售",
+        "国际发售",
+        "國際配售",
+        "国际配售",
+        "配售",
+        "配售項下",
+    }
 
     # Prefer the heading that appears AFTER the detailed-results heading (配發結果詳情/分配結果詳情)
-    detail_heads = {"配發結果詳情", "配发结果详情", "分配結果詳情", "分配结果详情", "配發結果", "分配結果", "分配结果"}
+    detail_heads = {
+        "配發結果詳情",
+        "配发结果详情",
+        "分配結果詳情",
+        "分配结果详情",
+        "配發結果",
+        "分配結果",
+        "分配结果",
+        "Allotment Results Details",
+        "Allocation Results Details",
+    }
     detail_pos = None
     for i, ln in enumerate(lines):
-        if _norm_line(ln) in {_norm_line(x) for x in detail_heads}:
+        n = _norm_line(ln)
+        if n in {_norm_line(x) for x in detail_heads}:
             detail_pos = i
             break
+        # allow partial match for English headings spanning multiple tokens
+        if "allotmentresultsdetails" in n.lower() or "allocationresultsdetails" in n.lower():
+            detail_pos = i
+            break
+
+    # Some English notices do not have "Allotment Results Details"; fall back to "SUMMARY".
+    if detail_pos is None:
+        for i, ln in enumerate(lines):
+            if _norm_line(ln).lower() == "summary":
+                detail_pos = i
+                break
 
     start = None
     for i, ln in enumerate(lines):
@@ -120,22 +197,122 @@ def extract_section_oversub(text: str, section: str) -> Optional[float]:
                 start = i
                 break
 
+    # broader English heading match (line may include bullets/prefix)
     if start is None:
+        for i, ln in enumerate(lines):
+            n = _norm_line(ln).lower()
+            if section == "hk" and "hongkongpublicoffering" in n:
+                start = i
+                break
+            if section == "intl" and "internationaloffering" in n:
+                start = i
+                break
+
+    # last-resort English headings
+    if start is None:
+        for i, ln in enumerate(lines):
+            if section == "hk" and ln.strip().upper() == "HONG KONG PUBLIC OFFERING":
+                start = i
+                break
+            if section == "intl" and ln.strip().upper() == "INTERNATIONAL OFFERING":
+                start = i
+                break
+
+    if start is None:
+        # Compact fallback (handles broken glyph tables):
+        # Try to grab the oversub multiple around the HK/Intl blocks.
+        # unit marker
+        # NOTE: do NOT use word-boundary; many PDF-extracted glyphs are non-\w and would break \b.
+        unit = r"(?:倍|᾵|times|time)"
+
+        if section == "hk":
+            # e.g. ...香港公開發售...149.37倍... (some PDFs show garbled unit like "᾵")
+            m = re.search(r"香港公開發售.{0,800}?([0-9][0-9,]*(?:\.[0-9]+)?)\s*" + unit, compact, flags=re.I)
+            if not m:
+                m = re.search(r"公開發售.{0,800}?([0-9][0-9,]*(?:\.[0-9]+)?)\s*" + unit, compact, flags=re.I)
+        else:
+            # Prefer garbled-table intl marker if present (e.g. '⚳晃...' in some PDFs)
+            sub = None
+            for marker in ["⚳晃", "國際發售", "国际发售", "國際配售", "国际配售"]:
+                pos = compact.find(marker)
+                if pos != -1:
+                    sub = compact[pos : pos + 2600]
+                    break
+            if sub is None:
+                sub = compact
+
+            # Prefer the oversub number near the intl oversub label (garbled: 娵岤柵)
+            # We allow the value to appear immediately after the label.
+            m = re.search(r"娵岤柵\s*([0-9][0-9,]*(?:\.[0-9]+)?)\s*" + unit, sub, flags=re.I)
+            if not m:
+                m = re.search(r"娵岤柵.{0,40}?([0-9][0-9,]*(?:\.[0-9]+)?)\s*" + unit, sub, flags=re.I)
+
+            # Strong label hit: accept as-is (can be <1.0 meaning under-subscribed).
+            if m:
+                try:
+                    v0 = float(m.group(1).replace(",", ""))
+                except Exception:
+                    v0 = None
+                if v0 is not None and 0.2 <= v0 <= 100000:
+                    return v0
+                m = None
+
+            if not m:
+                # fallback: choose a unit-bearing number from the intl block.
+                # If there is only one and it's >=1, take it.
+                ms = list(re.finditer(r"([0-9][0-9,]*(?:\.[0-9]+)?)\s*" + unit, sub, flags=re.I))
+                if len(ms) == 1:
+                    m = ms[0]
+                elif len(ms) >= 2:
+                    # avoid accidentally taking HK value; take the last
+                    m = ms[-1]
+                else:
+                    m = None
+
+            # last-resort for garbled tables: if we see exactly one plausible unit-bearing number overall,
+            # use it as intl too (rare, but better than leaving wrong value).
+            if not m:
+                all_ms = list(re.finditer(r"([0-9][0-9,]*(?:\.[0-9]+)?)\s*" + unit, compact, flags=re.I))
+                # filter plausible >=1.0
+                cands=[]
+                for mm in all_ms:
+                    try:
+                        vv=float(mm.group(1).replace(",",""))
+                    except Exception:
+                        continue
+                    if vv>=1.0:
+                        cands.append(vv)
+                if len(set(cands))==1 and cands:
+                    # return directly via sentinel match
+                    return cands[0]
+
+        if m:
+            try:
+                v = float(m.group(1).replace(",", ""))
+                if 0.2 <= v <= 100000:
+                    return v
+            except Exception:
+                pass
         return None
 
-    end = min(len(lines), start + 200)
+    end = min(len(lines), start + 260)
 
     for i in range(start, end):
-        if re.search(r"認\s*購\s*水\s*平|认购水平|Subscription\s*level", lines[i], flags=re.I):
+        if re.search(
+            r"認\s*購\s*水\s*平|认购水平|認\s*購\s*額|认购额|認\s*購\s*倍\s*數|认购倍数|Subscription\s*level",
+            lines[i],
+            flags=re.I,
+        ):
             before = []
             after = []
 
-            for j in range(max(start, i - 12), i):
+            # scan a wider window; English tables often have values a bit further down
+            for j in range(max(start, i - 20), i):
                 v = parse_times(lines[j])
                 if v is not None:
                     before.append((i - j, v))  # smaller distance is better
 
-            for j in range(i + 1, min(end, i + 12)):
+            for j in range(i + 1, min(end, i + 35)):
                 v = parse_times(lines[j])
                 if v is not None:
                     after.append((j - i, v))
