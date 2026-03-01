@@ -154,6 +154,17 @@ def extract_section_oversub(text: str, section: str) -> Optional[float]:
 
 
 def fmt_times(v: float) -> str:
+    """Format oversubscription times for display.
+
+    Policy:
+    - Keep 1 decimal for large values (readability).
+    - For small values (<10), keep up to 2 decimals to avoid losing precision,
+      but trim trailing zeros.
+    """
+    if v < 10:
+        s = f"{v:.2f}"
+        s = s.rstrip("0").rstrip(".")
+        return f"{s}倍"
     return f"{v:.1f}倍"
 
 
@@ -250,6 +261,8 @@ def main() -> int:
                 changed = True
                 if args.apply:
                     tds[pub_i].string = f
+                    # keep sorting keys consistent with display
+                    tds[pub_i]["data-sort"] = f
 
         if plc_v is not None:
             f = fmt_times(plc_v)
@@ -258,6 +271,8 @@ def main() -> int:
                 changed = True
                 if args.apply:
                     tds[plc_i].string = f
+                    # keep sorting keys consistent with display
+                    tds[plc_i]["data-sort"] = f
 
         if changed:
             updated += 1
