@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Daily HK stock sync pipeline
-# Runs locally at 8:00 BJT, pushes to leon7786/20260218-hkstock
+# Runs locally at 7:00 BJT, pushes to leon7786/20260218-hkstock
 set -euo pipefail
 
-cd /root/Project/*20260527-hkstock-futu || exit 1
+cd /root/Projects/20260531-futu-sync || exit 1
 
 export GIT_SSL_NO_VERIFY=1
 export PLAYWRIGHT_PROXY="http://127.0.0.1:2002|admin12|Dd;'2131801a"
