@@ -1,0 +1,10 @@
+node_modules/
+reports/
+scripts/__pycache__/
+*.pyc
+.DS_Store
+config/mcporter.json
+# (kept ignored: contains secrets)
+**/_suspects/
+/env
+logs/

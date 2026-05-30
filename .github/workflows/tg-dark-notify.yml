@@ -1,0 +1,79 @@
+name: tg-dark-notify
+
+on:
+  workflow_dispatch:
+    inputs:
+      force_send:
+        description: "Force send Telegram even without today 16:15 matches"
+        required: false
+        default: "false"
+      skip_sync:
+        description: "Skip pending data refresh"
+        required: false
+        default: "false"
+  schedule:
+    # 每天 UTC 08:10 触发，作业内等待到 Asia/Hong_Kong 16:13 后再发送
+    - cron: '10 8 * * *'
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+      TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Node deps
+        run: npm ci || npm install
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Refresh pending IPO data
+        env:
+          SKIP_SYNC: ${{ github.event.inputs.skip_sync || 'false' }}
+        run: |
+          if [ "$SKIP_SYNC" = "true" ]; then
+            echo "Skip pending data refresh"
+          else
+            npm run sync:pending-ipo
+          fi
+
+      - name: Wait until HKT 16:13
+        shell: bash
+        run: |
+          now_hm=$(TZ=Asia/Hong_Kong date +%H%M)
+          target_hm=1613
+          if [ "$now_hm" -lt "$target_hm" ]; then
+            now_epoch=$(date +%s)
+            target_epoch=$(TZ=Asia/Hong_Kong date -d "$(TZ=Asia/Hong_Kong date +%F) 16:13:00" +%s)
+            sleep_sec=$((target_epoch - now_epoch))
+            if [ "$sleep_sec" -gt 0 ]; then
+              echo "Waiting ${sleep_sec}s until HKT 16:13"
+              sleep "$sleep_sec"
+            fi
+          fi
+          echo "Sending notification at $(TZ=Asia/Hong_Kong date '+%F %T %Z')"
+
+      - name: Send Telegram notification
+        env:
+          FORCE_SEND: ${{ github.event.inputs.force_send || 'false' }}
+          SKIP_SYNC: ${{ github.event.inputs.skip_sync || 'false' }}
+        run: |
+          ARGS="--recent-days 5 --skip-sync"
+          if [ "$FORCE_SEND" = "true" ]; then ARGS="$ARGS --force-send"; fi
+          python3 scripts/notify_dark_session_tg.py $ARGS

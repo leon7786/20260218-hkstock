@@ -1,0 +1,12 @@
+{
+  "name": "hkstock-pages-sync",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync:pending-ipo": "node scripts/export_pending_ipo_playwright.mjs",
+    "sync:all": "python3 scripts/sync_futunn_to_pages.py"
+  },
+  "dependencies": {
+    "playwright": "^1.54.2"
+  }
+}
