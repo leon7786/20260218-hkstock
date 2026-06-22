@@ -20,6 +20,9 @@ python3 scripts/sync_futunn_to_pages.py
 # Step: merge extra IPO data (绿鞋/公开发售/基石投资者) after refresh
 python3 scripts/merge_pending_ipo_extra.py
 
+# Step: reorder columns and compute 公开发售 amount
+python3 scripts/reorder_pending_columns.py
+
 # Step: commit & push if changed
 git add docs/ scripts/ .github/workflows/ package.json package-lock.json requirements-sync.txt
 if git diff --cached --quiet; then
