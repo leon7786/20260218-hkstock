@@ -41,8 +41,9 @@ PY
 
 export TG_BOT_TOKEN="${env_values[0]}"
 export TG_CHAT_ID="${env_values[1]}"
-export HTTPS_PROXY=http://admin12:Dd%3B%272131801a@127.0.0.1:2002
-export HTTP_PROXY=http://admin12:Dd%3B%272131801a@127.0.0.1:2002
-export PLAYWRIGHT_PROXY="http://127.0.0.1:2002|admin12|Dd;'2131801a"
+# Port 2002 proxy no longer available; transparent proxy handles all traffic
+# export HTTPS_PROXY=http://admin12:Dd%3B%272131801a@127.0.0.1:2002
+# export HTTP_PROXY=http://admin12:Dd%3B%272131801a@127.0.0.1:2002
+# export PLAYWRIGHT_PROXY="http://127.0.0.1:2002|admin12|Dd;'2131801a"
 
 python3 scripts/notify_dark_session_tg.py --recent-days 5 2>&1 | tee -a logs/notify_tg.log
